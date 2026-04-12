@@ -92,7 +92,7 @@ import { faqItems } from '@/data/faq';
 
 <style>
   .faq {
-    background: var(--bg-white);
+    background: transparent;
     padding: 56px 24px;
   }
   .faq__list {
@@ -100,10 +100,10 @@ import { faqItems } from '@/data/faq';
     margin: 24px auto 0;
   }
   .faq__item {
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid var(--glass-border);
   }
   .faq__item:first-child {
-    border-top: 1px solid #E2E8F0;
+    border-top: 1px solid var(--glass-border);
   }
 
   /* Question / Trigger */
@@ -117,7 +117,7 @@ import { faqItems } from '@/data/faq';
     font-family: var(--font);
     font-size: 15px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-white);
     background: none;
     border: none;
     text-align: left;
@@ -126,7 +126,7 @@ import { faqItems } from '@/data/faq';
     transition: color 0.2s ease;
   }
   .faq__question:hover {
-    color: var(--primary);
+    color: var(--accent);
   }
   .faq__question:focus-visible {
     outline: 2px solid var(--accent);
@@ -146,10 +146,10 @@ import { faqItems } from '@/data/faq';
     transition: background 0.3s ease;
   }
   .faq__item--open .faq__chevron-wrap {
-    background: rgba(255, 107, 53, 0.08);
+    background: rgba(255, 107, 53, 0.15);
   }
   :global(.faq__chevron) {
-    color: var(--text-secondary);
+    color: #94A3B8;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
   }
   .faq__item--open :global(.faq__chevron) {
@@ -169,7 +169,7 @@ import { faqItems } from '@/data/faq';
   .faq__answer {
     font-family: var(--font);
     font-size: 14px;
-    color: var(--text-secondary);
+    color: #94A3B8;
     line-height: 1.7;
     margin: 0;
     max-width: 680px;

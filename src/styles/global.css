@@ -4,23 +4,32 @@
   --accent: #FF6B35;
   --accent-hover: #E85A25;
   --success: #22C55E;
-  --text-primary: #1A1A2E;
-  --text-secondary: #64748B;
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
   --text-white: #FFFFFF;
-  --bg-white: #FFFFFF;
-  --bg-alt: #F8FAFC;
-  --bg-dark: #0F172A;
+  --bg-white: rgba(255, 255, 255, 0.05);
+  --bg-alt: rgba(255, 255, 255, 0.03);
+  --bg-dark: #0A0F1C;
   --whatsapp-green: #25D366;
 
+  /* Glassmorphism tokens */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-hover: rgba(255, 255, 255, 0.20);
+  --glass-blur: blur(16px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.4);
+
   --font: 'Poppins', system-ui, -apple-system, sans-serif;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.05);
-  --shadow-xl: 0 12px 40px rgba(0,0,0,0.04);
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.3);
+  --shadow-xl: 0 12px 40px rgba(0,0,0,0.35);
 }
 
 *, *::before, *::after {
@@ -37,7 +46,11 @@ html {
 body {
   font-family: var(--font);
   color: var(--text-primary);
-  background: var(--bg-white);
+  background: #0A0F1C;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(255, 107, 53, 0.06) 0%, transparent 50%);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

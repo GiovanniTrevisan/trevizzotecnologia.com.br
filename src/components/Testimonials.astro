@@ -36,7 +36,7 @@ import { testimonials } from '@/data/testimonials';
 
 <style>
   .testimonials {
-    background: var(--bg-alt);
+    background: transparent;
   }
   .testimonials__cards {
     display: flex;
@@ -45,20 +45,23 @@ import { testimonials } from '@/data/testimonials';
     margin-top: 28px;
   }
   .testimonials__card {
-    background: var(--bg-white);
-    border: 1px solid #E2E8F0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-lg);
     padding: 24px 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
     cursor: default;
   }
   .testimonials__card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-    border-color: #FBBF24;
+    box-shadow: var(--glass-shadow);
+    border-color: rgba(251, 191, 36, 0.3);
+    background: var(--glass-bg-hover);
   }
   .testimonials__stars {
     display: flex;
@@ -71,7 +74,7 @@ import { testimonials } from '@/data/testimonials';
   .testimonials__quote {
     font-family: var(--font);
     font-size: 14px;
-    color: var(--text-primary);
+    color: #CBD5E1;
     line-height: 1.6;
     font-style: italic;
     border: none;
@@ -93,20 +96,21 @@ import { testimonials } from '@/data/testimonials';
     font-family: var(--font);
     font-size: 16px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-white);
     flex-shrink: 0;
+    opacity: 0.9;
   }
   .testimonials__author strong {
     display: block;
     font-family: var(--font);
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-white);
   }
   .testimonials__author span {
     font-family: var(--font);
     font-size: 12px;
-    color: var(--text-secondary);
+    color: #94A3B8;
   }
 
   @media (min-width: 1024px) {

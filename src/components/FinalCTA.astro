@@ -20,8 +20,9 @@ import { WHATSAPP_URL } from '@/data/config';
 
 <style>
   .final-cta {
-    background: linear-gradient(180deg, #1E3A5F 0%, #0F172A 100%);
+    background: transparent;
     padding: 64px 24px;
+    position: relative;
   }
   .final-cta__inner {
     display: flex;
@@ -29,15 +30,14 @@ import { WHATSAPP_URL } from '@/data/config';
     align-items: center;
     text-align: center;
     gap: 20px;
-  }
-  .final-cta__icon {
-    color: #FF6B35;
-    filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.4));
-    animation: float 3s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius-xl);
+    padding: 48px 24px;
+    max-width: 800px;
+    margin: 0 auto;
   }
   .final-cta__title {
     font-family: var(--font);
@@ -64,9 +64,8 @@ import { WHATSAPP_URL } from '@/data/config';
     .final-cta {
       padding: 80px;
     }
-    .final-cta__icon {
-      width: 48px;
-      height: 48px;
+    .final-cta__inner {
+      padding: 64px 48px;
     }
     .final-cta__title { font-size: 36px; }
     .final-cta__sub { font-size: 16px; }
