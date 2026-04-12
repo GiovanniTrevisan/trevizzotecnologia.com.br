@@ -1,0 +1,71 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { WHATSAPP_URL } from '@/data/config';
+---
+
+<a
+  href={WHATSAPP_URL}
+  class="whatsapp-btn"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Fale conosco pelo WhatsApp"
+  data-cta="whatsapp-float"
+>
+  <Icon name="message-circle" size={26} />
+</a>
+
+<style>
+  .whatsapp-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 90;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--whatsapp-green);
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 0 0 0 rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: whatsapp-pulse 2s infinite;
+  }
+  .whatsapp-btn:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 6px 20px rgba(0, 0, 0, 0.2),
+      0 0 0 0 rgba(37, 211, 102, 0);
+    animation: none;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% {
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 0 0 0 rgba(37, 211, 102, 0.4);
+    }
+    70% {
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 0 0 12px rgba(37, 211, 102, 0);
+    }
+    100% {
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 0 0 0 rgba(37, 211, 102, 0);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .whatsapp-btn {
+      width: 60px;
+      height: 60px;
+      bottom: 32px;
+      right: 32px;
+    }
+  }
+</style>

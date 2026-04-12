@@ -1,0 +1,392 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import { WHATSAPP_URL } from '@/data/config';
+---
+
+<section class="hero" id="conteudo">
+  <div class="hero__inner">
+    <div class="hero__bg-glow" aria-hidden="true"></div>
+    <div class="hero__content">
+      <div class="hero__badge-top">
+        <span class="hero__badge-dot"></span>
+        Especialistas em Google Meu Negócio
+      </div>
+      <h1 class="hero__headline">
+        Seu negócio encontrado no Google em menos de 7 dias
+      </h1>
+      <p class="hero__sub">
+        Landing page profissional + SEO + Google Meu Negócio + 12 meses de suporte. Tudo por <strong>12x de R$99,90</strong>.
+      </p>
+      <div class="hero__actions">
+        <Button href={WHATSAPP_URL} variant="primary" size="lg" dataCta="hero" target="_blank" rel="noopener noreferrer" class="hero__btn-main">
+          Quero Aparecer no Google →
+        </Button>
+        <a href="#como-funciona" class="hero__btn-secondary">
+          Veja como funciona ↓
+        </a>
+      </div>
+      <div class="hero__badges">
+        <div class="hero__badge">
+          <div class="hero__badge-icon">
+            <Icon name="zap" size={20} />
+          </div>
+          <div>
+            <strong>Entrega 7 dias</strong>
+            <span>Rápido e sem enrolação</span>
+          </div>
+        </div>
+        <div class="hero__badge">
+          <div class="hero__badge-icon">
+            <Icon name="shield-check" size={20} />
+          </div>
+          <div>
+            <strong>Garantia 30 dias</strong>
+            <span>Satisfação ou reembolso</span>
+          </div>
+        </div>
+        <div class="hero__badge">
+          <div class="hero__badge-icon">
+            <Icon name="headphones" size={20} />
+          </div>
+          <div>
+            <strong>12 meses suporte</strong>
+            <span>Estamos com você</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__mockup" aria-hidden="true">
+      <div class="mockup">
+        <div class="mockup__bar">
+          <Icon name="search" size={16} class="mockup__search-icon" />
+          <span>salão de beleza barueri</span>
+        </div>
+        <span class="mockup__label">Resultados encontrados</span>
+        <div class="mockup__result mockup__result--highlight">
+          <span class="mockup__result-badge">⭐ Destaque</span>
+          <strong>Márcia Beauty — Salão de Beleza</strong>
+          <span class="mockup__result-url">www.marciabeauty.com.br</span>
+          <span class="mockup__result-desc">Salão profissional em Barueri. Corte, coloração, manicure e mais. Avaliação 4.8★</span>
+        </div>
+        <div class="mockup__other-results">
+          <span>Salão Beleza & Cia — Centro, SP</span>
+          <span>Studio Hair Premium — Alphaville</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: #0F172A;
+    background: linear-gradient(180deg, #1E3A5F 0%, #0F172A 100%);
+    padding: 112px 24px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero__bg-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+  }
+  .hero__badge-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #94A3B8;
+    animation: hero-fade-up 0.8s ease both;
+  }
+  .hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .hero__headline {
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-white);
+    line-height: 1.15;
+    max-width: 680px;
+    letter-spacing: -0.02em;
+    animation: hero-fade-up 0.8s ease 0.1s both;
+  }
+  .hero__sub {
+    font-family: var(--font);
+    font-size: 16px;
+    color: #CBD5E1;
+    line-height: 1.6;
+    max-width: 540px;
+    animation: hero-fade-up 0.8s ease 0.2s both;
+  }
+  .hero__sub strong {
+    color: var(--text-white);
+    font-weight: 600;
+  }
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: hero-fade-up 0.8s ease 0.3s both;
+  }
+  .hero__btn-secondary {
+    font-size: 14px;
+    color: #94A3B8;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .hero__btn-secondary:hover {
+    color: var(--text-white);
+  }
+
+  @keyframes hero-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Trust Badges */
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 24px;
+    width: 100%;
+    animation: hero-fade-up 0.8s ease 0.4s both;
+  }
+  .hero__badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--text-white);
+    flex: 1;
+    min-width: 200px;
+    max-width: 260px;
+    transition: all 0.3s ease;
+  }
+  .hero__badge-icon {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+  .hero__badge:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+  }
+  .hero__badge:hover .hero__badge-icon {
+    background: var(--accent);
+    color: var(--text-white);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+  }
+  .hero__badge strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .hero__badge span {
+    font-size: 11px;
+    color: #94A3B8;
+  }
+
+  /* Mockup */
+  .hero__mockup {
+    display: none;
+  }
+  .mockup {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 460px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .mockup:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  }
+  .mockup__bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 22px;
+    padding: 10px 16px;
+    color: #94A3B8;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .mockup__search-icon {
+    flex-shrink: 0;
+    color: #475569;
+  }
+  .mockup__label {
+    font-size: 11px;
+    color: #475569;
+    font-weight: 500;
+  }
+  .mockup__result {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .mockup__result--highlight {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  .mockup__result-badge {
+    font-size: 12px;
+    color: var(--success);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .mockup__result strong {
+    font-size: 16px;
+    color: var(--text-white);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .mockup__result-url {
+    font-size: 12px;
+    color: var(--success);
+    opacity: 0.9;
+  }
+  .mockup__result-desc {
+    font-size: 13px;
+    color: #94A3B8;
+    line-height: 1.5;
+  }
+  .mockup__other-results {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 4px 0;
+  }
+  .mockup__other-results span {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding: 80px;
+    }
+    .hero__inner {
+      flex-direction: row;
+      align-items: center;
+      min-height: 640px;
+      gap: 60px;
+    }
+    .hero__content {
+      align-items: flex-start;
+      text-align: left;
+      flex: 1.2;
+    }
+    .hero__badge-top {
+      align-self: flex-start;
+    }
+    .hero__headline {
+      font-size: 56px;
+      line-height: 1.1;
+      max-width: none;
+    }
+    .hero__sub {
+      font-size: 19px;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+    .hero__actions {
+      flex-direction: row;
+      gap: 20px;
+    }
+    .hero__badges {
+      justify-content: flex-start;
+      gap: 16px;
+    }
+    .hero__badge {
+      max-width: none;
+      padding: 16px 20px;
+    }
+    .hero__mockup {
+      display: block;
+      flex: 0.8;
+      width: auto;
+      max-width: 500px;
+      animation: hero-fade-up 1s ease 0.5s both;
+    }
+    .hero__bg-glow {
+      width: 1400px;
+      height: 800px;
+    }
+  }
+</style>

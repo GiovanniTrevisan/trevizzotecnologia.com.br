@@ -1,0 +1,129 @@
+---
+import '@/styles/global.css';
+import { faqItems } from '@/data/faq';
+import { SITE_URL, SITE_NAME } from '@/data/config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Trevizzo Tecnologia — Seu Negócio no Google em 7 Dias',
+  description = 'Landing page profissional + SEO + Google Meu Negócio. Faça seu negócio aparecer no Google em menos de 7 dias. 12x de R$99,90 com suporte por 12 meses.',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: SITE_NAME,
+  description,
+  url: SITE_URL,
+  telephone: '+5511999999999',
+  address: [
+    {
+      '@type': 'PostalAddress',
+      addressLocality: 'Barueri',
+      addressRegion: 'SP',
+      addressCountry: 'BR',
+    },
+    {
+      '@type': 'PostalAddress',
+      addressLocality: 'Belo Horizonte',
+      addressRegion: 'MG',
+      addressCountry: 'BR',
+    },
+  ],
+  priceRange: '$$',
+};
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Pacote Completo — Landing Page + SEO',
+  description: 'Landing page profissional com SEO completo, Google Meu Negócio, domínio, hospedagem e 12 meses de suporte.',
+  brand: { '@type': 'Brand', name: SITE_NAME },
+  offers: {
+    '@type': 'Offer',
+    price: '1198.80',
+    priceCurrency: 'BRL',
+    availability: 'https://schema.org/InStock',
+    priceValidUntil: '2027-12-31',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Schemas -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </head>
+  <body>
+    <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+    <slot />
+
+    <!-- Scroll Reveal -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import Button from '@/components/ui/Button.astro';
+import { WHATSAPP_URL } from '@/data/config';
+
+const checklist = [
+  'Design profissional',
+  'SEO completo',
+  'Google Meu Negócio',
+  'Garantia de 30 dias',
+  'Domínio + hospedagem',
+  'Suporte 12 meses',
+  'Entrega em 7 dias',
+  'Site responsivo',
+];
+---
+
+<section class="pricing section" id="preco" data-reveal>
+  <div class="container">
+    <SectionHeading label="INVESTIMENTO" title="Invista menos de R$3,30 por dia no seu negócio" />
+
+    <div class="pricing__card">
+      <span class="pricing__badge">MAIS POPULAR</span>
+      <h3 class="pricing__plan">Pacote Completo</h3>
+
+      <div class="pricing__price-block">
+        <span class="pricing__anchor">De R$2.997</span>
+        <div class="pricing__price">
+          <span class="pricing__prefix">12x de</span>
+          <strong class="pricing__value">R$99,90</strong>
+          <span class="pricing__suffix">/mês</span>
+        </div>
+        <span class="pricing__cash">ou R$1.198,80 à vista</span>
+      </div>
+
+      <hr class="pricing__divider" />
+
+      <div class="pricing__checklist">
+        {checklist.map((item) => (
+          <div class="pricing__check-item" data-stagger>
+            <Icon name="check" size={18} class="pricing__check-icon" />
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+
+      <Button href={WHATSAPP_URL} variant="primary" size="lg" class="pricing__cta" dataCta="pricing" target="_blank" rel="noopener noreferrer">
+        Quero Meu Site Profissional →
+      </Button>
+
+      <div class="pricing__trust">
+        <div class="pricing__trust-item">
+          <Icon name="shield-check" size={16} class="pricing__trust-icon pricing__trust-icon--green" />
+          <span>Garantia 30 dias</span>
+        </div>
+        <div class="pricing__trust-item">
+          <Icon name="lock" size={16} class="pricing__trust-icon pricing__trust-icon--blue" />
+          <span>Pagamento seguro</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    background: var(--bg-alt);
+  }
+  .pricing__card {
+    max-width: 560px;
+    margin: 28px auto 0;
+    background: var(--bg-white);
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pricing__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  }
+  .pricing__badge {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--text-white);
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .pricing__plan {
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .pricing__price-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .pricing__anchor {
+    font-family: var(--font);
+    font-size: 16px;
+    color: #9CA3AF;
+    text-decoration: line-through;
+  }
+  .pricing__price {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .pricing__prefix {
+    font-family: var(--font);
+    font-size: 16px;
+    color: var(--text-secondary);
+    padding-bottom: 6px;
+  }
+  .pricing__value {
+    font-family: var(--font);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .pricing__suffix {
+    font-family: var(--font);
+    font-size: 16px;
+    color: var(--text-secondary);
+    padding-bottom: 6px;
+  }
+  .pricing__cash {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .pricing__divider {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #E2E8F0;
+  }
+
+  .pricing__checklist {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .pricing__check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+  .pricing__check-icon {
+    flex-shrink: 0;
+    color: var(--success);
+  }
+
+  .pricing__cta {
+    width: 100%;
+  }
+
+  .pricing__trust {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pricing__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .pricing__trust-icon--green { color: var(--success); }
+  .pricing__trust-icon--blue { color: var(--primary); }
+
+  @media (min-width: 1024px) {
+    .pricing__card {
+      margin-top: 48px;
+      padding: 40px;
+      gap: 24px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+    }
+    .pricing__plan { font-size: 22px; }
+    .pricing__value { font-size: 44px; }
+    .pricing__checklist {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+    }
+    .pricing__trust { gap: 24px; }
+  }
+</style>

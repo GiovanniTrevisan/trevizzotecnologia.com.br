@@ -1,0 +1,204 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+---
+
+<section class="ba section" data-reveal>
+  <div class="container">
+    <SectionHeading label="RESULTADO" title="Veja a diferença" />
+
+    <div class="ba__row">
+      <!-- BEFORE -->
+      <div class="ba__card ba__card--before">
+        <div class="ba__label">
+          <Icon name="x-circle" size={20} class="ba__label-icon ba__label-icon--red" />
+          <span>ANTES</span>
+        </div>
+        <div class="ba__mockup">
+          <div class="ba__search-bar">
+            <Icon name="search" size={16} class="ba__search-icon" />
+            <span>salão de beleza barueri</span>
+          </div>
+          <span class="ba__results-label">Resultados da busca</span>
+          <div class="ba__results">
+            <span>Salão Beleza & Cia — Centro, SP</span>
+            <span>Studio Hair Premium — Alphaville</span>
+            <span>Beleza Express — Osasco</span>
+          </div>
+        </div>
+        <p class="ba__caption ba__caption--red">❌ Seu negócio não aparece nos resultados</p>
+      </div>
+
+      <!-- AFTER -->
+      <div class="ba__card ba__card--after">
+        <div class="ba__label">
+          <Icon name="check-circle" size={20} class="ba__label-icon ba__label-icon--green" />
+          <span>DEPOIS</span>
+        </div>
+        <div class="ba__mockup">
+          <div class="ba__search-bar">
+            <Icon name="search" size={16} class="ba__search-icon" />
+            <span>salão de beleza barueri</span>
+          </div>
+          <span class="ba__results-label">Resultados da busca</span>
+          <div class="ba__highlight">
+            <span class="ba__highlight-title">⭐ Márcia Beauty — Salão de Beleza</span>
+            <span class="ba__highlight-url">www.marciabeauty.com.br</span>
+            <span class="ba__highlight-desc">Salão profissional em Barueri. Corte, coloração, manicure e mais. Avaliação 4.8★</span>
+          </div>
+          <div class="ba__results">
+            <span>Salão Beleza & Cia — Centro, SP</span>
+            <span>Studio Hair Premium — Alphaville</span>
+          </div>
+        </div>
+        <p class="ba__caption ba__caption--green">✅ Seu negócio em destaque no topo do Google</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba {
+    background: var(--bg-white);
+  }
+  .ba__row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .ba__card {
+    border-radius: var(--radius-md);
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .ba__card:hover {
+    transform: translateY(-4px);
+  }
+  .ba__card--before:hover {
+    box-shadow: 0 12px 32px rgba(239, 68, 68, 0.1);
+  }
+  .ba__card--after:hover {
+    box-shadow: 0 12px 32px rgba(34, 197, 94, 0.12);
+  }
+  .ba__card--before {
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+  }
+  .ba__card--after {
+    background: #ECFDF5;
+    border: 1px solid #BBF7D0;
+  }
+
+  .ba__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .ba__card--before .ba__label { color: #DC2626; }
+  .ba__card--after .ba__label { color: #16A34A; }
+  .ba__label-icon--red { color: #EF4444; }
+  .ba__label-icon--green { color: var(--success); }
+
+  .ba__mockup {
+    background: var(--bg-white);
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ba__search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #F3F4F6;
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-family: var(--font);
+    font-size: 13px;
+    color: #6B7280;
+  }
+  .ba__search-icon {
+    flex-shrink: 0;
+    color: #9CA3AF;
+  }
+  .ba__results-label {
+    font-family: var(--font);
+    font-size: 11px;
+    color: #9CA3AF;
+  }
+  .ba__results {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ba__results span {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+    color: #1D4ED8;
+  }
+
+  .ba__highlight {
+    background: #F0FDF4;
+    border: 1.5px solid #86EFAC;
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ba__highlight-title {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    color: #16A34A;
+  }
+  .ba__highlight-url {
+    font-family: var(--font);
+    font-size: 11px;
+    color: #15803D;
+  }
+  .ba__highlight-desc {
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .ba__caption {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .ba__caption--red { color: #DC2626; }
+  .ba__caption--green { color: #16A34A; }
+
+  @media (min-width: 1024px) {
+    .ba__row {
+      flex-direction: row;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 48px auto 0;
+    }
+    .ba__card {
+      flex: 1;
+      padding: 28px 24px;
+      border-radius: var(--radius-lg);
+      gap: 16px;
+    }
+    .ba__mockup {
+      padding: 20px 16px;
+    }
+  }
+</style>

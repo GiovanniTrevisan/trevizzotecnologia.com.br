@@ -1,0 +1,196 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { faqItems } from '@/data/faq';
+---
+
+<section class="faq section" id="faq" data-reveal>
+  <div class="container">
+    <SectionHeading label="FAQ" title="Dúvidas? A gente responde." />
+
+    <div class="faq__list">
+      {faqItems.map((item, i) => (
+        <div class:list={['faq__item', { 'faq__item--open': i === 0 }]} data-faq-item>
+          <button class="faq__question" type="button" aria-expanded={i === 0 ? 'true' : 'false'} data-faq-trigger>
+            <span>{item.question}</span>
+            <span class="faq__chevron-wrap">
+              <Icon name="chevron-down" size={20} class="faq__chevron" />
+            </span>
+          </button>
+          <div class="faq__body" data-faq-body>
+            <div class="faq__body-inner">
+              <p class="faq__answer">{item.answer}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  function initFAQ() {
+    const items = document.querySelectorAll<HTMLElement>('[data-faq-item]');
+
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLButtonElement>('[data-faq-trigger]');
+      const body = item.querySelector<HTMLElement>('[data-faq-body]');
+      if (!trigger || !body) return;
+
+      // Set initial height for open items
+      if (item.classList.contains('faq__item--open')) {
+        body.style.height = body.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          body.style.height = 'auto';
+        });
+      }
+
+      trigger.addEventListener('click', () => {
+        const isOpen = item.classList.contains('faq__item--open');
+
+        if (isOpen) {
+          // Close: set explicit height first, then collapse
+          body.style.height = body.scrollHeight + 'px';
+          body.offsetHeight; // force reflow
+          body.style.height = '0px';
+          item.classList.remove('faq__item--open');
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          // Close all others first
+          items.forEach((other) => {
+            if (other !== item && other.classList.contains('faq__item--open')) {
+              const otherBody = other.querySelector<HTMLElement>('[data-faq-body]');
+              const otherTrigger = other.querySelector<HTMLButtonElement>('[data-faq-trigger]');
+              if (otherBody && otherTrigger) {
+                otherBody.style.height = otherBody.scrollHeight + 'px';
+                otherBody.offsetHeight;
+                otherBody.style.height = '0px';
+                other.classList.remove('faq__item--open');
+                otherTrigger.setAttribute('aria-expanded', 'false');
+              }
+            }
+          });
+
+          // Open this one
+          item.classList.add('faq__item--open');
+          trigger.setAttribute('aria-expanded', 'true');
+          body.style.height = body.scrollHeight + 'px';
+        }
+      });
+
+      body.addEventListener('transitionend', () => {
+        if (item.classList.contains('faq__item--open')) {
+          body.style.height = 'auto';
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initFAQ);
+  initFAQ();
+</script>
+
+<style>
+  .faq {
+    background: var(--bg-white);
+    padding: 56px 24px;
+  }
+  .faq__list {
+    max-width: 800px;
+    margin: 24px auto 0;
+  }
+  .faq__item {
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .faq__item:first-child {
+    border-top: 1px solid #E2E8F0;
+  }
+
+  /* Question / Trigger */
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 22px 0;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: none;
+    border: none;
+    text-align: left;
+    gap: 24px;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+  .faq__question:hover {
+    color: var(--primary);
+  }
+  .faq__question:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Chevron */
+  .faq__chevron-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+  }
+  .faq__item--open .faq__chevron-wrap {
+    background: rgba(255, 107, 53, 0.08);
+  }
+  :global(.faq__chevron) {
+    color: var(--text-secondary);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+  }
+  .faq__item--open :global(.faq__chevron) {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  /* Animated body */
+  .faq__body {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .faq__body-inner {
+    padding-bottom: 20px;
+  }
+  .faq__answer {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 680px;
+  }
+
+  @media (min-width: 1024px) {
+    .faq {
+      padding: 80px;
+    }
+    .faq__list {
+      margin-top: 48px;
+    }
+    .faq__question {
+      font-size: 17px;
+      padding: 26px 0;
+    }
+    .faq__answer {
+      font-size: 15px;
+    }
+    .faq__body-inner {
+      padding-bottom: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { testimonials } from '@/data/testimonials';
+---
+
+<section class="testimonials section" data-reveal>
+  <div class="container">
+    <SectionHeading label="DEPOIMENTOS" title="Quem confia na Trevizzo" />
+
+    <div class="testimonials__cards">
+      {testimonials.map((t) => (
+        <div class="testimonials__card" data-stagger>
+          <div class="testimonials__stars" aria-label="5 estrelas">
+            {Array.from({ length: 5 }).map(() => (
+              <Icon name="star" size={18} class="testimonials__star" strokeWidth={0} />
+            ))}
+          </div>
+          <blockquote class="testimonials__quote">
+            "{t.quote}"
+          </blockquote>
+          <div class="testimonials__author">
+            <div class="testimonials__avatar" style={`background: ${t.avatarColor}`}>
+              {t.name.charAt(0)}
+            </div>
+            <div>
+              <strong>{t.name}</strong>
+              <span>{t.business} — {t.location}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    background: var(--bg-alt);
+  }
+  .testimonials__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .testimonials__card {
+    background: var(--bg-white);
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+  }
+  .testimonials__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    border-color: #FBBF24;
+  }
+  .testimonials__stars {
+    display: flex;
+    gap: 2px;
+  }
+  .testimonials__star {
+    fill: #FBBF24;
+    color: #FBBF24;
+  }
+  .testimonials__quote {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .testimonials__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testimonials__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+  .testimonials__author strong {
+    display: block;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .testimonials__author span {
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials__cards {
+      flex-direction: row;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .testimonials__card {
+      flex: 1;
+      padding: 28px 24px;
+      gap: 16px;
+    }
+  }
+</style>

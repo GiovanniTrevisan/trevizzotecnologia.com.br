@@ -1,0 +1,195 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+const problems = [
+  {
+    icon: 'search-x',
+    title: 'Clientes não te encontram',
+    description: 'Seu negócio não aparece quando buscam no Google. Os clientes vão pro concorrente.',
+  },
+  {
+    icon: 'instagram',
+    title: 'Instagram não aparece no Google',
+    description: 'Redes sociais não substituem um site. O Google prioriza quem tem presença profissional.',
+  },
+  {
+    icon: 'banknote',
+    title: 'Agências cobram R$5.000+',
+    description: 'Sites caros e demorados que não são feitos para o pequeno empreendedor.',
+  },
+];
+
+const stats = [
+  { value: '14M+', label: 'pequenos negócios no Brasil' },
+  { value: '73%', label: 'não têm site profissional' },
+  { value: '< 7 dias', label: 'para estar no Google' },
+];
+---
+
+<section class="problem section" id="beneficios" data-reveal>
+  <div class="container">
+    <div class="problem__header">
+      <h2 class="problem__title">70% dos pequenos negócios são invisíveis no Google</h2>
+      <p class="problem__subtitle">
+        Quando alguém busca "salão perto de mim" ou "padaria em Barueri," quem aparece é o seu concorrente.
+      </p>
+    </div>
+
+    <div class="problem__cards">
+      {problems.map((p) => (
+        <div class="problem__card" data-stagger>
+          <div class="problem__icon-wrap">
+            <Icon name={p.icon} size={24} />
+          </div>
+          <div class="problem__card-text">
+            <h3>{p.title}</h3>
+            <p>{p.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="problem__stats">
+      {stats.map((s) => (
+        <div class="problem__stat">
+          <strong>{s.value}</strong>
+          <span>{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem {
+    background: var(--bg-white);
+  }
+  .problem__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .problem__title {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+  .problem__subtitle {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .problem__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .problem__card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-alt);
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+  }
+  .problem__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: #FCA5A5;
+  }
+  .problem__icon-wrap {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: #FEF2F2;
+    color: #EF4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .problem__card-text h3 {
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .problem__card-text p {
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .problem__stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .problem__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: transform 0.3s ease;
+  }
+  .problem__stat:hover {
+    transform: scale(1.05);
+  }
+  .problem__stat strong {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .problem__stat span {
+    font-family: var(--font);
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 1024px) {
+    .problem__title {
+      font-size: 36px;
+    }
+    .problem__subtitle {
+      font-size: 16px;
+    }
+    .problem__cards {
+      flex-direction: row;
+      gap: 24px;
+    }
+    .problem__card {
+      flex: 1;
+      flex-direction: column;
+      text-align: center;
+      padding: 28px 24px;
+      border-radius: var(--radius-lg);
+    }
+    .problem__icon-wrap {
+      width: 56px;
+      height: 56px;
+    }
+    .problem__card-text h3 { font-size: 16px; }
+    .problem__card-text p { font-size: 14px; }
+    .problem__stats {
+      gap: 80px;
+    }
+    .problem__stat strong { font-size: 28px; }
+    .problem__stat span { font-size: 13px; }
+  }
+</style>

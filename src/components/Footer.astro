@@ -1,0 +1,124 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="footer__logo">Trevizzo</span>
+    <p class="footer__legal">
+      Tecnologia e Consultoria em Informática LTDA — CNPJ: 48.676.032/0001-38
+    </p>
+    <div class="footer__locations">
+      <div class="footer__location">
+        <Icon name="map-pin" size={16} class="footer__location-icon" />
+        <span>Barueri/Alphaville, SP</span>
+      </div>
+      <div class="footer__location">
+        <Icon name="map-pin" size={16} class="footer__location-icon" />
+        <span>Belo Horizonte, MG</span>
+      </div>
+    </div>
+    <hr class="footer__divider" />
+    <div class="footer__bottom">
+      <span class="footer__copyright">© 2026 Trevizzo Tecnologia. Todos os direitos reservados.</span>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Política de Privacidade</a>
+        <a href="#" class="footer__link">Termos de Uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--bg-dark);
+    padding: 40px 24px 32px;
+  }
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .footer__logo {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-white);
+  }
+  .footer__legal {
+    font-family: var(--font);
+    font-size: 11px;
+    color: #64748B;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .footer__locations {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer__location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .footer__location-icon {
+    color: #64748B;
+    flex-shrink: 0;
+  }
+  .footer__location span {
+    font-family: var(--font);
+    font-size: 13px;
+    color: #94A3B8;
+  }
+  .footer__divider {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #1E293B;
+  }
+  .footer__bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer__copyright {
+    font-family: var(--font);
+    font-size: 10px;
+    color: #475569;
+  }
+  .footer__links {
+    display: flex;
+    gap: 16px;
+  }
+  .footer__link {
+    font-family: var(--font);
+    font-size: 10px;
+    color: #64748B;
+    transition: color 0.2s;
+  }
+  .footer__link:hover {
+    color: #94A3B8;
+  }
+
+  @media (min-width: 1024px) {
+    .footer {
+      padding: 48px 80px 40px;
+    }
+    .footer__logo { font-size: 24px; }
+    .footer__legal { font-size: 13px; }
+    .footer__locations { gap: 32px; }
+    .footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    .footer__copyright { font-size: 12px; }
+    .footer__link { font-size: 12px; }
+    .footer__links { gap: 24px; }
+  }
+</style>

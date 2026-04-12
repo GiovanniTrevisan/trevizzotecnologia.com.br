@@ -1,0 +1,130 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+const steps = [
+  {
+    number: '1',
+    color: '#1E3A5F',
+    icon: 'message-square',
+    title: 'Conte sobre seu negócio',
+    description: 'Responda algumas perguntas simples sobre o que você faz e quem são seus clientes.',
+  },
+  {
+    number: '2',
+    color: '#FF6B35',
+    icon: 'code-2',
+    title: 'Criamos tudo pra você',
+    description: 'Design profissional, textos otimizados, SEO técnico e integração com Google.',
+  },
+  {
+    number: '3',
+    color: '#22C55E',
+    icon: 'rocket',
+    title: 'Você aparece no Google',
+    description: 'Em até 7 dias seu negócio está online e visível para quem busca na sua região.',
+  },
+];
+---
+
+<section class="how section" id="como-funciona" data-reveal>
+  <div class="container">
+    <SectionHeading label="COMO FUNCIONA" title="Simples. Rápido. Sem complicação." />
+
+    <div class="how__steps">
+      {steps.map((step) => (
+        <div class="how__step" data-stagger>
+          <div class="how__number" style={`background: ${step.color}`}>
+            {step.number}
+          </div>
+          <h3 class="how__step-title">{step.title}</h3>
+          <p class="how__step-desc">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how {
+    background: var(--bg-alt);
+  }
+  .how__steps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .how__step {
+    width: 100%;
+    background: var(--bg-white);
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+  }
+  .how__step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+  }
+  .how__step:hover .how__number {
+    transform: scale(1.1);
+  }
+  .how__number {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--text-white);
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+  .how__step-title {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .how__step-desc {
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 280px;
+  }
+
+  @media (min-width: 1024px) {
+    .how__steps {
+      flex-direction: row;
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .how__step {
+      flex: 1;
+      padding: 32px 24px;
+    }
+    .how__number {
+      width: 52px;
+      height: 52px;
+      font-size: 20px;
+    }
+    .how__step-title { font-size: 18px; }
+    .how__step-desc {
+      font-size: 14px;
+      max-width: 320px;
+    }
+  }
+</style>
