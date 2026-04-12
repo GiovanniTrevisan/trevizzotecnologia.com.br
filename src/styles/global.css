@@ -145,7 +145,7 @@ ul, ol {
 }
 @media (min-width: 1024px) {
   .container {
-    padding: 0 80px;
+    padding: 80px;
   }
 }
 
