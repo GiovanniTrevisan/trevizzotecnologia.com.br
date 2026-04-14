@@ -16,10 +16,10 @@ export const faqItems: FAQItem[] = [
     question: 'O que acontece depois de 12 meses?',
     answer: 'Você pode renovar o suporte por um valor reduzido ou seguir com o site funcionando normalmente. O site é seu para sempre.',
   },
-  {
-    question: 'E se eu não gostar do resultado?',
-    answer: 'Oferecemos garantia de 30 dias. Se não ficar satisfeito, devolvemos seu dinheiro. Sem burocracia.',
-  },
+  // {
+  //   question: 'E se eu não gostar do resultado?',
+  //   answer: 'Oferecemos garantia de 30 dias. Se não ficar satisfeito, devolvemos seu dinheiro. Sem burocracia.',
+  // },
   {
     question: 'Como funciona o suporte?',
     answer: 'Suporte via WhatsApp por 12 meses. Alterações de texto, imagens e pequenos ajustes estão inclusos no pacote.',

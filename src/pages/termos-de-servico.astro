@@ -1,0 +1,113 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout title="Termos de Serviço — Trevizzo Soluções" description="Termos de Serviço da Trevizzo Tecnologia e Consultoria em Informática LTDA.">
+  <Header variant="light" />
+  <main class="legal">
+    <div class="container legal__inner">
+      <h1 class="legal__title">Termos de Serviço</h1>
+      <p class="legal__updated">Última atualização: 14/04/2026</p>
+
+      <section class="legal__section">
+        <h2>1. Aceitação dos Termos</h2>
+        <p>Ao acessar e usar nossos serviços, você concorda em cumprir e estar vinculado a estes Termos de Serviço. Se você não concordar com algum destes termos, não deverá usar nossos serviços.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>2. Descrição do Serviço</h2>
+        <p>Fornecemos uma plataforma de comunicação que permite o envio e recebimento de mensagens. O serviço é fornecido "como está" e pode ser modificado ou descontinuado a qualquer momento.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>3. Uso Aceitável</h2>
+        <p>Você concorda em usar nossos serviços apenas para fins legais e de acordo com estes termos. É proibido:</p>
+        <ul>
+          <li>Enviar conteúdo ilegal, prejudicial ou ofensivo</li>
+          <li>Violar direitos de propriedade intelectual</li>
+          <li>Tentar comprometer a segurança do sistema</li>
+          <li>Usar o serviço para spam ou atividades maliciosas</li>
+        </ul>
+      </section>
+
+      <section class="legal__section">
+        <h2>4. Responsabilidades do Usuário</h2>
+        <p>Você é responsável por manter a confidencialidade de suas credenciais de acesso e por todas as atividades que ocorrem em sua conta. Deve notificar-nos imediatamente sobre qualquer uso não autorizado.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>5. Limitação de Responsabilidade</h2>
+        <p>Na máxima extensão permitida por lei, não seremos responsáveis por danos diretos, indiretos, incidentais ou consequenciais decorrentes do uso de nossos serviços.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>6. Modificações dos Termos</h2>
+        <p>Reservamo-nos o direito de modificar estes termos a qualquer momento. As alterações entrarão em vigor imediatamente após a publicação. O uso continuado dos serviços constitui aceitação dos termos modificados.</p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    padding: 120px 24px 80px;
+    background: var(--bg-white);
+  }
+  .legal__inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .legal__title {
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .legal__updated {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+  .legal__section {
+    margin-bottom: 32px;
+  }
+  .legal__section h2 {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .legal__section p {
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .legal__section ul {
+    list-style: disc;
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  .legal__section li {
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  @media (min-width: 1024px) {
+    .legal {
+      padding: 140px 80px 100px;
+    }
+    .legal__title { font-size: 40px; }
+    .legal__section h2 { font-size: 22px; }
+    .legal__section p, .legal__section li { font-size: 16px; }
+  }
+</style>

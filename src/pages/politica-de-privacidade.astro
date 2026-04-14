@@ -1,0 +1,108 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<Layout title="Política de Privacidade — Trevizzo Soluções" description="Política de Privacidade da Trevizzo Tecnologia e Consultoria em Informática LTDA.">
+  <Header variant="light" />
+  <main class="legal">
+    <div class="container legal__inner">
+      <h1 class="legal__title">Política de Privacidade</h1>
+      <p class="legal__updated">Última atualização: 14/04/2026</p>
+
+      <section class="legal__section">
+        <h2>1. Informações que Coletamos</h2>
+        <p>Coletamos informações que você nos fornece diretamente, como quando você cria uma conta, envia mensagens ou interage com nossos serviços. Isso pode incluir seu nome, endereço de e-mail, número de telefone e conteúdo das mensagens.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>2. Como Usamos suas Informações</h2>
+        <p>Utilizamos as informações coletadas para:</p>
+        <ul>
+          <li>Fornecer e melhorar nossos serviços</li>
+          <li>Processar e responder às suas mensagens</li>
+          <li>Enviar comunicações importantes sobre o serviço</li>
+          <li>Garantir a segurança e prevenir fraudes</li>
+        </ul>
+      </section>
+
+      <section class="legal__section">
+        <h2>3. Compartilhamento de Informações</h2>
+        <p>Não vendemos, alugamos ou compartilhamos suas informações pessoais com terceiros para fins comerciais. Podemos compartilhar informações apenas quando necessário para cumprir obrigações legais ou proteger nossos direitos.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>4. Segurança dos Dados</h2>
+        <p>Implementamos medidas de segurança técnicas e organizacionais para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição.</p>
+      </section>
+
+      <section class="legal__section">
+        <h2>5. Seus Direitos</h2>
+        <p>Você tem o direito de acessar, corrigir ou excluir suas informações pessoais. Para exercer esses direitos, entre em contato conosco através dos canais disponibilizados.</p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    padding: 120px 24px 80px;
+    background: var(--bg-white);
+  }
+  .legal__inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .legal__title {
+    font-family: var(--font);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .legal__updated {
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+  .legal__section {
+    margin-bottom: 32px;
+  }
+  .legal__section h2 {
+    font-family: var(--font);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .legal__section p {
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .legal__section ul {
+    list-style: disc;
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  .legal__section li {
+    font-family: var(--font);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  @media (min-width: 1024px) {
+    .legal {
+      padding: 140px 80px 100px;
+    }
+    .legal__title { font-size: 40px; }
+    .legal__section h2 { font-size: 22px; }
+    .legal__section p, .legal__section li { font-size: 16px; }
+  }
+</style>

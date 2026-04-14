@@ -3,18 +3,24 @@ import Icon from '@/components/ui/Icon.astro';
 import Button from '@/components/ui/Button.astro';
 import { WHATSAPP_URL } from '@/data/config';
 
+interface Props {
+  variant?: 'default' | 'light';
+}
+
+const { variant = 'default' } = Astro.props;
+
 const navLinks = [
-  { label: 'Benefícios', href: '#beneficios' },
-  { label: 'Como Funciona', href: '#como-funciona' },
-  { label: 'Preço', href: '#preco' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Benefícios', href: '/#beneficios' },
+  { label: 'Como Funciona', href: '/#como-funciona' },
+  { label: 'Preço', href: '/#preco' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 ---
 
-<header class="header" id="header">
+<header class:list={['header', { 'header--light': variant === 'light' }]} id="header">
   <div class="header__inner">
-    <a href="/" class="header__logo" aria-label="Trevizzo - Página inicial">
-      Trevizzo
+    <a href="/" class="header__logo" aria-label="Trevizzo Soluções - Página inicial">
+      Trevizzo Soluções
     </a>
 
     <nav class="header__nav" aria-label="Navegação principal">
@@ -137,7 +143,7 @@ const navLinks = [
     color: var(--primary);
   }
   /* When over hero (not scrolled), make logo white */
-  .header:not(.header--scrolled) .header__logo {
+  .header:not(.header--scrolled):not(.header--light) .header__logo {
     color: var(--text-white);
   }
 
@@ -172,13 +178,13 @@ const navLinks = [
   .header__link:hover::after {
     width: 100%;
   }
-  .header:not(.header--scrolled) .header__link {
+  .header:not(.header--scrolled):not(.header--light) .header__link {
     color: rgba(255, 255, 255, 0.85);
   }
-  .header:not(.header--scrolled) .header__link:hover {
+  .header:not(.header--scrolled):not(.header--light) .header__link:hover {
     color: var(--text-white);
   }
-  .header:not(.header--scrolled) .header__link::after {
+  .header:not(.header--scrolled):not(.header--light) .header__link::after {
     background: var(--text-white);
   }
 
@@ -198,6 +204,10 @@ const navLinks = [
     border: none;
     cursor: pointer;
     transition: background 0.2s;
+  }
+  .header--light .header__hamburger {
+    background: #F1F5F9;
+    color: var(--primary);
   }
   .header--scrolled .header__hamburger {
     background: #F1F5F9;
