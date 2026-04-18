@@ -4,7 +4,9 @@ import Icon from '@/components/ui/Icon.astro';
 
 <footer class="footer">
   <div class="container footer__inner">
-    <span class="footer__logo">Trevizzo Soluções</span>
+    <a href="/" class="footer__logo" aria-label="Trevizzo Soluções - Página inicial">
+      <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="180" height="55" class="footer__logo-img" />
+    </a>
     <p class="footer__legal">
       Trevizzo Tecnologia e Consultoria em Informática LTDA
       <br />
@@ -41,10 +43,14 @@ import Icon from '@/components/ui/Icon.astro';
     gap: 24px;
   }
   .footer__logo {
-    font-family: var(--font);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text-white);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .footer__logo-img {
+    height: 44px;
+    width: auto;
+    display: block;
   }
   .footer__legal {
     font-family: var(--font);

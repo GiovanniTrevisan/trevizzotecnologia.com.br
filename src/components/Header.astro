@@ -20,7 +20,20 @@ const navLinks = [
 <header class:list={['header', { 'header--light': variant === 'light' }]} id="header">
   <div class="header__inner">
     <a href="/" class="header__logo" aria-label="Trevizzo Soluções - Página inicial">
-      Trevizzo Soluções
+      <img
+        src="/images/logo.svg"
+        alt="Trevizzo Soluções"
+        width="160"
+        height="49"
+        class="header__logo-img header__logo-img--light"
+      />
+      <img
+        src="/images/logo-dark.svg"
+        alt="Trevizzo Soluções"
+        width="160"
+        height="49"
+        class="header__logo-img header__logo-img--dark"
+      />
     </a>
 
     <nav class="header__nav" aria-label="Navegação principal">
@@ -114,9 +127,6 @@ const navLinks = [
     -webkit-backdrop-filter: none;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
   }
-  .header--menu-open .header__logo {
-    color: var(--primary) !important;
-  }
   .header--menu-open .header__hamburger {
     background: #F1F5F9;
     color: var(--primary);
@@ -133,18 +143,36 @@ const navLinks = [
   }
 
   .header__logo {
-    font-family: var(--font);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--primary);
     text-decoration: none;
+    display: flex;
+    align-items: center;
   }
-  .header--scrolled .header__logo {
-    color: var(--primary);
+  .header__logo-img {
+    height: 48px;
+    width: auto;
+    display: block;
   }
-  /* When over hero (not scrolled), make logo white */
-  .header:not(.header--scrolled):not(.header--light) .header__logo {
-    color: var(--text-white);
+  /* Light logo (for light/scrolled background) */
+  .header__logo-img--light {
+    display: block;
+  }
+  /* Dark logo (for dark hero background) */
+  .header__logo-img--dark {
+    display: none;
+  }
+  /* When over dark hero (not scrolled), show dark-bg logo and hide light logo */
+  .header:not(.header--scrolled):not(.header--light) .header__logo-img--light {
+    display: none;
+  }
+  .header:not(.header--scrolled):not(.header--light) .header__logo-img--dark {
+    display: block;
+  }
+  /* When menu is open, keep light logo visible */
+  .header--menu-open .header__logo-img--light {
+    display: block !important;
+  }
+  .header--menu-open .header__logo-img--dark {
+    display: none !important;
   }
 
   .header__nav {
