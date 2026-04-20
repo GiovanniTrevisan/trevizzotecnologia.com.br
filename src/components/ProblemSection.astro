@@ -5,55 +5,76 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 const problems = [
   {
     icon: 'search-x',
-    title: 'Clientes não te encontram',
-    description: 'Seu negócio não aparece quando buscam no Google. Os clientes vão pro concorrente.',
+    accent: '#EF4444',
+    title: 'Você está invisível no Google',
+    description: 'Quando alguém pesquisa pelo seu serviço na sua região, é o concorrente que aparece — não você.',
+    stat: '70%',
+    statLabel: 'das PMEs sem site',
   },
   {
     icon: 'instagram',
-    title: 'Instagram não aparece no Google',
-    description: 'Redes sociais não substituem um site. O Google prioriza quem tem presença profissional.',
+    accent: '#A855F7',
+    title: 'Instagram não basta',
+    description: 'Redes sociais não substituem um site. O Google prioriza quem tem presença profissional fora delas.',
+    stat: '8 em 10',
+    statLabel: 'clientes pesquisam antes',
   },
   {
     icon: 'banknote',
-    title: 'Agências cobram R$5.000+',
-    description: 'Sites caros e demorados que não são feitos para o pequeno empreendedor.',
+    accent: '#F59E0B',
+    title: 'Agências cobram fortunas',
+    description: 'Sites de R$ 5.000 a R$ 15.000 não são feitos para o pequeno empreendedor. O ROI nunca fecha.',
+    stat: 'R$ 5k+',
+    statLabel: 'cobrado em média',
   },
 ];
 
 const stats = [
-  { value: '14M+', label: 'pequenos negócios no Brasil' },
-  { value: '73%', label: 'não têm site profissional' },
-  { value: '< 7 dias', label: 'para estar no Google' },
+  { value: 14, suffix: 'M+',  label: 'pequenos negócios no Brasil',          decimals: 0 },
+  { value: 73, suffix: '%',   label: 'sem site profissional ativo',           decimals: 0 },
+  { value: 7,  suffix: ' dias',label: 'até estar no topo do Google local',    decimals: 0 },
+  { value: 312,suffix: '%',   label: 'média de aumento em buscas',            decimals: 0 },
 ];
 ---
 
 <section class="problem section" id="beneficios" data-reveal>
-  <div class="container">
-    <div class="problem__header">
-      <h2 class="problem__title">70% dos pequenos negócios são invisíveis no Google</h2>
-      <p class="problem__subtitle">
-        Quando alguém busca "salão perto de mim" ou "padaria em Barueri," quem aparece é o seu concorrente.
-      </p>
-    </div>
+  <div class="mesh-bg mesh-bg--light" aria-hidden="true"></div>
+
+  <div class="container problem__container">
+    <SectionHeading
+      label="O Problema"
+      title="Pequenos negócios estão invisíveis para quem mais importa: o cliente local"
+      subtitle="Enquanto você cuida do que faz de melhor, seu concorrente está aparecendo na primeira página do Google. A boa notícia: dá pra mudar isso em uma semana."
+      highlight="invisíveis"
+    />
 
     <div class="problem__cards">
       {problems.map((p) => (
-        <div class="problem__card" data-stagger>
-          <div class="problem__icon-wrap">
-            <Icon name={p.icon} size={24} />
+        <article class="problem__card" data-stagger>
+          <div class="problem__card-top">
+            <div class="problem__icon" style={`--ico: ${p.accent}`}>
+              <Icon name={p.icon} size={22} />
+            </div>
+            <div class="problem__stat">
+              <strong>{p.stat}</strong>
+              <span>{p.statLabel}</span>
+            </div>
           </div>
-          <div class="problem__card-text">
-            <h3>{p.title}</h3>
-            <p>{p.description}</p>
-          </div>
-        </div>
+          <h3 class="problem__title">{p.title}</h3>
+          <p class="problem__desc">{p.description}</p>
+        </article>
       ))}
     </div>
 
-    <div class="problem__stats">
+    <!-- Big stats strip -->
+    <div class="problem__bigstats">
       {stats.map((s) => (
-        <div class="problem__stat">
-          <strong>{s.value}</strong>
+        <div class="problem__bigstat" data-stagger>
+          <strong
+            data-count-to={s.value}
+            data-count-suffix={s.suffix}
+            data-count-decimals={s.decimals}
+          >0{s.suffix}</strong>
           <span>{s.label}</span>
         </div>
       ))}
@@ -63,133 +84,147 @@ const stats = [
 
 <style>
   .problem {
+    background: var(--bg-alt);
+    overflow: hidden;
+  }
+  .problem__container { position: relative; z-index: 1; }
+
+  .problem__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 56px;
+  }
+  @media (min-width: 768px) {
+    .problem__cards { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  }
+
+  .problem__card {
     background: var(--bg-white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-xl);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s, border-color 0.4s;
+    position: relative;
+    overflow: hidden;
   }
-  .problem__header {
-    text-align: center;
-    margin-bottom: 32px;
+  .problem__card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-out-expo);
   }
-  .problem__title {
-    font-family: var(--font);
+  .problem__card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 107, 53, 0.25);
+  }
+  .problem__card:hover::before { transform: scaleX(1); }
+
+  .problem__card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .problem__icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in srgb, var(--ico) 12%, transparent);
+    color: var(--ico);
+    transition: transform 0.5s var(--ease-out-back);
+  }
+  .problem__card:hover .problem__icon { transform: scale(1.08) rotate(-4deg); }
+
+  .problem__stat {
+    text-align: right;
+  }
+  .problem__stat strong {
+    display: block;
     font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1;
+  }
+  .problem__stat span {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .problem__title {
+    font-size: 18px;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.3;
-    max-width: 700px;
-    margin: 0 auto 16px;
+    letter-spacing: var(--tracking-tight);
   }
-  .problem__subtitle {
-    font-family: var(--font);
-    font-size: 14px;
+  .problem__desc {
+    font-size: 14.5px;
     color: var(--text-secondary);
     line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
   }
 
-  .problem__cards {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-  .problem__card {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: var(--bg-alt);
-    border: 1px solid #E2E8F0;
-    border-radius: var(--radius-md);
-    padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: default;
-  }
-  .problem__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-    border-color: #FCA5A5;
-  }
-  .problem__icon-wrap {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    background: #FEF2F2;
-    color: #EF4444;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .problem__card-text h3 {
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-  }
-  .problem__card-text p {
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .problem__stats {
-    display: flex;
-    justify-content: center;
+  /* Big stats */
+  .problem__bigstats {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    flex-wrap: wrap;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--bg-dark) 100%);
+    border-radius: var(--radius-2xl);
+    padding: 36px 24px;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
   }
-  .problem__stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    transition: transform 0.3s ease;
+  .problem__bigstats::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(255,107,53,0.18), transparent 60%);
+    pointer-events: none;
   }
-  .problem__stat:hover {
-    transform: scale(1.05);
+  @media (min-width: 768px) {
+    .problem__bigstats {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 48px 36px;
+      gap: 32px;
+    }
   }
-  .problem__stat strong {
-    font-family: var(--font);
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
+  .problem__bigstat {
+    text-align: center;
+    position: relative;
   }
-  .problem__stat span {
-    font-family: var(--font);
-    font-size: 11px;
-    color: var(--text-secondary);
+  .problem__bigstat strong {
+    display: block;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    background: var(--grad-text-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: var(--tracking-tighter);
+    line-height: 1;
   }
-
-  @media (min-width: 1024px) {
-    .problem__title {
-      font-size: 36px;
-    }
-    .problem__subtitle {
-      font-size: 16px;
-    }
-    .problem__cards {
-      flex-direction: row;
-      gap: 24px;
-    }
-    .problem__card {
-      flex: 1;
-      flex-direction: column;
-      text-align: center;
-      padding: 28px 24px;
-      border-radius: var(--radius-lg);
-    }
-    .problem__icon-wrap {
-      width: 56px;
-      height: 56px;
-    }
-    .problem__card-text h3 { font-size: 16px; }
-    .problem__card-text p { font-size: 14px; }
-    .problem__stats {
-      gap: 80px;
-    }
-    .problem__stat strong { font-size: 28px; }
-    .problem__stat span { font-size: 13px; }
+  .problem__bigstat span {
+    display: block;
+    font-size: 13px;
+    margin-top: 6px;
+    color: #94A3B8;
+    line-height: 1.4;
   }
 </style>

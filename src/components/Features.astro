@@ -1,146 +1,322 @@
 ---
 import Icon from '@/components/ui/Icon.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
-import { features } from '@/data/features';
 ---
 
-<section class="features section" data-reveal>
+<section class="features section" id="beneficios-detalhe" data-reveal>
   <div class="container">
-    <SectionHeading label="O QUE ESTÁ INCLUÍDO" title="Tudo o que você precisa. Sem surpresas." />
+    <SectionHeading
+      label="O que vem no pacote"
+      title="Tudo o que seu negócio precisa para crescer no digital"
+      subtitle="Não cobramos taxas ocultas, não terceirizamos pra freelancer aleatório. Cada item abaixo está incluso no plano único."
+      highlight="crescer no digital"
+    />
 
-    <div class="features__grid">
-      {features.map((f) => (
-        <div class="features__item" data-stagger>
-          <div class="features__icon-wrap">
-            <Icon name={f.icon} size={22} />
+    <div class="bento">
+      <!-- Item maior 1 -->
+      <article class="bento__cell bento__cell--xl bento__cell--dark" data-stagger>
+        <div class="bento__visual">
+          <div class="bento__chart">
+            <div class="bento__bar" style="--h: 28%"></div>
+            <div class="bento__bar" style="--h: 42%"></div>
+            <div class="bento__bar" style="--h: 38%"></div>
+            <div class="bento__bar" style="--h: 64%"></div>
+            <div class="bento__bar" style="--h: 58%"></div>
+            <div class="bento__bar bento__bar--accent" style="--h: 90%"></div>
+            <div class="bento__bar bento__bar--accent" style="--h: 100%"></div>
           </div>
-          <div class="features__text">
-            <h3>{f.title}</h3>
-            <p>{f.description}</p>
+          <div class="bento__chart-label">Buscas por mês após o lançamento</div>
+        </div>
+        <div class="bento__icon bento__icon--accent">
+          <Icon name="trending-up" size={22} />
+        </div>
+        <h3 class="bento__title">SEO técnico e local</h3>
+        <p class="bento__desc">
+          Estrutura otimizada para ranquear nas buscas locais — schema.org, meta tags, sitemap, mobile-first e velocidade nota A.
+        </p>
+      </article>
+
+      <!-- Item médio 1 -->
+      <article class="bento__cell" data-stagger>
+        <div class="bento__icon bento__icon--blue">
+          <Icon name="map-pin" size={22} />
+        </div>
+        <h3 class="bento__title">Google Meu Negócio</h3>
+        <p class="bento__desc">
+          Configuração completa: fotos, horários, categorias, posts iniciais e otimização para o "perto de mim".
+        </p>
+      </article>
+
+      <!-- Item médio 2 -->
+      <article class="bento__cell" data-stagger>
+        <div class="bento__icon bento__icon--blue">
+          <Icon name="palette" size={22} />
+        </div>
+        <h3 class="bento__title">Design profissional</h3>
+        <p class="bento__desc">
+          Layout moderno feito sob medida pro seu segmento, com identidade visual consistente.
+        </p>
+      </article>
+
+      <!-- Item maior 2 (WhatsApp showcase) -->
+      <article class="bento__cell bento__cell--xl bento__cell--accent" data-stagger>
+        <div class="bento__chat">
+          <div class="bento__chat-msg bento__chat-msg--in">
+            Boa tarde! Vi vocês no Google. Vocês entregam hoje?
+          </div>
+          <div class="bento__chat-msg bento__chat-msg--out">
+            Olá! Sim, entregamos em até 7 dias na sua região 😊
+            E oferecemos suporte direto daqui para qualquer dúvida ou alteração no pedido.
+          </div>
+          <div class="bento__chat-msg bento__chat-msg--in">
+            Nossa que incrivel, já estava procurando um serviço assim. Eu tenho algumas ideias!
+          </div>
+          <div class="bento__chat-typing">
+            <span></span><span></span><span></span>
           </div>
         </div>
-      ))}
-    </div>
+        <div class="bento__icon bento__icon--white">
+          <Icon name="message-circle" size={22} />
+        </div>
+        <h3 class="bento__title bento__title--white">Botão WhatsApp integrado</h3>
+        <p class="bento__desc bento__desc--white">
+          Cada visitante a um toque do seu WhatsApp. A conversão começa antes mesmo do cliente sair do site.
+        </p>
+      </article>
 
-    <!-- <div class="features__guarantee">
-      <Icon name="shield-check" size={28} class="features__guarantee-icon" />
-      <div>
-        <strong>Garantia de 30 dias</strong>
-        <p>Não ficou satisfeito? Devolvemos seu dinheiro. Sem perguntas, sem burocracia.</p>
-      </div>
-    </div> -->
+      <!-- Itens menores -->
+      <article class="bento__cell" data-stagger>
+        <div class="bento__icon bento__icon--blue">
+          <Icon name="globe" size={22} />
+        </div>
+        <h3 class="bento__title">Domínio + Hospedagem</h3>
+        <p class="bento__desc">
+          Endereço próprio (.com.br), hospedagem rápida e SSL incluso. Tudo cuidado por nós.
+        </p>
+      </article>
+
+      <article class="bento__cell" data-stagger>
+        <div class="bento__icon bento__icon--blue">
+          <Icon name="smartphone" size={22} />
+        </div>
+        <h3 class="bento__title">100% responsivo</h3>
+        <p class="bento__desc">
+          Funciona perfeito no celular, tablet e desktop. 7 em 10 acessos vêm do mobile.
+        </p>
+      </article>
+
+      <article class="bento__cell" data-stagger>
+        <div class="bento__icon bento__icon--blue">
+          <Icon name="headphones" size={22} />
+        </div>
+        <h3 class="bento__title">Suporte humano 12 meses</h3>
+        <p class="bento__desc">
+          Alterações de texto, fotos e ajustes diretos pelo WhatsApp. Sem ticket, sem espera.
+        </p>
+      </article>
+    </div>
   </div>
 </section>
 
 <style>
-  .features {
-    background: var(--bg-white);
-  }
-  .features__grid {
+  .features { background: var(--bg-white); }
+
+  .bento {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
-    margin-top: 32px;
-  }
-  .features__item {
-    display: flex;
-    align-items: center;
     gap: 14px;
-    background: var(--bg-alt);
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
-    padding: 16px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    cursor: default;
+    margin-top: 56px;
   }
-  .features__item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    border-color: #BFDBFE;
+  @media (min-width: 640px) {
+    .bento {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .bento__cell--xl { grid-column: span 2; }
+  }
+  @media (min-width: 960px) {
+    .bento {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+    .bento__cell    { grid-column: span 2; }
+    .bento__cell--xl { grid-column: span 3; grid-row: span 2; }
+  }
+
+  .bento__cell {
     background: var(--bg-white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s, border-color 0.4s;
+    min-height: 220px;
   }
-  .features__item:hover .features__icon-wrap {
-    background: var(--primary);
-    color: var(--text-white);
-    transform: scale(1.05);
+  .bento__cell:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 107, 53, 0.25);
   }
-  .features__icon-wrap {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: var(--radius-sm);
-    background: #EFF6FF;
-    color: var(--primary);
+
+  .bento__cell--dark {
+    background: linear-gradient(160deg, #1E3A5F 0%, #0B1426 100%);
+    border-color: transparent;
+    color: #FFFFFF;
+    min-height: 320px;
+  }
+  .bento__cell--dark .bento__title { color: #FFFFFF; }
+  .bento__cell--dark .bento__desc  { color: #94A3B8; }
+  .bento__cell--dark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 0%, rgba(255,107,53,0.18), transparent 60%);
+    pointer-events: none;
+  }
+
+  .bento__cell--accent {
+    background: var(--grad-accent);
+    border-color: transparent;
+    color: #FFFFFF;
+    min-height: 320px;
+  }
+  .bento__cell--accent::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 100%, rgba(255,255,255,0.18), transparent 50%);
+    pointer-events: none;
+  }
+
+  .bento__icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    transition: transform 0.5s var(--ease-out-back);
+    margin-top: auto;
   }
-  .features__text h3 {
-    font-family: var(--font);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-  }
-  .features__text p {
-    font-family: var(--font);
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.4;
-  }
+  .bento__cell:hover .bento__icon { transform: rotate(-8deg) scale(1.05); }
+  .bento__icon--blue   { background: rgba(30, 58, 95, 0.07); color: var(--primary); }
+  .bento__icon--accent { background: rgba(255, 107, 53, 0.18); color: var(--accent); }
+  .bento__icon--white  { background: rgba(255, 255, 255, 0.18); color: #FFFFFF; }
 
-  .features__guarantee {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: #ECFDF5;
-    border: 1.5px solid #BBF7D0;
+  .bento__title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.3;
+    position: relative;
+    z-index: 1;
+  }
+  .bento__title--white { color: #FFFFFF; }
+  .bento__desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    position: relative;
+    z-index: 1;
+  }
+  .bento__desc--white { color: rgba(255, 255, 255, 0.92); }
+
+  /* Visual: bar chart */
+  .bento__visual {
+    margin: -8px -8px 12px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-md);
-    padding: 20px;
-    margin-top: 24px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
   }
-  .features__guarantee:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(34, 197, 94, 0.1);
+  .bento__chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 120px;
   }
-  .features__guarantee-icon {
-    flex-shrink: 0;
-    color: var(--success);
+  .bento__bar {
+    flex: 1;
+    height: var(--h);
+    background: linear-gradient(180deg, rgba(46,90,143,0.6), rgba(30,58,95,0.3));
+    border-radius: 6px 6px 0 0;
+    animation: bar-grow 0.8s var(--ease-out-expo) both;
   }
-  .features__guarantee strong {
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-    display: block;
-    margin-bottom: 2px;
+  .bento__bar--accent {
+    background: var(--grad-accent);
+    box-shadow: 0 4px 16px rgba(255, 107, 53, 0.4);
   }
-  .features__guarantee p {
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.4;
+  @keyframes bar-grow {
+    from { height: 0; opacity: 0; }
+    to   { height: var(--h); opacity: 1; }
+  }
+  .bento__chart-label {
+    font-size: 11.5px;
+    color: #94A3B8;
+    text-align: center;
+    font-weight: 500;
   }
 
-  @media (min-width: 1024px) {
-    .features__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 16px 20px;
-      max-width: 1000px;
-      margin: 48px auto 0;
-    }
-    .features__item {
-      padding: 20px;
-    }
-    .features__text h3 { font-size: 15px; }
-    .features__text p { font-size: 13px; }
-    .features__guarantee {
-      max-width: 700px;
-      margin: 32px auto 0;
-      padding: 24px 28px;
-      gap: 16px;
-    }
+  /* Visual: chat */
+  .bento__chat {
+    margin: -8px -8px 12px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .bento__chat-msg {
+    max-width: 85%;
+    padding: 9px 13px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .bento__chat-msg--in {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
+    border-bottom-left-radius: 3px;
+  }
+  .bento__chat-msg--out {
+    align-self: flex-end;
+    background: #FFFFFF;
+    color: #1E3A5F;
+    border-bottom-right-radius: 3px;
+    font-weight: 500;
+  }
+  .bento__chat-typing {
+    align-self: flex-start;
+    display: inline-flex;
+    gap: 4px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    border-bottom-left-radius: 3px;
+  }
+  .bento__chat-typing span {
+    width: 6px; height: 6px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    animation: typing 1.4s ease-in-out infinite;
+  }
+  .bento__chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .bento__chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typing {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
   }
 </style>

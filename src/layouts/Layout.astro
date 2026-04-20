@@ -9,11 +9,24 @@ interface Props {
 }
 
 const {
-  title = 'Trevizzo Soluções — Seu Negócio no Google em 7 Dias',
-  description = 'Landing page profissional + SEO + Google Meu Negócio. Faça seu negócio aparecer no Google em menos de 7 dias. 12x de R$99,90 com suporte por 12 meses.',
+  title = 'Trevizzo Soluções — Site profissional + SEO no Google em 7 dias',
+  description = 'Landing page de alta conversão, SEO técnico e Google Meu Negócio para pequenos negócios. Entrega em 7 dias, suporte humano por 12 meses. A partir de 12x R$99,90.',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  legalName: 'Trevizzo Tecnologia e Consultoria em Informática LTDA',
+  url: SITE_URL,
+  logo: `${SITE_URL}images/logo.svg`,
+  taxID: '48.676.032/0001-38',
+  foundingDate: '2026-04',
+  parentOrganization: { '@type': 'Organization', name: 'Grupo Yuzan' },
+  sameAs: [],
+};
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
@@ -23,27 +36,18 @@ const localBusinessSchema = {
   url: SITE_URL,
   telephone: '+5511999999999',
   address: [
-    {
-      '@type': 'PostalAddress',
-      addressLocality: 'Barueri',
-      addressRegion: 'SP',
-      addressCountry: 'BR',
-    },
-    {
-      '@type': 'PostalAddress',
-      addressLocality: 'Belo Horizonte',
-      addressRegion: 'MG',
-      addressCountry: 'BR',
-    },
+    { '@type': 'PostalAddress', addressLocality: 'Barueri', addressRegion: 'SP', addressCountry: 'BR' },
+    { '@type': 'PostalAddress', addressLocality: 'Belo Horizonte', addressRegion: 'MG', addressCountry: 'BR' },
   ],
   priceRange: '$$',
+  areaServed: ['Barueri', 'Alphaville', 'Belo Horizonte', 'Brasil'],
 };
 
 const productSchema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: 'Pacote Completo — Landing Page + SEO',
-  description: 'Landing page profissional com SEO completo, Google Meu Negócio, domínio, hospedagem e 12 meses de suporte.',
+  description: 'Landing page profissional com SEO completo, Google Meu Negócio, domínio, hospedagem e 12 meses de suporte humano.',
   brand: { '@type': 'Brand', name: SITE_NAME },
   offers: {
     '@type': 'Offer',
@@ -60,10 +64,7 @@ const faqSchema = {
   mainEntity: faqItems.map((item) => ({
     '@type': 'Question',
     name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
 ---
@@ -73,12 +74,16 @@ const faqSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B1426" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Trevizzo Soluções — Grupo Yuzan" />
+    <meta name="keywords" content="landing page, criação de site, SEO, Google Meu Negócio, site para pequenos negócios, Barueri, Alphaville, Belo Horizonte" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -87,7 +92,7 @@ const faqSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content={`${SITE_URL}/images/icon.png`} />
+    <meta property="og:image" content={`${SITE_URL}images/icon.png`} />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
     <meta property="og:image:alt" content="Trevizzo Soluções" />
@@ -96,16 +101,18 @@ const faqSchema = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE_URL}images/icon.png`} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
-    <!-- JSON-LD Schemas -->
+    <!-- JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -114,8 +121,12 @@ const faqSchema = {
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
     <slot />
 
-    <!-- Scroll Reveal -->
+    <!-- Scroll Reveal + count-up -->
     <script>
+      // Marca o documento como "js-reveal" para ativar o esconde-e-revela.
+      // Sem JS, o conteúdo permanece visível (sem opacity:0).
+      document.documentElement.classList.add('js-reveal');
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -125,9 +136,34 @@ const faqSchema = {
             }
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+      // Count-up
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const target = parseFloat(el.dataset.countTo || '0');
+          const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+          const suffix = el.dataset.countSuffix || '';
+          const prefix = el.dataset.countPrefix || '';
+          const duration = 1400;
+          const start = performance.now();
+          const startVal = 0;
+          function tick(now: number) {
+            const p = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            const v = startVal + (target - startVal) * eased;
+            el.textContent = prefix + v.toFixed(decimals).replace('.', ',') + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          countObserver.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      document.querySelectorAll('[data-count-to]').forEach((el) => countObserver.observe(el));
     </script>
   </body>
 </html>

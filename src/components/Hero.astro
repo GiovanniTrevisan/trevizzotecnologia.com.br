@@ -5,388 +5,581 @@ import { WHATSAPP_URL } from '@/data/config';
 ---
 
 <section class="hero" id="conteudo">
+  <div class="mesh-bg" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--1" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--2" aria-hidden="true"></div>
+
   <div class="hero__inner">
-    <div class="hero__bg-glow" aria-hidden="true"></div>
     <div class="hero__content">
-      <div class="hero__badge-top">
-        <span class="hero__badge-dot"></span>
-        Especialistas em Google Meu Negócio
-      </div>
+      <span class="eyebrow eyebrow--dark">
+        <span class="eyebrow__dot"></span>
+        Especialistas em presença digital local
+      </span>
+
       <h1 class="hero__headline">
-        Seu negócio encontrado no Google em menos de 7 dias
+        Seu negócio <span class="hero__headline-accent">no topo do Google</span>
+        em apenas 7 dias.
       </h1>
+
       <p class="hero__sub">
-        Landing page profissional + SEO + Google Meu Negócio + 12 meses de suporte. Tudo por <strong>12x de R$99,90</strong>.
+        Landing page profissional, SEO técnico e Google Meu Negócio configurados pra sua região.
+        <strong>Suporte humano por 12 meses</strong>, tudo a partir de <strong>12x R$99,90</strong>.
       </p>
+
       <div class="hero__actions">
-        <Button href={WHATSAPP_URL} variant="primary" size="lg" dataCta="hero" target="_blank" rel="noopener noreferrer" class="hero__btn-main">
-          Quero Aparecer no Google →
+        <Button href="#orcamento" variant="primary" size="xl" dataCta="hero-form">
+          Quero meu orçamento
+          <Icon name="arrow-right" size={18} />
         </Button>
-        <a href="#como-funciona" class="hero__btn-secondary">
-          Veja como funciona ↓
-        </a>
+        <Button href={WHATSAPP_URL} variant="glass" size="xl" dataCta="hero-whats" target="_blank" rel="noopener noreferrer">
+          <Icon name="message-circle" size={18} />
+          Falar pelo WhatsApp
+        </Button>
       </div>
-      <div class="hero__badges">
-        <div class="hero__badge">
-          <div class="hero__badge-icon">
-            <Icon name="zap" size={20} />
+
+      <ul class="hero__pills" aria-label="Diferenciais principais">
+        <li class="hero__pill"><Icon name="zap" size={14} /> 7 dias para entrega</li>
+        <li class="hero__pill"><Icon name="shield-check" size={14} /> Sem fidelidade</li>
+        <li class="hero__pill"><Icon name="users" size={14} /> Atendimento humano</li>
+      </ul>
+    </div>
+
+    <!-- Mockup interativo do Google -->
+    <div class="hero__mockup" aria-hidden="true">
+      <div class="hero__mockup-glow"></div>
+
+      <!-- Card flutuante 1 -->
+      <div class="hero__float hero__float--top">
+        <div class="hero__float-icon hero__float-icon--green">
+          <Icon name="trending-up" size={18} />
+        </div>
+        <div>
+          <strong>+312% buscas</strong>
+          <span>nos últimos 30 dias</span>
+        </div>
+      </div>
+
+      <!-- Card flutuante 2 -->
+      <div class="hero__float hero__float--bottom">
+        <div class="hero__float-icon hero__float-icon--orange">
+          <Icon name="phone" size={18} />
+        </div>
+        <div>
+          <strong>+18 ligações</strong>
+          <span>direto do site essa semana</span>
+        </div>
+      </div>
+
+      <!-- Browser mockup -->
+      <div class="browser">
+        <div class="browser__chrome">
+          <div class="browser__dots">
+            <span></span><span></span><span></span>
           </div>
-          <div>
-            <strong>Entrega 7 dias</strong>
-            <span>Rápido e sem enrolação</span>
+          <div class="browser__url">
+            <Icon name="lock" size={11} />
+            google.com
           </div>
         </div>
-        <!-- <div class="hero__badge">
-          <div class="hero__badge-icon">
-            <Icon name="shield-check" size={20} />
+
+        <div class="browser__body">
+          <div class="browser__search-bar">
+            <Icon name="search" size={16} class="browser__search-icon" />
+            <span class="browser__search-text" id="hero-typed">salão de beleza barueri</span>
+            <span class="browser__cursor" aria-hidden="true"></span>
           </div>
-          <div>
-            <strong>Garantia 30 dias</strong>
-            <span>Satisfação ou reembolso</span>
+
+          <div class="browser__filters">
+            <span class="browser__chip browser__chip--active">Tudo</span>
+            <span class="browser__chip">Maps</span>
+            <span class="browser__chip">Imagens</span>
+            <span class="browser__chip">Notícias</span>
           </div>
-        </div> -->
-        <div class="hero__badge">
-          <div class="hero__badge-icon">
-            <Icon name="headphones" size={20} />
+
+          <div class="browser__label">3 resultados perto de você</div>
+
+          <div class="result result--featured">
+            <div class="result__badge">
+              <Icon name="sparkles" size={11} /> Resultado em destaque
+            </div>
+            <div class="result__head">
+              <div class="result__avatar">MB</div>
+              <div>
+                <div class="result__title">Márcia Beauty — Salão Premium</div>
+                <div class="result__url">marciabeauty.com.br</div>
+              </div>
+            </div>
+            <div class="result__desc">
+              Salão profissional em Barueri. Corte, coloração, manicure, design de sobrancelha. Atendemos com hora marcada.
+            </div>
+            <div class="result__meta">
+              <span class="result__rating">★★★★★ 4.9</span>
+              <span>· 142 avaliações</span>
+              <span>· Aberto agora</span>
+            </div>
           </div>
-          <div>
-            <strong>12 meses suporte</strong>
-            <span>Estamos com você</span>
+
+          <div class="result result--ghost">
+            <div class="result__title-ghost"></div>
+            <div class="result__line-ghost"></div>
+          </div>
+          <div class="result result--ghost">
+            <div class="result__title-ghost"></div>
+            <div class="result__line-ghost"></div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="hero__mockup" aria-hidden="true">
-      <div class="mockup">
-        <div class="mockup__bar">
-          <Icon name="search" size={16} class="mockup__search-icon" />
-          <span>salão de beleza barueri</span>
-        </div>
-        <span class="mockup__label">Resultados encontrados</span>
-        <div class="mockup__result mockup__result--highlight">
-          <span class="mockup__result-badge">⭐ Destaque</span>
-          <strong>Márcia Beauty — Salão de Beleza</strong>
-          <span class="mockup__result-url">www.marciabeauty.com.br</span>
-          <span class="mockup__result-desc">Salão profissional em Barueri. Corte, coloração, manicure e mais. Avaliação 4.8★</span>
-        </div>
-        <div class="mockup__other-results">
-          <span>Salão Beleza & Cia — Centro, SP</span>
-          <span>Studio Hair Premium — Alphaville</span>
-        </div>
+  <!-- Trust strip -->
+  <div class="hero__trust">
+    <div class="hero__trust-inner">
+      <span class="hero__trust-label">Confiam na Trevizzo</span>
+      <div class="hero__trust-logos" aria-hidden="true">
+        <span>🚧 Em Construção</span>
+        <span>·</span>
+        <span>🚀 Vem ser um dos primeiros!</span>
+        <!-- <span>Salão Márcia Beauty</span>
+        <span>·</span>
+        <span>Santos Materiais</span>
+        <span>·</span>
+        <span>Rafa Doces</span>
+        <span>·</span>
+        <span>Padaria São Bento</span>
+        <span>·</span>
+        <span>Auto Center BH</span>
+        <span>·</span>
+        <span>Studio Pilates Alphaville</span> -->
       </div>
     </div>
   </div>
 </section>
 
+<script>
+  // Typewriter effect for the search bar
+  const queries = [
+    'salão de beleza barueri',
+    'material de construção bh',
+    'bolo personalizado alphaville',
+    'pizzaria perto de mim',
+  ];
+  const el = document.getElementById('hero-typed');
+  if (el) {
+    let qi = 0, ci = 0, deleting = false;
+    function tick() {
+      if (!el) return;
+      const q = queries[qi];
+      el.textContent = q.slice(0, ci);
+      if (!deleting && ci < q.length) {
+        ci++;
+        setTimeout(tick, 70 + Math.random() * 60);
+      } else if (!deleting && ci >= q.length) {
+        deleting = true;
+        setTimeout(tick, 1800);
+      } else if (deleting && ci > 0) {
+        ci--;
+        setTimeout(tick, 25);
+      } else {
+        deleting = false;
+        qi = (qi + 1) % queries.length;
+        setTimeout(tick, 400);
+      }
+    }
+    tick();
+  }
+</script>
+
 <style>
   .hero {
-    background: #0F172A;
-    background: linear-gradient(180deg, #1E3A5F 0%, #0F172A 100%);
-    padding: 112px 24px 64px;
     position: relative;
+    background: var(--grad-dark);
+    color: var(--text-white);
+    padding: 128px 24px 80px;
     overflow: hidden;
+    isolation: isolate;
   }
+  @media (min-width: 1024px) {
+    .hero { padding: 156px 64px 100px; }
+  }
+
+  .hero__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero__glow--1 {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(255,107,53,0.45) 0%, transparent 70%);
+    top: -120px; left: -100px;
+  }
+  .hero__glow--2 {
+    width: 720px; height: 720px;
+    background: radial-gradient(circle, rgba(46,90,143,0.55) 0%, transparent 70%);
+    bottom: -240px; right: -160px;
+  }
+
   .hero__inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
     position: relative;
     z-index: 2;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+    align-items: center;
   }
-  .hero__bg-glow {
-    position: absolute;
-    top: -20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1000px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
+  @media (min-width: 960px) {
+    .hero__inner { grid-template-columns: 1.05fr 0.95fr; gap: 64px; }
   }
+  @media (min-width: 1200px) {
+    .hero__inner { gap: 72px; }
+  }
+
   .hero__content {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 28px;
-    text-align: center;
+    animation: hero-up 0.9s var(--ease-out-expo) both;
   }
-  .hero__badge-top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #94A3B8;
-    animation: hero-fade-up 0.8s ease both;
+  @keyframes hero-up {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  .hero__badge-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
-  }
+
   .hero__headline {
-    font-family: var(--font);
-    font-size: 32px;
+    font-size: clamp(34px, 5.5vw, 64px);
     font-weight: 700;
-    color: var(--text-white);
-    line-height: 1.15;
-    max-width: 680px;
-    letter-spacing: -0.02em;
-    animation: hero-fade-up 0.8s ease 0.1s both;
+    line-height: 1.04;
+    letter-spacing: var(--tracking-tighter);
+    color: #FFFFFF;
+    text-wrap: balance;
+  }
+  .hero__headline-accent {
+    background: var(--grad-text-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    position: relative;
   }
   .hero__sub {
-    font-family: var(--font);
-    font-size: 16px;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
     color: #CBD5E1;
-    line-height: 1.6;
-    max-width: 540px;
-    animation: hero-fade-up 0.8s ease 0.2s both;
+    max-width: 560px;
+    font-weight: 400;
   }
-  .hero__sub strong {
-    color: var(--text-white);
-    font-weight: 600;
-  }
+  .hero__sub strong { color: #FFFFFF; font-weight: 600; }
+
   .hero__actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    animation: hero-fade-up 0.8s ease 0.3s both;
-  }
-  .hero__btn-secondary {
-    font-size: 14px;
-    color: #94A3B8;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  .hero__btn-secondary:hover {
-    color: var(--text-white);
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  @keyframes hero-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Trust Badges */
-  .hero__badges {
+  .hero__pills {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    padding-top: 24px;
-    width: 100%;
-    animation: hero-fade-up 0.8s ease 0.4s both;
+    gap: 8px;
+    margin-top: 4px;
   }
-  .hero__badge {
-    display: flex;
+  .hero__pill {
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 14px 18px;
-    color: var(--text-white);
-    flex: 1;
-    min-width: 200px;
-    max-width: 260px;
-    transition: all 0.3s ease;
+    gap: 6px;
+    padding: 7px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #CBD5E1;
   }
-  .hero__badge-icon {
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 107, 53, 0.1);
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
-  .hero__badge:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
-  }
-  .hero__badge:hover .hero__badge-icon {
-    background: var(--accent);
-    color: var(--text-white);
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-  }
-  .hero__badge strong {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-  .hero__badge span {
-    font-size: 11px;
-    color: #94A3B8;
-  }
+  .hero__pill :global(svg) { color: var(--accent); }
 
   /* Mockup */
   .hero__mockup {
-    display: none;
+    position: relative;
+    perspective: 1400px;
+    animation: hero-up 1s var(--ease-out-expo) 0.2s both;
   }
-  .mockup {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-    padding: 24px;
+  .hero__mockup-glow {
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(ellipse at center, rgba(255,107,53,0.25) 0%, transparent 60%);
+    filter: blur(40px);
+    z-index: 0;
+  }
+
+  .browser {
+    position: relative;
+    background: linear-gradient(180deg, #1A2D4A 0%, #0F1B30 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+    transform: rotateY(-4deg) rotateX(2deg);
+    transform-origin: center;
+    transition: transform 0.6s var(--ease-out-expo);
+    z-index: 1;
+  }
+  .hero__mockup:hover .browser { transform: rotateY(0) rotateX(0); }
+
+  .browser__chrome {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .browser__dots { display: flex; gap: 6px; }
+  .browser__dots span {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .browser__dots span:nth-child(1) { background: #FF5F57; }
+  .browser__dots span:nth-child(2) { background: #FEBC2E; }
+  .browser__dots span:nth-child(3) { background: #28C840; }
+  .browser__url {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    font-size: 12px;
+    color: #94A3B8;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .browser__body {
+    padding: 22px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 100%;
-    max-width: 460px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  .mockup:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
-  }
-  .mockup__bar {
+  .browser__search-bar {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 22px;
-    padding: 10px 16px;
-    color: #94A3B8;
-    font-size: 13px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .mockup__search-icon {
-    flex-shrink: 0;
-    color: #475569;
-  }
-  .mockup__label {
-    font-size: 11px;
-    color: #475569;
-    font-weight: 500;
-  }
-  .mockup__result {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 20px;
-    border-radius: 12px;
-  }
-  .mockup__result--highlight {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(34, 197, 94, 0.2);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  }
-  .mockup__result-badge {
-    font-size: 12px;
-    color: var(--success);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .mockup__result strong {
-    font-size: 16px;
-    color: var(--text-white);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-  .mockup__result-url {
-    font-size: 12px;
-    color: var(--success);
-    opacity: 0.9;
-  }
-  .mockup__result-desc {
-    font-size: 13px;
-    color: #94A3B8;
-    line-height: 1.5;
-  }
-  .mockup__other-results {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 8px 4px 0;
-  }
-  .mockup__other-results span {
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    color: #CBD5E1;
     font-size: 14px;
-    color: #475569;
-    font-weight: 500;
+    position: relative;
+  }
+  .browser__search-icon { color: #64748B; }
+  .browser__search-text { flex: 1; min-width: 0; }
+  .browser__cursor {
+    width: 1.5px; height: 14px;
+    background: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
   }
 
-  @media (min-width: 1024px) {
-    .hero {
-      padding: 80px;
-    }
-    .hero__inner {
-      flex-direction: row;
-      align-items: center;
-      min-height: 640px;
-      gap: 60px;
-    }
-    .hero__content {
-      align-items: flex-start;
-      text-align: left;
-      flex: 1.2;
-    }
-    .hero__badge-top {
-      align-self: flex-start;
-    }
-    .hero__headline {
-      font-size: 56px;
-      line-height: 1.1;
-      max-width: none;
-    }
-    .hero__sub {
-      font-size: 19px;
-      line-height: 1.6;
-      max-width: 600px;
-    }
-    .hero__actions {
-      flex-direction: row;
-      gap: 20px;
-    }
-    .hero__badges {
-      justify-content: flex-start;
-      gap: 16px;
-    }
-    .hero__badge {
-      max-width: none;
-      padding: 16px 20px;
-    }
-    .hero__mockup {
-      display: block;
-      flex: 0.8;
-      width: auto;
-      max-width: 500px;
-      animation: hero-fade-up 1s ease 0.5s both;
-    }
-    .hero__bg-glow {
-      width: 1400px;
-      height: 800px;
-    }
+  .browser__filters {
+    display: flex;
+    gap: 8px;
+  }
+  .browser__chip {
+    font-size: 11.5px;
+    padding: 5px 11px;
+    border-radius: var(--radius-full);
+    color: #94A3B8;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .browser__chip--active {
+    color: var(--accent);
+    background: rgba(255, 107, 53, 0.10);
+    border-color: rgba(255, 107, 53, 0.25);
+  }
+
+  .browser__label {
+    font-size: 11.5px;
+    color: #64748B;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Result cards */
+  .result {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .result--featured {
+    background:
+      radial-gradient(circle at top right, rgba(255,107,53,0.18) 0%, transparent 60%),
+      rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 107, 53, 0.32);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+    position: relative;
+  }
+  .result__badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(255, 107, 53, 0.12);
+    padding: 4px 9px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .result__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .result__avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--grad-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+    flex-shrink: 0;
+  }
+  .result__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+  .result__url {
+    font-size: 12px;
+    color: #4ADE80;
+  }
+  .result__desc {
+    font-size: 12.5px;
+    color: #94A3B8;
+    line-height: 1.55;
+  }
+  .result__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 11.5px;
+    color: #64748B;
+  }
+  .result__rating {
+    color: #FBBF24;
+    font-weight: 600;
+  }
+
+  .result--ghost { gap: 10px; padding: 14px; }
+  .result__title-ghost {
+    height: 12px;
+    width: 60%;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 4px;
+  }
+  .result__line-ghost {
+    height: 9px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  /* Floating cards */
+  .hero__float {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-md);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    color: var(--text-primary);
+    animation: float-soft 5s ease-in-out infinite;
+  }
+  .hero__float strong { display: block; font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .hero__float span { display: block; font-size: 11px; color: var(--text-secondary); }
+  .hero__float-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero__float-icon--green { background: rgba(34, 197, 94, 0.15); color: #16A34A; }
+  .hero__float-icon--orange { background: rgba(255, 107, 53, 0.15); color: var(--accent); }
+  .hero__float--top {
+    top: -16px;
+    right: 12px;
+    animation-delay: -1s;
+  }
+  .hero__float--bottom {
+    bottom: -16px;
+    left: -8px;
+    animation-delay: -3s;
+  }
+  @media (max-width: 640px) {
+    .hero__float { display: none; }
+  }
+
+  /* Trust strip */
+  .hero__trust {
+    position: relative;
+    z-index: 2;
+    margin: 64px auto 0;
+    max-width: 1280px;
+  }
+  .hero__trust-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+  }
+  .hero__trust-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #64748B;
+  }
+  .hero__trust-logos {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #94A3B8;
+    font-size: 13px;
+    font-weight: 500;
   }
 </style>

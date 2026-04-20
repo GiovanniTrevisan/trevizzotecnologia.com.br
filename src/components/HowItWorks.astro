@@ -4,42 +4,65 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 
 const steps = [
   {
-    number: '1',
-    color: '#1E3A5F',
+    number: '01',
     icon: 'message-square',
-    title: 'Conte sobre seu negócio',
-    description: 'Responda algumas perguntas simples sobre o que você faz e quem são seus clientes.',
+    title: 'Você conta sobre o negócio',
+    description: 'Em uma conversa de 30 minutos pelo WhatsApp, entendemos o que você faz, quem são seus clientes e onde quer chegar.',
+    duration: 'Dia 1',
+    deliverable: 'Briefing completo + plano de SEO local',
   },
   {
-    number: '2',
-    color: '#FF6B35',
+    number: '02',
     icon: 'code-2',
-    title: 'Criamos tudo pra você',
-    description: 'Design profissional, textos otimizados, SEO técnico e integração com Google.',
+    title: 'A gente cria tudo pra você',
+    description: 'Design profissional, textos otimizados, SEO técnico, performance, Google Meu Negócio configurado e domínio publicado.',
+    duration: 'Dias 2 a 6',
+    deliverable: 'Site no ar + perfil Google Maps ativo',
   },
   {
-    number: '3',
-    color: '#22C55E',
+    number: '03',
     icon: 'rocket',
-    title: 'Você aparece no Google',
-    description: 'Em até 7 dias seu negócio está online e visível para quem busca na sua região.',
+    title: 'Seu negócio decola no Google',
+    description: 'Em até 7 dias seu site está online e indexado. Acompanhamos os resultados e fazemos ajustes mensais sem custo extra.',
+    duration: 'Dia 7+',
+    deliverable: 'Acompanhamento + suporte humano por 12 meses',
   },
 ];
 ---
 
 <section class="how section" id="como-funciona" data-reveal>
   <div class="container">
-    <SectionHeading label="COMO FUNCIONA" title="Simples. Rápido. Sem complicação." />
+    <SectionHeading
+      label="Como funciona"
+      title="Em 3 passos simples, do briefing ao topo do Google"
+      subtitle="Sem reuniões intermináveis. Sem jargão técnico. Sem surpresas no fim do mês."
+      highlight="topo do Google"
+    />
 
-    <div class="how__steps">
-      {steps.map((step) => (
-        <div class="how__step" data-stagger>
-          <div class="how__number" style={`background: ${step.color}`}>
-            {step.number}
+    <div class="how__timeline">
+      <div class="how__line" aria-hidden="true"></div>
+      {steps.map((step, i) => (
+        <article class="how__step" data-stagger>
+          <div class="how__step-marker">
+            <span class="how__step-number">{step.number}</span>
+            <span class="how__step-glow"></span>
           </div>
-          <h3 class="how__step-title">{step.title}</h3>
-          <p class="how__step-desc">{step.description}</p>
-        </div>
+
+          <div class="how__step-card">
+            <div class="how__step-head">
+              <div class="how__step-icon">
+                <Icon name={step.icon} size={20} />
+              </div>
+              <span class="how__step-duration">{step.duration}</span>
+            </div>
+            <h3 class="how__step-title">{step.title}</h3>
+            <p class="how__step-desc">{step.description}</p>
+            <div class="how__step-deliverable">
+              <Icon name="check-circle" size={14} />
+              <span>{step.deliverable}</span>
+            </div>
+          </div>
+        </article>
       ))}
     </div>
   </div>
@@ -47,84 +70,174 @@ const steps = [
 
 <style>
   .how {
-    background: var(--bg-alt);
-  }
-  .how__steps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    margin-top: 32px;
-  }
-  .how__step {
-    width: 100%;
     background: var(--bg-white);
-    border: 1px solid #E2E8F0;
-    border-radius: var(--radius-lg);
-    padding: 28px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: default;
+    position: relative;
   }
-  .how__step:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
+
+  .how__timeline {
+    position: relative;
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
-  .how__step:hover .how__number {
-    transform: scale(1.1);
+  @media (min-width: 900px) {
+    .how__timeline {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 80px;
+    }
   }
-  .how__number {
-    width: 44px;
-    height: 44px;
+
+  .how__line {
+    position: absolute;
+    left: 27px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent) 70%, transparent 100%);
+    opacity: 0.3;
+    z-index: 0;
+  }
+  @media (min-width: 900px) {
+    .how__line {
+      left: 0; right: 0;
+      top: 28px; bottom: auto;
+      width: auto; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+      margin: 0 16%;
+    }
+  }
+
+  .how__step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 900px) {
+    .how__step {
+      grid-template-columns: 1fr;
+      grid-template-rows: 56px 1fr;
+      gap: 24px;
+      justify-items: center;
+    }
+  }
+
+  .how__step-marker {
+    width: 56px; height: 56px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .how__step-number {
+    position: relative;
+    z-index: 2;
+    width: 56px; height: 56px;
     border-radius: 50%;
-    color: var(--text-white);
-    font-family: var(--font);
+    background: var(--bg-white);
+    border: 2px solid var(--accent);
+    color: var(--accent);
     font-size: 18px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
+    letter-spacing: -0.02em;
+    transition: all 0.4s var(--ease-out-back);
   }
-  .how__step-title {
-    font-family: var(--font);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
+  .how__step-glow {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.15;
+    filter: blur(16px);
+    z-index: 1;
   }
-  .how__step-desc {
-    font-family: var(--font);
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    max-width: 280px;
+  .how__step:hover .how__step-number {
+    background: var(--grad-accent);
+    color: #FFFFFF;
+    transform: scale(1.08);
+    border-color: transparent;
   }
 
+  .how__step-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s, border-color 0.4s;
+    width: 100%;
+  }
   @media (min-width: 1024px) {
-    .how__steps {
-      flex-direction: row;
-      gap: 32px;
-      margin-top: 48px;
-    }
-    .how__step {
-      flex: 1;
-      padding: 32px 24px;
-    }
-    .how__number {
-      width: 52px;
-      height: 52px;
-      font-size: 20px;
-    }
-    .how__step-title { font-size: 18px; }
-    .how__step-desc {
-      font-size: 14px;
-      max-width: 320px;
-    }
+    .how__step-card { padding: 28px; }
+  }
+  .how__step:hover .how__step-card {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 107, 53, 0.3);
+  }
+
+  .how__step-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .how__step-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: rgba(30, 58, 95, 0.07);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s var(--ease-out-back);
+  }
+  .how__step:hover .how__step-icon {
+    background: var(--primary);
+    color: #FFFFFF;
+    transform: rotate(-6deg);
+  }
+  .how__step-duration {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: var(--radius-full);
+  }
+
+  .how__step-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.3;
+  }
+  .how__step-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .how__step-deliverable {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(34, 197, 94, 0.07);
+    border: 1px solid rgba(34, 197, 94, 0.18);
+    border-radius: var(--radius-sm);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #15803D;
   }
 </style>

@@ -1,0 +1,62 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+
+const items = [
+  { icon: 'map-pin',     text: 'Atendimento em Barueri & Alphaville' },
+  { icon: 'map-pin',     text: 'Atendimento em Belo Horizonte' },
+  { icon: 'shield-check',text: 'CNPJ ativo · Grupo Yuzan' },
+  { icon: 'zap',         text: 'Entrega em 7 dias úteis' },
+  { icon: 'headphones',  text: 'Suporte humano por 12 meses' },
+  { icon: 'gauge',       text: 'Performance 95+ no PageSpeed' },
+  { icon: 'lock',        text: 'Domínio + SSL inclusos' },
+];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[...items, ...items].map((item) => (
+      <div class="marquee__item">
+        <Icon name={item.icon} size={16} />
+        <span>{item.text}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--bg-white);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 18px 0;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    gap: 56px;
+    white-space: nowrap;
+    animation: marquee-scroll 38s linear infinite;
+    width: max-content;
+  }
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .marquee__item :global(svg) { color: var(--accent); flex-shrink: 0; }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track { animation: none; }
+  }
+</style>

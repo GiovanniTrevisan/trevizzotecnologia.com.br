@@ -11,61 +11,101 @@ import { WHATSAPP_URL } from '@/data/config';
   aria-label="Fale conosco pelo WhatsApp"
   data-cta="whatsapp-float"
 >
-  <Icon name="message-circle" size={26} />
+  <span class="whatsapp-btn__pulse" aria-hidden="true"></span>
+  <span class="whatsapp-btn__icon">
+    <Icon name="message-circle" size={26} />
+  </span>
+  <span class="whatsapp-btn__label">
+    <strong>Fala com a gente</strong>
+    <small>resposta em minutos</small>
+  </span>
 </a>
 
 <style>
   .whatsapp-btn {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 18px;
+    right: 18px;
     z-index: 90;
-    width: 56px;
-    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    padding: 6px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #2EE072 0%, #25D366 50%, #1FB855 100%);
+    color: #FFFFFF;
+    box-shadow:
+      0 12px 32px rgba(37, 211, 102, 0.35),
+      0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s var(--ease-out-back), box-shadow 0.4s, padding 0.5s var(--ease-out-expo);
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .whatsapp-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+      0 16px 40px rgba(37, 211, 102, 0.42),
+      0 6px 16px rgba(0, 0, 0, 0.25);
+    padding: 6px 16px 6px 6px;
+  }
+
+  .whatsapp-btn__pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-full);
+    background: rgba(37, 211, 102, 0.45);
+    animation: wa-pulse 2.4s ease-out infinite;
+    z-index: 0;
+  }
+  @keyframes wa-pulse {
+    0%   { transform: scale(1); opacity: 0.7; }
+    70%  { transform: scale(1.4); opacity: 0; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+
+  .whatsapp-btn__icon {
+    position: relative;
+    z-index: 1;
+    width: 50px; height: 50px;
     border-radius: 50%;
-    background: var(--whatsapp-green);
-    color: var(--text-white);
+    background: rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow:
-      0 4px 12px rgba(0, 0, 0, 0.15),
-      0 0 0 0 rgba(37, 211, 102, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: whatsapp-pulse 2s infinite;
-  }
-  .whatsapp-btn:hover {
-    transform: scale(1.1);
-    box-shadow:
-      0 6px 20px rgba(0, 0, 0, 0.2),
-      0 0 0 0 rgba(37, 211, 102, 0);
-    animation: none;
+    flex-shrink: 0;
   }
 
-  @keyframes whatsapp-pulse {
-    0% {
-      box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.15),
-        0 0 0 0 rgba(37, 211, 102, 0.4);
-    }
-    70% {
-      box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.15),
-        0 0 0 12px rgba(37, 211, 102, 0);
-    }
-    100% {
-      box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.15),
-        0 0 0 0 rgba(37, 211, 102, 0);
-    }
+  .whatsapp-btn__label {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 0;
+    transition: max-width 0.5s var(--ease-out-expo), opacity 0.4s, margin-left 0.5s var(--ease-out-expo);
+  }
+  .whatsapp-btn:hover .whatsapp-btn__label {
+    max-width: 200px;
+    opacity: 1;
+    margin-left: 12px;
+  }
+  .whatsapp-btn__label strong {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .whatsapp-btn__label small {
+    font-size: 11px;
+    opacity: 0.85;
   }
 
   @media (min-width: 1024px) {
-    .whatsapp-btn {
-      width: 60px;
-      height: 60px;
-      bottom: 32px;
-      right: 32px;
-    }
+    .whatsapp-btn { bottom: 28px; right: 28px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-btn__pulse { animation: none; }
   }
 </style>

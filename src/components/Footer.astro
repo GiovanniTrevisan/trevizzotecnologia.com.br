@@ -1,31 +1,99 @@
 ---
 import Icon from '@/components/ui/Icon.astro';
+import { WHATSAPP_URL } from '@/data/config';
+
+const navColumns = [
+  {
+    title: 'Soluções',
+    links: [
+      { label: 'Como funciona',     href: '/#como-funciona' },
+      { label: 'O que está incluso',href: '/#beneficios-detalhe' },
+      { label: 'Resultados',        href: '/#resultados' },
+      { label: 'Preço',             href: '/#preco' },
+    ],
+  },
+  {
+    title: 'Empresa',
+    links: [
+      { label: 'Grupo Yuzan',       href: '#' },
+      { label: 'FAQ',               href: '/#faq' },
+      { label: 'Política de Privacidade', href: '/politica-de-privacidade' },
+      { label: 'Termos de Uso',     href: '/termos-de-servico' },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="container footer__inner">
-    <a href="/" class="footer__logo" aria-label="Trevizzo Soluções - Página inicial">
-      <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="180" height="55" class="footer__logo-img" />
-    </a>
-    <p class="footer__legal">
-      Trevizzo Tecnologia e Consultoria em Informática LTDA
-      <br />
-      CNPJ: 48.676.032/0001-38
-    </p>
-    <div class="footer__locations">
-      <div class="footer__location">
-        <span>Barueri/Alphaville, SP</span>
-      </div>
-      <div class="footer__location">
-        <span>Belo Horizonte, MG</span>
+  <div class="footer__top">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Brand block -->
+        <div class="footer__brand">
+          <a href="/" class="footer__logo" aria-label="Trevizzo Soluções - Página inicial">
+            <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="180" height="55" class="footer__logo-img" />
+          </a>
+          <p class="footer__pitch">
+            Democratizando a presença digital de pequenos negócios brasileiros — com tecnologia, IA e atendimento humano.
+          </p>
+          <a href={WHATSAPP_URL} class="footer__whats" target="_blank" rel="noopener noreferrer" data-cta="footer-whats">
+            <span class="footer__whats-icon"><Icon name="message-circle" size={18} /></span>
+            <span>
+              <strong>Fale com a gente</strong>
+              <small>WhatsApp · resposta em minutos</small>
+            </span>
+          </a>
+        </div>
+
+        <!-- Nav columns -->
+        {navColumns.map((col) => (
+          <div class="footer__col">
+            <h4>{col.title}</h4>
+            <ul>
+              {col.links.map((l) => (
+                <li><a href={l.href}>{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <!-- Contact -->
+        <div class="footer__col footer__col--contact">
+          <h4>Atendemos em</h4>
+          <ul>
+            <li>
+              <span class="footer__loc-icon"><Icon name="map-pin" size={14} /></span>
+              <span><strong>Barueri / Alphaville</strong><small>São Paulo · SP</small></span>
+            </li>
+            <li>
+              <span class="footer__loc-icon"><Icon name="map-pin" size={14} /></span>
+              <span><strong>Belo Horizonte</strong><small>Minas Gerais · MG</small></span>
+            </li>
+            <li>
+              <span class="footer__loc-icon"><Icon name="globe" size={14} /></span>
+              <span><strong>Atendimento remoto</strong><small>Todo o Brasil</small></span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <hr class="footer__divider" />
-    <div class="footer__bottom">
-      <span class="footer__copyright">© 2026 Trevizzo Tecnologia e Consultoria em Informática LTDA. Todos os direitos reservados.</span>
-      <div class="footer__links">
-        <a href="/politica-de-privacidade" class="footer__link">Política de Privacidade</a>
-        <a href="/termos-de-servico" class="footer__link">Termos de Uso</a>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <div class="footer__legal">
+        <span>© {year} <strong>Trevizzo Tecnologia e Consultoria em Informática LTDA</strong></span>
+        <span class="footer__legal-sep">·</span>
+        <span>CNPJ 48.676.032/0001-38</span>
+        <span class="footer__legal-sep">·</span>
+        <span class="footer__group">Empresa do <strong>Grupo Yuzan</strong></span>
+      </div>
+      <div class="footer__made">
+        <span>Feito com</span>
+        <Icon name="zap" size={12} />
+        <span>em Barueri & BH</span>
       </div>
     </div>
   </div>
@@ -33,98 +101,181 @@ import Icon from '@/components/ui/Icon.astro';
 
 <style>
   .footer {
-    background: var(--bg-dark);
-    padding: 40px 24px 32px;
-  }
-  .footer__inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
-  .footer__logo {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-  }
-  .footer__logo-img {
-    height: 44px;
-    width: auto;
-    display: block;
-  }
-  .footer__legal {
-    font-family: var(--font);
-    font-size: 13px;
+    background: var(--bg-darker);
     color: #CBD5E1;
-    text-align: center;
-    line-height: 1.6;
+    position: relative;
+    overflow: hidden;
   }
-  .footer__locations {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .footer__location {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .footer__location-icon {
-    color: #FF6B35;
-    flex-shrink: 0;
-  }
-  .footer__location span {
-    font-family: var(--font);
-    font-size: 14px;
-    color: #CBD5E1;
-  }
-  .footer__divider {
-    width: 100%;
-    border: none;
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
     height: 1px;
-    background: #1E293B;
-  }
-  .footer__bottom {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .footer__copyright {
-    font-family: var(--font);
-    font-size: 12px;
-    color: #94A3B8;
-  }
-  .footer__links {
-    display: flex;
-    gap: 16px;
-  }
-  .footer__link {
-    font-family: var(--font);
-    font-size: 12px;
-    color: #CBD5E1;
-    transition: color 0.2s;
-  }
-  .footer__link:hover {
-    color: var(--text-white);
+    background: linear-gradient(90deg, transparent, rgba(255,107,53,0.4), transparent);
   }
 
-  @media (min-width: 1024px) {
-    .footer {
-      padding: 48px 80px 40px;
+  .footer__top { padding: 64px 0 40px; }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  @media (min-width: 640px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
     }
-    .footer__logo { font-size: 24px; }
-    .footer__legal { font-size: 14px; }
-    .footer__locations { gap: 32px; }
-    .footer__bottom {
+  }
+  @media (min-width: 900px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: 32px;
+    }
+  }
+
+  /* Brand */
+  .footer__brand { display: flex; flex-direction: column; gap: 18px; }
+  .footer__logo-img { height: 44px; width: auto; }
+  .footer__pitch {
+    font-size: 14px;
+    color: #94A3B8;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+  .footer__whats {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    transition: all 0.3s var(--ease-out-expo);
+    align-self: flex-start;
+  }
+  .footer__whats:hover {
+    background: rgba(255, 107, 53, 0.10);
+    border-color: rgba(255, 107, 53, 0.3);
+    transform: translateY(-2px);
+  }
+  .footer__whats-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--grad-accent);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .footer__whats strong {
+    display: block;
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .footer__whats small {
+    display: block;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Columns */
+  .footer__col h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .footer__col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer__col li a {
+    font-size: 14px;
+    color: #94A3B8;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .footer__col li a:hover {
+    color: var(--accent);
+    transform: translateX(2px);
+  }
+
+  /* Contact */
+  .footer__col--contact ul { gap: 14px; }
+  .footer__col--contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .footer__loc-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(255, 107, 53, 0.12);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .footer__col--contact strong {
+    display: block;
+    font-size: 13.5px;
+    color: #FFFFFF;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .footer__col--contact small {
+    display: block;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Bottom */
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 22px 0;
+  }
+  .footer__bottom-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .footer__bottom-inner {
       flex-direction: row;
       justify-content: space-between;
+      text-align: left;
     }
-    .footer__copyright { font-size: 13px; }
-    .footer__link { font-size: 13px; }
-    .footer__links { gap: 24px; }
   }
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+    justify-content: center;
+  }
+  .footer__legal strong { color: #CBD5E1; font-weight: 500; }
+  .footer__legal-sep { color: rgba(255,255,255,0.2); }
+  .footer__group strong { color: var(--accent); }
+
+  .footer__made {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .footer__made :global(svg) { color: var(--accent); }
 </style>
