@@ -76,7 +76,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
           </div>
         </div>
         <div class="bento__icon bento__icon--white">
-          <Icon name="message-circle" size={22} />
+          <Icon name="whatsapp" size={22} />
         </div>
         <h3 class="bento__title bento__title--white">Botão WhatsApp integrado</h3>
         <p class="bento__desc bento__desc--white">
@@ -102,16 +102,6 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
         <h3 class="bento__title">100% responsivo</h3>
         <p class="bento__desc">
           Funciona perfeito no celular, tablet e desktop. 7 em 10 acessos vêm do mobile.
-        </p>
-      </article>
-
-      <article class="bento__cell" data-stagger>
-        <div class="bento__icon bento__icon--blue">
-          <Icon name="headphones" size={22} />
-        </div>
-        <h3 class="bento__title">Suporte humano 12 meses</h3>
-        <p class="bento__desc">
-          Alterações de texto, fotos e ajustes diretos pelo WhatsApp. Sem ticket, sem espera.
         </p>
       </article>
     </div>
@@ -179,7 +169,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
   }
 
   .bento__cell--accent {
-    background: var(--grad-accent);
+    background: linear-gradient(160deg, #41a265 0%, #3cd072 100%);
     border-color: transparent;
     color: #FFFFFF;
     min-height: 320px;
@@ -188,7 +178,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 20% 100%, rgba(255,255,255,0.18), transparent 50%);
+    background: radial-gradient(circle at 20% 100%, rgba(255,255,255,0.15), transparent 50%);
     pointer-events: none;
   }
 
@@ -247,7 +237,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
   .bento__bar {
     flex: 1;
     height: var(--h);
-    background: linear-gradient(180deg, rgba(46,90,143,0.6), rgba(30,58,95,0.3));
+    background: linear-gradient(180deg, rgba(201, 201, 201, 0.726), rgba(70, 70, 70, 0.233));
     border-radius: 6px 6px 0 0;
     animation: bar-grow 0.8s var(--ease-out-expo) both;
   }

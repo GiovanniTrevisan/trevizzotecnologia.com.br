@@ -1,0 +1,1311 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { WHATSAPP_NUMBER } from '@/data/config';
+
+const segments = [
+  { value: 'beleza', label: 'Beleza & Estética', emoji: '💇', keyword: 'salão de beleza', rating: '4.9', reviews: 142 },
+  { value: 'food', label: 'Alimentação', emoji: '🍕', keyword: 'restaurante', rating: '4.8', reviews: 287 },
+  { value: 'servicos', label: 'Serviços', emoji: '🔧', keyword: 'assistência técnica', rating: '4.9', reviews: 96 },
+  { value: 'saude', label: 'Saúde & Bem-estar', emoji: '💆', keyword: 'clínica', rating: '4.9', reviews: 168 },
+  { value: 'comercio', label: 'Comércio local', emoji: '🛒', keyword: 'loja', rating: '4.7', reviews: 212 },
+  { value: 'educacao', label: 'Educação', emoji: '📚', keyword: 'curso', rating: '5.0', reviews: 74 },
+];
+---
+
+<section class="sim section" id="playground" data-reveal>
+  <div class="mesh-bg" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <div class="container sim__container">
+    <SectionHeading
+      label="Playground interativo"
+      title="Coloca a mão na massa — descubra seu potencial no Google"
+      subtitle="Duas ferramentas. Sem cadastro. Sem enrolação. Brinque, experimente e veja o que a Trevizzo pode fazer pelo seu negócio."
+      highlight="potencial no Google"
+      variant="dark"
+    />
+
+    <div class="sim__tabs" role="tablist" aria-label="Ferramentas interativas">
+      <button class="sim__tab is-active" data-tab="preview" role="tab" aria-selected="true">
+        <Icon name="search" size={16} />
+        <span>Simulador do Google</span>
+      </button>
+      <button class="sim__tab" data-tab="roi" role="tab" aria-selected="false">
+        <Icon name="bar-chart" size={16} />
+        <span>Calculadora de ROI</span>
+      </button>
+    </div>
+
+    <!-- ============ TAB 1: SIMULADOR ============ -->
+    <div class="sim__panel is-active" data-panel="preview" role="tabpanel">
+      <div class="sim__grid">
+        <!-- Inputs -->
+        <div class="sim__controls">
+          <h3 class="sim__controls-title">
+            <span class="sim__step-num">1</span>
+            Preencha com seu negócio
+          </h3>
+          <p class="sim__controls-hint">A pré-visualização atualiza em tempo real enquanto você digita.</p>
+
+          <div class="sim__field">
+            <label for="sim-name">Nome do seu negócio</label>
+            <input id="sim-name" type="text" placeholder="Ex: Márcia Beauty Salão" maxlength="48" autocomplete="off" />
+          </div>
+
+          <div class="sim__field">
+            <label for="sim-city">Sua cidade</label>
+            <input id="sim-city" type="text" placeholder="Ex: Barueri" maxlength="32" autocomplete="off" />
+          </div>
+
+          <div class="sim__field">
+            <label>Segmento</label>
+            <div class="sim__chips" role="radiogroup" aria-label="Segmento">
+              {segments.map((s, i) => (
+                <button
+                  type="button"
+                  class={`sim__chip${i === 0 ? ' is-active' : ''}`}
+                  data-seg={s.value}
+                  data-seg-kw={s.keyword}
+                  data-seg-emoji={s.emoji}
+                  data-seg-rating={s.rating}
+                  data-seg-reviews={s.reviews}
+                  role="radio"
+                  aria-checked={i === 0 ? 'true' : 'false'}
+                >
+                  <span class="sim__chip-emoji">{s.emoji}</span>
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <!-- Score gauge -->
+          <div class="sim__score" aria-live="polite">
+            <div class="sim__score-head">
+              <span>Score de visibilidade local</span>
+              <span class="sim__score-value">
+                <span id="sim-score-now">—</span><span class="sim__score-sep">/</span><span>100</span>
+              </span>
+            </div>
+            <div class="sim__bar">
+              <div class="sim__bar-before" id="sim-bar-before" style="width: 0%;">
+                <span>hoje</span>
+              </div>
+              <div class="sim__bar-after" id="sim-bar-after" style="width: 0%;">
+                <span>com Trevizzo</span>
+              </div>
+            </div>
+            <div class="sim__score-legend">
+              <span><span class="dot dot--gray"></span> Sem presença digital</span>
+              <span><span class="dot dot--accent"></span> Após otimização</span>
+            </div>
+          </div>
+
+          <Button
+            variant="primary"
+            size="lg"
+            dataCta="sim-send"
+            id="sim-send"
+            fullWidth
+          >
+            <Icon name="message-circle" size={16} />
+            Quero isso para o meu negócio
+          </Button>
+        </div>
+
+        <!-- Live Google Mockup -->
+        <div class="sim__preview">
+          <h3 class="sim__controls-title sim__controls-title--preview">
+            <span class="sim__step-num">2</span>
+            Veja o resultado em tempo real
+          </h3>
+
+          <div class="sim__browser">
+            <div class="sim__browser-chrome">
+              <div class="sim__dots"><span></span><span></span><span></span></div>
+              <div class="sim__url"><Icon name="lock" size={11} /> google.com</div>
+            </div>
+
+            <div class="sim__browser-body">
+              <div class="sim__search">
+                <Icon name="search" size={15} />
+                <span id="sim-query">salão de beleza barueri</span>
+                <span class="sim__cursor"></span>
+              </div>
+
+              <div class="sim__filters">
+                <span class="sim__fchip is-active">Tudo</span>
+                <span class="sim__fchip">Maps</span>
+                <span class="sim__fchip">Imagens</span>
+                <span class="sim__fchip">Mais</span>
+              </div>
+
+              <div class="sim__label">3 resultados perto de você</div>
+
+              <article class="sim__result sim__result--featured" id="sim-card">
+                <div class="sim__badge">
+                  <Icon name="sparkles" size={11} />
+                  Resultado em destaque
+                </div>
+                <div class="sim__result-head">
+                  <div class="sim__avatar" id="sim-avatar">MB</div>
+                  <div>
+                    <div class="sim__result-title" id="sim-title">Márcia Beauty Salão</div>
+                    <div class="sim__result-url" id="sim-url">marciabeauty.com.br</div>
+                  </div>
+                </div>
+                <div class="sim__result-desc" id="sim-desc">
+                  Atendimento profissional em Barueri. Hora marcada, equipe experiente e ótima localização. Veja horários, avaliações e fale conosco.
+                </div>
+                <div class="sim__result-meta">
+                  <span class="sim__rating">★★★★★ <b id="sim-rating">4.9</b></span>
+                  <span>· <b id="sim-reviews">142</b> avaliações</span>
+                  <span>· Aberto agora</span>
+                </div>
+              </article>
+
+              <article class="sim__result sim__result--ghost">
+                <div class="sim__ghost-line sim__ghost-line--title"></div>
+                <div class="sim__ghost-line"></div>
+              </article>
+              <article class="sim__result sim__result--ghost">
+                <div class="sim__ghost-line sim__ghost-line--title"></div>
+                <div class="sim__ghost-line"></div>
+              </article>
+            </div>
+          </div>
+
+          <div class="sim__note">
+            <Icon name="sparkles" size={14} />
+            Isto é uma simulação. O resultado real depende de SEO técnico, Google Meu Negócio e conteúdo — e é exatamente o que a gente faz.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TAB 2: ROI ============ -->
+    <div class="sim__panel" data-panel="roi" role="tabpanel" hidden>
+      <div class="sim__grid sim__grid--roi">
+        <div class="sim__controls">
+          <h3 class="sim__controls-title">
+            <span class="sim__step-num">1</span>
+            Calcule o potencial do seu negócio
+          </h3>
+          <p class="sim__controls-hint">Mexa nos sliders com os dados do seu negócio. O gráfico atualiza sozinho.</p>
+
+          <div class="sim__slider">
+            <div class="sim__slider-head">
+              <label for="roi-ticket">Ticket médio por cliente</label>
+              <strong id="roi-ticket-val">R$ 80</strong>
+            </div>
+            <input id="roi-ticket" type="range" min="20" max="1000" step="10" value="80" />
+            <div class="sim__slider-scale"><span>R$ 20</span><span>R$ 1.000</span></div>
+          </div>
+
+          <div class="sim__slider">
+            <div class="sim__slider-head">
+              <label for="roi-clients">Clientes por mês hoje</label>
+              <strong id="roi-clients-val">40</strong>
+            </div>
+            <input id="roi-clients" type="range" min="5" max="500" step="5" value="40" />
+            <div class="sim__slider-scale"><span>5</span><span>500</span></div>
+          </div>
+
+          <div class="sim__slider">
+            <div class="sim__slider-head">
+              <label for="roi-growth">Crescimento projetado com SEO local</label>
+              <strong><span id="roi-growth-val">35</span>%</strong>
+            </div>
+            <input id="roi-growth" type="range" min="10" max="80" step="5" value="35" />
+            <div class="sim__slider-scale"><span>conservador</span><span>agressivo</span></div>
+          </div>
+
+          <div class="sim__stats">
+            <div class="sim__stat">
+              <span class="sim__stat-label">Faturamento atual/mês</span>
+              <strong class="sim__stat-value" id="roi-current">R$ 3.200</strong>
+            </div>
+            <div class="sim__stat sim__stat--highlight">
+              <span class="sim__stat-label">Projeção no 12º mês</span>
+              <strong class="sim__stat-value" id="roi-projected">R$ 4.320</strong>
+              <span class="sim__stat-delta" id="roi-delta">+R$ 1.120/mês</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim__preview">
+          <h3 class="sim__controls-title sim__controls-title--preview">
+            <span class="sim__step-num">2</span>
+            Projeção em 12 meses
+          </h3>
+
+          <div class="sim__chart" aria-hidden="true">
+            <div class="sim__chart-legend">
+              <span class="sim__legend-item sim__legend-item--gray">
+                <span class="sim__legend-line"></span>Faturamento atual
+              </span>
+              <span class="sim__legend-item sim__legend-item--orange">
+                <span class="sim__legend-line"></span>Com Trevizzo
+              </span>
+            </div>
+            <div class="sim__chart-body">
+              <div class="sim__chart-yaxis" id="roi-yaxis"></div>
+              <div class="sim__chart-main">
+                <svg id="roi-chart" viewBox="0 0 600 160" preserveAspectRatio="none" class="sim__chart-svg"></svg>
+                <div class="sim__chart-axis" id="roi-axis"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim__roi-summary">
+            <div class="sim__roi-big">
+              <span>Ganho acumulado em 12 meses</span>
+              <strong id="roi-total">R$ 13.440</strong>
+            </div>
+            <div class="sim__roi-vs">
+              <span>Investimento Trevizzo</span>
+              <strong>R$ 1.198,80</strong>
+              <small id="roi-multi">11x o investimento</small>
+            </div>
+          </div>
+
+          <Button
+            variant="primary"
+            size="lg"
+            dataCta="roi-send"
+            id="roi-send"
+            fullWidth
+          >
+            <Icon name="rocket" size={16} />
+            Quero começar a colher esses resultados
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ WHATSAPP_NUMBER }}>
+  // ============ TABS ============
+  const tabs = document.querySelectorAll('.sim__tab');
+  const panels = document.querySelectorAll('.sim__panel');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const id = tab.getAttribute('data-tab');
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach((p) => {
+        const active = p.getAttribute('data-panel') === id;
+        p.classList.toggle('is-active', active);
+        if (active) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
+      });
+    });
+  });
+
+  // ============ SIMULATOR ============
+  const nameEl = document.getElementById('sim-name');
+  const cityEl = document.getElementById('sim-city');
+  const chips = document.querySelectorAll('.sim__chip');
+  const titleEl = document.getElementById('sim-title');
+  const urlEl = document.getElementById('sim-url');
+  const descEl = document.getElementById('sim-desc');
+  const queryEl = document.getElementById('sim-query');
+  const avatarEl = document.getElementById('sim-avatar');
+  const ratingEl = document.getElementById('sim-rating');
+  const reviewsEl = document.getElementById('sim-reviews');
+  const scoreNow = document.getElementById('sim-score-now');
+  const barBefore = document.getElementById('sim-bar-before');
+  const barAfter = document.getElementById('sim-bar-after');
+  const card = document.getElementById('sim-card');
+
+  let state = {
+    name: '',
+    city: '',
+    seg: 'beleza',
+    kw: 'salão de beleza',
+    emoji: '💇',
+    rating: '4.9',
+    reviews: 142,
+  };
+
+  function slugifyDomain(name) {
+    if (!name) return 'seunegocio.com.br';
+    const s = name.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '')
+      .slice(0, 22);
+    return (s || 'seunegocio') + '.com.br';
+  }
+
+  function initials(name) {
+    if (!name) return 'SN';
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
+  function randomScoreBefore() {
+    // pseudo-random stable score based on name length
+    const name = (state.name || '').length;
+    return 18 + ((name * 3) % 22); // 18-40
+  }
+
+  function render() {
+    const displayName = state.name || 'Seu Negócio';
+    const displayCity = state.city || 'sua cidade';
+    const kw = state.kw;
+
+    titleEl.textContent = displayName;
+    urlEl.textContent = slugifyDomain(state.name);
+    descEl.textContent =
+      `${displayName} — atendimento profissional em ${displayCity}. Equipe qualificada, horários flexíveis e ótima localização. Veja avaliações, horários e fale direto pelo WhatsApp.`;
+    queryEl.textContent = `${kw} ${displayCity.toLowerCase()}`.trim();
+    avatarEl.textContent = initials(state.name);
+    ratingEl.textContent = state.rating;
+    reviewsEl.textContent = String(state.reviews);
+
+    const before = randomScoreBefore();
+    const after = 88 + ((state.name || '').length % 10); // 88-97
+
+    barBefore.style.width = before + '%';
+    barAfter.style.width = after + '%';
+
+    // Animate the "now" number
+    animateNumber(scoreNow, before, after);
+
+    // Pulse card
+    card.classList.remove('is-pulsing');
+    void card.offsetWidth;
+    card.classList.add('is-pulsing');
+  }
+
+  let animHandle = null;
+  function animateNumber(el, from, to) {
+    if (animHandle) cancelAnimationFrame(animHandle);
+    const start = performance.now();
+    const dur = 900;
+    function tick(now) {
+      const p = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const v = Math.round(from + (to - from) * eased);
+      el.textContent = String(v);
+      if (p < 1) animHandle = requestAnimationFrame(tick);
+    }
+    animHandle = requestAnimationFrame(tick);
+  }
+
+  if (nameEl) nameEl.addEventListener('input', (e) => { state.name = e.target.value; render(); });
+  if (cityEl) cityEl.addEventListener('input', (e) => { state.city = e.target.value; render(); });
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => { c.classList.remove('is-active'); c.setAttribute('aria-checked', 'false'); });
+      chip.classList.add('is-active');
+      chip.setAttribute('aria-checked', 'true');
+      state.seg = chip.getAttribute('data-seg');
+      state.kw = chip.getAttribute('data-seg-kw');
+      state.emoji = chip.getAttribute('data-seg-emoji');
+      state.rating = chip.getAttribute('data-seg-rating');
+      state.reviews = parseInt(chip.getAttribute('data-seg-reviews'), 10);
+      render();
+    });
+  });
+
+  render();
+
+  // CTA do simulador -> WhatsApp pré-preenchido
+  const simSend = document.getElementById('sim-send');
+  if (simSend) {
+    simSend.addEventListener('click', () => {
+      const lines = [
+        'Olá! Brinquei com o simulador do site e queria ver isso acontecer de verdade 🚀',
+        '',
+        '*Negócio:* ' + (state.name || '(vou te contar)'),
+        '*Cidade:* ' + (state.city || '(vou te contar)'),
+        '*Segmento:* ' + state.kw,
+      ];
+      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+
+  // ============ ROI CALCULATOR ============
+  const ticketEl = document.getElementById('roi-ticket');
+  const clientsEl = document.getElementById('roi-clients');
+  const growthEl = document.getElementById('roi-growth');
+  const ticketVal = document.getElementById('roi-ticket-val');
+  const clientsVal = document.getElementById('roi-clients-val');
+  const growthVal = document.getElementById('roi-growth-val');
+  const currentEl = document.getElementById('roi-current');
+  const projectedEl = document.getElementById('roi-projected');
+  const deltaEl = document.getElementById('roi-delta');
+  const totalEl = document.getElementById('roi-total');
+  const multiEl = document.getElementById('roi-multi');
+  const axisEl = document.getElementById('roi-axis');
+  const yaxisEl = document.getElementById('roi-yaxis');
+
+  const BRL = (n) => n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+
+  function renderROI() {
+    const ticket = parseInt(ticketEl.value, 10);
+    const clients = parseInt(clientsEl.value, 10);
+    const growth = parseInt(growthEl.value, 10);
+
+    ticketVal.textContent = BRL(ticket);
+    clientsVal.textContent = clients;
+    growthVal.textContent = growth;
+
+    const current = ticket * clients;
+    // Mês 1-6: ramp-up ease-out (salto maior nos primeiros meses).
+    // Mês 7-12: crescimento contínuo sutil (+1,5% a.m. simples sobre o plateau).
+    const months = 12;
+    const ramp = [];
+    for (let i = 0; i < months; i++) {
+      const monthIdx = i + 1;
+      let factor;
+      if (monthIdx <= 6) {
+        const p = monthIdx / 6;
+        const eased = 1 - Math.pow(1 - p, 2);
+        factor = 1 + (growth / 100) * eased;
+      } else {
+        const extra = (monthIdx - 6) * 0.015;
+        factor = (1 + growth / 100) * (1 + extra);
+      }
+      ramp.push({ month: monthIdx, value: Math.round(current * factor), base: current });
+    }
+
+    const projected = ramp[ramp.length - 1].value;
+    const delta = projected - current;
+    const totalGain = ramp.reduce((acc, m) => acc + (m.value - m.base), 0);
+    const invest = 1198.8;
+    const multi = Math.max(1, Math.round(totalGain / invest));
+
+    currentEl.textContent = BRL(current);
+    projectedEl.textContent = BRL(projected);
+    deltaEl.textContent = '+' + BRL(delta) + '/mês';
+    totalEl.textContent = BRL(totalGain);
+    multiEl.textContent = multi + 'x o investimento';
+
+    // render SVG line chart
+    const labels = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    axisEl.innerHTML = labels.slice(0, months).map((l) => `<span>${l}</span>`).join('');
+
+    const svg = document.getElementById('roi-chart');
+    if (!svg) return;
+    const W = 600, H = 160;
+    const padL = 4, padR = 4, padT = 12, padB = 8;
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
+
+    const allVals = ramp.flatMap((m) => [m.base, m.value]);
+    const minVal = Math.min(...allVals) * 0.88;
+    const maxVal = Math.max(...allVals) * 1.06;
+
+    const xS = (i) => padL + (i / (months - 1)) * chartW;
+    const yS = (v) => padT + chartH - ((v - minVal) / (maxVal - minVal)) * chartH;
+
+    const basePts = ramp.map((m, i) => [xS(i), yS(m.base)]);
+    const growPts = ramp.map((m, i) => [xS(i), yS(m.value)]);
+
+    function smoothPath(pts) {
+      let d = `M ${pts[0][0]},${pts[0][1]}`;
+      for (let i = 0; i < pts.length - 1; i++) {
+        const cx1 = pts[i][0] + (pts[i+1][0] - pts[i][0]) / 3;
+        const cx2 = pts[i+1][0] - (pts[i+1][0] - pts[i][0]) / 3;
+        d += ` C ${cx1},${pts[i][1]} ${cx2},${pts[i+1][1]} ${pts[i+1][0]},${pts[i+1][1]}`;
+      }
+      return d;
+    }
+
+    function areaPath(pts) {
+      const bot = padT + chartH;
+      return smoothPath(pts) + ` L ${pts[pts.length-1][0]},${bot} L ${pts[0][0]},${bot} Z`;
+    }
+
+    const gridLines = [0.25, 0.5, 0.75, 1].map((f) => {
+      const y = padT + chartH - f * chartH;
+      return `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>`;
+    }).join('');
+
+    // Y-axis labels — alinhados exatamente às gridlines do SVG.
+    // Nota: usamos o seletor descendente `.sim__chart-yaxis span` no CSS porque
+    // classes aplicadas via innerHTML perdem o hash de escopo do Astro.
+    if (yaxisEl) {
+      const BRLshort = (n) => {
+        if (n >= 1000) return 'R$\u00a0' + (n / 1000).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + 'k';
+        return 'R$\u00a0' + n.toLocaleString('pt-BR');
+      };
+      const yFracs = [1, 0.75, 0.5, 0.25];
+      yaxisEl.innerHTML = yFracs.map((f) => {
+        const val = Math.round(minVal + f * (maxVal - minVal));
+        const topPx = padT + chartH - f * chartH;
+        return `<span style="color: #94A3B8; font-size: 13px;">${BRLshort(val)}</span>`;
+      }).join('');
+    }
+
+    const lb = basePts[basePts.length - 1];
+    const lg = growPts[growPts.length - 1];
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="grad-orange" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FF6B35" stop-opacity="0.30"/>
+          <stop offset="100%" stop-color="#FF6B35" stop-opacity="0.02"/>
+        </linearGradient>
+        <linearGradient id="grad-gray" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#94A3B8" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.02"/>
+        </linearGradient>
+        <filter id="glow-orange">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      ${gridLines}
+      <path d="${areaPath(basePts)}" fill="url(#grad-gray)"/>
+      <path d="${areaPath(growPts)}" fill="url(#grad-orange)"/>
+      <path d="${smoothPath(basePts)}" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>
+      <path d="${smoothPath(growPts)}" fill="none" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-orange)"/>
+      <circle cx="${lb[0]}" cy="${lb[1]}" r="4" fill="#94A3B8" stroke="#0F1B30" stroke-width="2"/>
+      <circle cx="${lg[0]}" cy="${lg[1]}" r="5" fill="#FF6B35" stroke="#0F1B30" stroke-width="2" filter="url(#glow-orange)"/>
+    `;
+  }
+
+  [ticketEl, clientsEl, growthEl].forEach((el) => {
+    if (el) el.addEventListener('input', renderROI);
+  });
+  if (ticketEl) renderROI();
+
+  const roiSend = document.getElementById('roi-send');
+  if (roiSend) {
+    roiSend.addEventListener('click', () => {
+      const ticket = parseInt(ticketEl.value, 10);
+      const clients = parseInt(clientsEl.value, 10);
+      const growth = parseInt(growthEl.value, 10);
+      const lines = [
+        'Olá! Calculei meu ROI pelo site da Trevizzo 📊',
+        '',
+        '*Ticket médio:* ' + BRL(ticket),
+        '*Clientes/mês hoje:* ' + clients,
+        '*Crescimento alvo:* ' + growth + '%',
+        '*Potencial anual:* ' + totalEl.textContent,
+        '',
+        'Quero conversar sobre o pacote de landing page + SEO.',
+      ];
+      const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+</script>
+
+<style>
+  .sim {
+    background: var(--grad-dark);
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sim__container { position: relative; z-index: 1; }
+
+  /* Tabs */
+  .sim__tabs {
+    display: inline-flex;
+    margin: 48px auto 32px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: var(--radius-full);
+    gap: 4px;
+  }
+  .sim__tabs {
+    display: flex;
+    width: max-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .sim__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-full);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #CBD5E1;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .sim__tab:hover { color: #FFFFFF; }
+  .sim__tab.is-active {
+    background: var(--grad-accent);
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.35);
+  }
+  @media (max-width: 480px) {
+    .sim__tab { padding: 10px 14px; font-size: 12.5px; }
+    .sim__tab span { display: inline; }
+  }
+
+  .sim__panel { animation: sim-fade 0.5s var(--ease-out-expo); }
+  .sim__panel[hidden] { display: none; }
+  @keyframes sim-fade {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .sim__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .sim__grid { grid-template-columns: 0.95fr 1.05fr; gap: 48px; }
+  }
+
+  .sim__controls,
+  .sim__preview {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-2xl);
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+  }
+  @media (min-width: 768px) {
+    .sim__controls, .sim__preview { padding: 32px; }
+  }
+
+  .sim__controls-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: var(--tracking-tight);
+  }
+  .sim__step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--grad-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
+  }
+  .sim__controls-hint {
+    font-size: 13.5px;
+    color: #94A3B8;
+    margin-top: -10px;
+    line-height: 1.5;
+  }
+
+  /* Fields */
+  .sim__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sim__field label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #CBD5E1;
+    letter-spacing: 0.01em;
+  }
+  .sim__field input[type="text"] {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: var(--radius-md);
+    padding: 13px 16px;
+    font-size: 14.5px;
+    color: #FFFFFF;
+    font-family: var(--font);
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    width: 100%;
+  }
+  .sim__field input[type="text"]::placeholder { color: #64748B; }
+  .sim__field input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+  }
+
+  /* Chips (segments) */
+  .sim__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .sim__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 500;
+    color: #CBD5E1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    transition: all 0.25s var(--ease-out-expo);
+    cursor: pointer;
+  }
+  .sim__chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+  }
+  .sim__chip.is-active {
+    color: #FFFFFF;
+    background: rgba(255, 107, 53, 0.18);
+    border-color: rgba(255, 107, 53, 0.55);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+  }
+  .sim__chip-emoji { font-size: 14px; line-height: 1; }
+
+  /* Score */
+  .sim__score {
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .sim__score-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #CBD5E1;
+  }
+  .sim__score-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .sim__score-sep { color: #475569; font-weight: 500; margin: 0 2px; }
+  .sim__bar {
+    position: relative;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  .sim__bar-before, .sim__bar-after {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #FFFFFF;
+    transition: width 0.9s var(--ease-out-expo);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .sim__bar-before {
+    background: rgba(148, 163, 184, 0.25);
+    z-index: 1;
+    color: #CBD5E1;
+  }
+  .sim__bar-after {
+    background: var(--grad-accent);
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+  }
+  .sim__score-legend {
+    display: flex;
+    gap: 16px;
+    font-size: 11.5px;
+    color: #94A3B8;
+  }
+  .sim__score-legend .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .dot--gray { background: rgba(148, 163, 184, 0.5); }
+  .dot--accent { background: var(--accent); }
+
+  /* Browser Mockup (in simulator) */
+  .sim__browser {
+    background: linear-gradient(180deg, #1A2D4A 0%, #0F1B30 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+  .sim__browser-chrome {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .sim__dots { display: flex; gap: 5px; }
+  .sim__dots span {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+  }
+  .sim__dots span:nth-child(1) { background: #FF5F57; }
+  .sim__dots span:nth-child(2) { background: #FEBC2E; }
+  .sim__dots span:nth-child(3) { background: #28C840; }
+  .sim__url {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 7px;
+    font-size: 11.5px;
+    color: #94A3B8;
+  }
+  .sim__browser-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .sim__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    color: #CBD5E1;
+    font-size: 13.5px;
+  }
+  .sim__search :global(svg) { color: #64748B; flex-shrink: 0; }
+  .sim__search > span:first-of-type + span { flex: 1; }
+  .sim__cursor {
+    flex: 0 1 auto !important;
+    width: 1.5px; height: 13px;
+    background: var(--accent);
+    animation: blink 1s steps(1) infinite;
+  }
+  .sim__filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sim__fchip {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    color: #94A3B8;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .sim__fchip.is-active {
+    color: var(--accent);
+    background: rgba(255, 107, 53, 0.10);
+    border-color: rgba(255, 107, 53, 0.25);
+  }
+  .sim__label {
+    font-size: 11px;
+    color: #64748B;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .sim__result {
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .sim__result--featured {
+    background:
+      radial-gradient(circle at top right, rgba(255,107,53,0.18) 0%, transparent 60%),
+      rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 107, 53, 0.32);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s;
+  }
+  .sim__result--featured.is-pulsing {
+    animation: sim-pulse 0.7s var(--ease-out-expo);
+  }
+  @keyframes sim-pulse {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.015); box-shadow: 0 16px 40px rgba(255, 107, 53, 0.35); }
+    100% { transform: scale(1); }
+  }
+  .sim__badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    background: rgba(255, 107, 53, 0.15);
+    padding: 4px 9px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .sim__result-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sim__avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--grad-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #FFFFFF;
+    flex-shrink: 0;
+    transition: transform 0.35s var(--ease-out-back);
+  }
+  .is-pulsing .sim__avatar { transform: scale(1.15) rotate(-4deg); }
+  .sim__result-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1.2;
+  }
+  .sim__result-url {
+    font-size: 11.5px;
+    color: #4ADE80;
+    margin-top: 2px;
+  }
+  .sim__result-desc {
+    font-size: 12px;
+    color: #94A3B8;
+    line-height: 1.55;
+  }
+  .sim__result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: 11px;
+    color: #64748B;
+  }
+  .sim__rating { color: #FBBF24; font-weight: 700; }
+
+  .sim__result--ghost { gap: 8px; padding: 12px; }
+  .sim__ghost-line {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    width: 90%;
+  }
+  .sim__ghost-line--title {
+    height: 11px;
+    width: 55%;
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .sim__note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: #64748B;
+    line-height: 1.5;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+  }
+  .sim__note :global(svg) { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+  /* ============ ROI SLIDERS ============ */
+  .sim__slider { display: flex; flex-direction: column; gap: 8px; }
+  .sim__slider-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 13px;
+    color: #CBD5E1;
+  }
+  .sim__slider-head strong {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .sim__slider input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    outline: none;
+    cursor: pointer;
+  }
+  .sim__slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--grad-accent);
+    border: 3px solid #FFFFFF;
+    cursor: grab;
+    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.5);
+    transition: transform 0.2s;
+  }
+  .sim__slider input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
+  .sim__slider input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #FF6B35;
+    border: 3px solid #FFFFFF;
+    cursor: grab;
+    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.5);
+  }
+  .sim__slider-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: #64748B;
+    letter-spacing: 0.04em;
+  }
+
+  .sim__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .sim__stat {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sim__stat--highlight {
+    background:
+      radial-gradient(circle at top right, rgba(255,107,53,0.2) 0%, transparent 70%),
+      rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 107, 53, 0.4);
+  }
+  .sim__stat-label {
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .sim__stat-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .sim__stat--highlight .sim__stat-value {
+    background: var(--grad-text-accent);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sim__stat-delta {
+    font-size: 11.5px;
+    color: var(--success);
+    font-weight: 700;
+  }
+
+  /* Chart */
+  .sim__chart {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-lg);
+    padding: 14px 12px 8px;
+    overflow: hidden;
+  }
+  .sim__chart-legend {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-bottom: 2px;
+  }
+  .sim__legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+    letter-spacing: 0.04em;
+  }
+  .sim__legend-line {
+    display: inline-block;
+    width: 22px;
+    height: 2.5px;
+    border-radius: 2px;
+  }
+  .sim__legend-item--gray .sim__legend-line { background: #94A3B8; }
+  .sim__legend-item--orange .sim__legend-line { background: #FF6B35; box-shadow: 0 0 6px rgba(255,107,53,0.6); }
+  .sim__chart-body {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+  }
+  .sim__chart-yaxis {
+    width: 54px;
+    height: 160px; /* igual ao sim__chart-svg */
+    flex-shrink: 0;
+    align-self: flex-start;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    margin-right: 2px;
+    flex-direction: column;
+    display: flex;
+    gap: 15px;
+  }
+  /* descendant selector — evita o problema de escopo do Astro para elementos
+     inseridos via innerHTML pelo JS (classes diretas perdem o hash de escopo) */
+  .sim__chart-yaxis span, .chart_aux {
+    right: 8px;
+    transform: translateY(-50%);
+    font-weight: 600;
+    color: #94A3B8;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+
+  }
+  .sim__chart-yaxis span::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    width: 4px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .sim__chart-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sim__chart-svg {
+    width: 100%;
+    height: 160px;
+    display: block;
+    overflow: visible;
+  }
+  .sim__chart-axis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5px;
+    color: #64748B;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .sim__chart-axis span { flex: 1; text-align: center; }
+
+  .sim__roi-summary {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 480px) {
+    .sim__roi-summary { grid-template-columns: 1fr; }
+  }
+  .sim__roi-big, .sim__roi-vs {
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sim__roi-big {
+    background: var(--grad-accent);
+    box-shadow: 0 12px 30px rgba(255, 107, 53, 0.35);
+  }
+  .sim__roi-big span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .sim__roi-big strong {
+    font-size: 26px;
+    color: #FFFFFF;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .sim__roi-vs {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sim__roi-vs span {
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .sim__roi-vs strong {
+    font-size: 18px;
+    color: #FFFFFF;
+    font-weight: 700;
+  }
+  .sim__roi-vs small {
+    font-size: 11.5px;
+    color: var(--success);
+    font-weight: 700;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sim__result--featured, .sim__avatar, .sim__cbar, .sim__cbar-base, .sim__cbar-gain,
+    .sim__bar-before, .sim__bar-after {
+      transition: none !important;
+    }
+    .sim__cursor { animation: none; }
+  }
+</style>
