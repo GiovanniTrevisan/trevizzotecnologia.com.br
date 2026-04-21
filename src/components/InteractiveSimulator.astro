@@ -665,6 +665,8 @@ const segments = [
     grid-template-columns: 1fr;
     gap: 32px;
     align-items: start;
+    width: 100%;
+    min-width: 0;
   }
   @media (min-width: 960px) {
     .sim__grid { grid-template-columns: 0.95fr 1.05fr; gap: 48px; }
@@ -682,6 +684,10 @@ const segments = [
     flex-direction: column;
     gap: 18px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    min-width: 0;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
   @media (min-width: 768px) {
     .sim__controls, .sim__preview { padding: 32px; }
@@ -863,6 +869,9 @@ const segments = [
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.55),
       0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .sim__browser-chrome {
     display: flex;
@@ -1161,6 +1170,9 @@ const segments = [
     border-radius: var(--radius-lg);
     padding: 14px 12px 8px;
     overflow: hidden;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   .sim__chart-legend {
     display: flex;
@@ -1189,6 +1201,8 @@ const segments = [
     display: flex;
     gap: 6px;
     align-items: stretch;
+    min-width: 0;
+    width: 100%;
   }
   .sim__chart-yaxis {
     width: 54px;
@@ -1253,6 +1267,31 @@ const segments = [
   }
   @media (max-width: 480px) {
     .sim__roi-summary { grid-template-columns: 1fr; }
+
+    /* ROI: stats empilhados */
+    .sim__stats { grid-template-columns: 1fr; }
+
+    /* ROI: label longa do slider quebra antes do valor */
+    .sim__slider-head { flex-wrap: wrap; gap: 2px; }
+    .sim__slider-head label { font-size: 12px; line-height: 1.3; }
+    .sim__slider-head strong { font-size: 16px; }
+
+    /* ROI: valores menores para caber na tela */
+    .sim__stat-value { font-size: 18px; }
+    .sim__roi-big strong { font-size: 22px; }
+    .sim__roi-vs strong { font-size: 16px; }
+
+    /* Chart: eixo Y mais estreito, labels menores */
+    .sim__chart-yaxis { width: 40px; }
+    .sim__chart-axis { font-size: 7.5px; letter-spacing: 0; }
+
+    .sim__controls-title { font-size: 15px; }
+  }
+
+  @media (max-width: 380px) {
+    .sim__controls, .sim__preview { padding: 18px 14px; }
+    .sim__chart-svg { height: 130px; }
+    .sim__chart-yaxis { height: 130px; }
   }
   .sim__roi-big, .sim__roi-vs {
     padding: 16px 18px;
