@@ -66,19 +66,23 @@ const stats = [
       ))}
     </div>
 
-    <!-- Big stats strip -->
-    <div class="problem__bigstats">
+    <!-- Big stats strip (semantic <dl>) -->
+    <dl class="problem__bigstats" role="list" aria-label="Estatísticas principais">
       {stats.map((s) => (
-        <div class="problem__bigstat" data-stagger>
-          <strong
-            data-count-to={s.value}
-            data-count-suffix={s.suffix}
-            data-count-decimals={s.decimals}
-          >0{s.suffix}</strong>
-          <span>{s.label}</span>
+        <div class="problem__bigstat" data-stagger role="listitem">
+          <dt>
+            <strong
+              class="problem__stat-value"
+              data-count-to={s.value}
+              data-count-suffix={s.suffix}
+              data-count-decimals={s.decimals}
+              aria-live="polite"
+            >0{s.suffix}</strong>
+          </dt>
+          <dd class="problem__stat-label">{s.label}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   </div>
 </section>
 
@@ -184,14 +188,17 @@ const stats = [
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-soft);
+    /* glassy card like FinalCTA */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1.5px solid rgba(232, 90, 37, 0.4);
     border-radius: var(--radius-2xl);
     padding: 36px 24px;
     color: var(--text-primary);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 0 60px rgba(232, 90, 37, 0.12), var(--shadow-xl);
   }
   .problem__bigstats::before {
     content: '';
@@ -210,24 +217,31 @@ const stats = [
   .problem__bigstat {
     text-align: center;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  .problem__bigstat strong {
+  .problem__bigstat dt { margin: 0; }
+  .problem__bigstat dt .problem__stat-value,
+  .problem__bigstat dt strong {
     display: block;
     font-size: clamp(32px, 4vw, 48px);
     font-weight: 800;
     color: var(--accent);
     letter-spacing: var(--tracking-tighter);
     line-height: 1;
-    transition: transform 0.3s ease;
+    transition: transform 0.24s var(--ease-out-back), color 0.18s ease;
   }
-  .problem__bigstat strong:hover {
-    transform: scale(1.1);
-  }
-  .problem__bigstat span {
+  .problem__bigstat dt .problem__stat-value:hover { transform: scale(1.06); }
+  .problem__bigstat dd {
+    margin: 0;
     display: block;
     font-size: 13px;
     margin-top: 6px;
     color: var(--text-secondary);
     line-height: 1.4;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .problem__bigstat dt .problem__stat-value { transition: none !important; }
   }
 </style>
