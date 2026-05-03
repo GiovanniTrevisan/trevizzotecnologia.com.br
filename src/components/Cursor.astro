@@ -6,23 +6,31 @@
  */
 ---
 
-<div id="cursor-outer" class="cursor cursor--outer" aria-hidden="true"></div>
-<div id="cursor-dot"   class="cursor cursor--dot"   aria-hidden="true"></div>
+<div id="cursor-outer" class="cursor cursor--outer" aria-hidden="true">
+  <div class="cursor--outer-ring" aria-hidden="true"></div>
+</div>
+<div id="cursor-dot-wrap" class="cursor cursor--dot-wrap" aria-hidden="true">
+  <div id="cursor-dot" class="cursor cursor--dot" aria-hidden="true"></div>
+</div>
 
 <script>
 (function () {
   'use strict';
 
   // ————————————————————————————————————————————
-  //  Skip on touch-only / reduced-motion devices
+  //  Skip on touch-only devices; respect reduced-motion but still render
+  //  a simplified cursor (reduced visual intensity) instead of hiding it.
   // ————————————————————————————————————————————
   const isTouch = window.matchMedia('(hover: none)').matches;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (isTouch || reduceMotion) return;
+  if (isTouch) return;
+  const REDUCE_MOTION = reduceMotion;
 
   const outer = document.getElementById('cursor-outer') as HTMLElement;
-  const dot    = document.getElementById('cursor-dot')   as HTMLElement;
-  if (!outer || !dot) return;
+  const outerRing = outer ? outer.querySelector('.cursor--outer-ring') as HTMLElement : null;
+  const dotWrap = document.getElementById('cursor-dot-wrap') as HTMLElement;
+  const dot    = dotWrap ? dotWrap.querySelector('#cursor-dot') as HTMLElement : null;
+  if (!outer || !outerRing || !dotWrap || !dot) return;
 
   // ————————————————————————————————————————————
   //  State
@@ -45,6 +53,7 @@
     mx = e.clientX;
     my = e.clientY;
     outer.style.opacity = '1';
+    dotWrap.style.opacity = '1';
     dot.style.opacity = '1';
   }, { passive: true });
 
@@ -126,9 +135,10 @@
   mo.observe(document.body, { childList: true, subtree: true });
 
   // ————————————————————————————————————————————
-  //  Main render loop — lerp outer ring toward mouse
+  //  Main render loop — lerp outer ring toward mouse. Reduced-motion
+  //  users get an immediate (non-lagged) follow to minimize perceived motion.
   // ————————————————————————————————————————————
-  const LERP = 0.12;
+  const LERP = REDUCE_MOTION ? 1 : 0.12;
 
   function lerp(a: number, b: number, t: number): number { return a + (b - a) * t; }
 
@@ -139,8 +149,13 @@
     ox = lerp(ox, mx, LERP);
     oy = lerp(oy, my, LERP);
 
-    (outer as HTMLElement).style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%) scale(${outerScale})`;
-    (dot as HTMLElement).style.transform   = `translate(${mx}px, ${my}px) translate(-50%, -50%) scale(${dotScale})`;
+    // Position outer container (no scale here) so translation is immediate and smooth
+    outer.style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%)`;
+    // Apply scale and subtle magnet offset to the visual ring (this will transition via CSS)
+    outerRing!.style.transform = `translate(${magnetOffX}px, ${magnetOffY}px) scale(${outerScale})`;
+    // Dot: position container follows pointer instantly; the inner dot only scales (animates on click)
+    dotWrap!.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    dot!.style.transform = `scale(${dotScale})`;
   }
 
   rafId = requestAnimationFrame(tick);
@@ -150,10 +165,12 @@
   // ————————————————————————————————————————————
   document.addEventListener('mouseleave', () => {
     outer.style.opacity = '0';
+    dotWrap.style.opacity = '0';
     dot.style.opacity   = '0';
   });
   document.addEventListener('mouseenter', () => {
     outer.style.opacity = '1';
+    dotWrap.style.opacity = '1';
     dot.style.opacity   = '1';
   });
 
@@ -182,10 +199,20 @@
     will-change: transform;
     opacity: 0;
     transition: opacity 0.3s ease;
+    display: block;
   }
 
-  /* Outer glow ring */
+  /* Outer container — handles translation only. Keep same size as visual ring so
+     translate(-50%, -50%) centers correctly. */
   .cursor--outer {
+    width: 42px;
+    height: 42px;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Outer glow ring (visual) — scale and shadow transitions live here */
+  .cursor--outer-ring {
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -195,22 +222,53 @@
       0 0 28px rgba(232, 90, 37, 0.25),
       inset 0 0 8px rgba(232, 90, 37, 0.1);
     background: rgba(232, 90, 37, 0.04);
+    transform-origin: center;
+    will-change: transform, box-shadow;
     transition:
-      transform 0s,
+      transform 220ms var(--ease-out-back),
+      box-shadow 220ms var(--ease-out-back),
       width 0.25s var(--ease-out-expo),
       height 0.25s var(--ease-out-expo),
       border-color 0.3s ease,
-      box-shadow 0.3s ease,
       opacity 0.3s ease;
   }
 
-  /* Inner dot */
+  /* Dot wrapper (handles translation only) */
+  .cursor--dot-wrap { width: 7px; height: 7px; display: block; pointer-events: none; }
+
+  /* Inner dot (visual) — scale animates on click, translation is instant via the wrapper */
   .cursor--dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 10px rgba(232, 90, 37, 0.8);
-    transition: transform 0s, opacity 0.3s ease;
+    transform-origin: center;
+    will-change: transform, opacity, box-shadow;
+    transition: transform 180ms var(--ease-out-back), opacity 0.2s ease, box-shadow 180ms var(--ease-out-back);
+  }
+
+  /* Small-screen: reduce ring glow and size */
+  @media (max-width: 640px) {
+    .cursor--outer-ring {
+      opacity: 0.55;
+      box-shadow: 0 0 6px rgba(232, 90, 37, 0.12);
+      width: 34px;
+      height: 34px;
+      border-width: 1px;
+    }
+    .cursor--dot { box-shadow: 0 0 6px rgba(232, 90, 37, 0.6); width: 6px; height: 6px; }
+  }
+
+  /* Respect prefers-reduced-motion: remove decorative glow and heavy transitions */
+  @media (prefers-reduced-motion: reduce) {
+    .cursor--outer-ring {
+      box-shadow: none !important;
+      opacity: 0.6 !important;
+      transition: none !important;
+    }
+    .cursor--dot {
+      transition: none !important;
+    }
   }
 </style>
