@@ -1,66 +1,77 @@
 /* =====================================================================
    Trevizzo Soluções — Design Tokens & Global Styles
-   Identidade visual: Azul (#1E3A5F) + Laranja (#FF6B35) · Tipografia: Poppins
+   Dark Luxury Palette: #060B17 base · #E85A25 accent · Poppins
    ===================================================================== */
 
 :root {
-  /* —— Brand colors —— */
-  --primary: #1E3A5F;
-  --primary-light: #2E5A8F;
-  --primary-deep: #142844;
-  --accent: #FF6B35;
-  --accent-hover: #E85A25;
-  --accent-soft: #FFE8DC;
-  --success: #22C55E;
+  /* —— Brand colors (5-token system) —— */
+  --bg-base:    #060B17;   /* absolute dark — page background              */
+  --bg-surface: #142844;   /* navy surface — section contrast / card bases */
+  --accent:     #E85A25;   /* burnt orange — single warm accent             */
+  --accent-soft:#FFE8DC;   /* warm cream — checkmarks, trust pills, success */
+  --text-primary: #F6F8FC; /* near-white — headlines and body copy          */
+
+  /* —— Aliases (backward compat + helpers) —— */
+  --primary:       #142844;
+  --primary-light: #1E3A5F;
+  --primary-deep:  #0D1F38;
+  --accent-hover:  #C94D1C;
   --whatsapp-green: #25D366;
 
-  /* —— Surfaces / text —— */
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
-  --text-white: #FFFFFF;
-  --bg-white: #FFFFFF;
-  --bg-alt: #F6F8FC;
-  --bg-soft: #EEF2F8;
-  --bg-dark: #0B1426;
+  /* —— Text scale —— */
+  --text-secondary: rgba(246, 248, 252, 0.72);
+  --text-muted:     rgba(246, 248, 252, 0.45);
+  --text-white:     #F6F8FC;
+
+  /* —— Surface aliases (backward compat) —— */
+  --bg-white:  #142844;   /* was white — now navy surface                  */
+  --bg-alt:    #0D1B30;   /* slightly darker navy for alternating sections */
+  --bg-soft:   #0F2035;   /* subtle in-between                             */
+  --bg-dark:   #060B17;
   --bg-darker: #060B17;
-  --border-soft: rgba(15, 23, 42, 0.08);
-  --border-medium: rgba(15, 23, 42, 0.14);
+
+  /* —— Borders (dark-on-dark) —— */
+  --border-soft:   rgba(246, 248, 252, 0.06);
+  --border-medium: rgba(246, 248, 252, 0.12);
+  --border-accent: rgba(232, 90, 37, 0.25);
+
+  /* —— Glassmorphism tokens —— */
+  --glass-bg:     rgba(20, 40, 68, 0.45);
+  --glass-blur:   20px;
+  --glass-border: 1px solid rgba(232, 90, 37, 0.18);
+  --glass-radius: 20px;
 
   /* —— Typography —— */
   --font: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --tracking-tight: -0.02em;
+  --tracking-tight:   -0.02em;
   --tracking-tighter: -0.035em;
-  --tracking-wide: 0.08em;
+  --tracking-wide:    0.08em;
 
   /* —— Radius —— */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  18px;
+  --radius-xl:  24px;
   --radius-2xl: 32px;
   --radius-full: 9999px;
 
-  /* —— Shadows —— */
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.10);
-  --shadow-xl: 0 24px 72px rgba(15, 23, 42, 0.14);
-  --shadow-glow-accent: 0 12px 36px rgba(255, 107, 53, 0.32);
-  --shadow-glow-primary: 0 12px 36px rgba(30, 58, 95, 0.30);
+  /* —— Shadows (dark-surface oriented) —— */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 24px 72px rgba(0, 0, 0, 0.6);
+  --shadow-glow-accent:  0 0 40px rgba(232, 90, 37, 0.35);
+  --shadow-glow-primary: 0 0 40px rgba(20, 40, 68, 0.6);
 
-  /* —— Gradients —— */
-  --grad-accent: linear-gradient(135deg, #FF8559 0%, #FF6B35 50%, #E85A25 100%);
-  --grad-primary: linear-gradient(135deg, #2E5A8F 0%, #1E3A5F 50%, #142844 100%);
-  --grad-dark: linear-gradient(160deg, #1E3A5F 0%, #0B1426 100%);
-  --grad-text: linear-gradient(120deg, #FFFFFF 0%, #CBD5E1 100%);
-  --grad-text-accent: linear-gradient(120deg, #FF8559 0%, #FF6B35 100%);
+  /* —— Retained gradient aliases (limited use: buttons, bar charts only) —— */
+  --grad-accent: linear-gradient(135deg, #F07040 0%, #E85A25 60%, #C94D1C 100%);
+  --grad-primary: linear-gradient(135deg, #1E3A5F 0%, #142844 50%, #0D1B30 100%);
 
   /* —— Easing —— */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-back: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-back:  cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -72,7 +83,7 @@ body {
   font-family: var(--font);
   font-feature-settings: "ss01", "cv11", "kern";
   color: var(--text-primary);
-  background: var(--bg-white);
+  background: var(--bg-base);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -195,6 +206,19 @@ input, textarea, select { font: inherit; color: inherit; }
   [data-reveal] { opacity: 1; transform: none; }
 }
 
+/* —— Glassmorphism utility —— */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border);
+  border-radius: var(--glass-radius);
+}
+.glass-card--strong {
+  border-color: rgba(232, 90, 37, 0.35);
+  box-shadow: 0 0 0 1px rgba(232, 90, 37, 0.1) inset, var(--shadow-glow-accent);
+}
+
 /* —— Reusable badge —— */
 .eyebrow {
   display: inline-flex;
@@ -206,14 +230,14 @@ input, textarea, select { font: inherit; color: inherit; }
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: rgba(255, 107, 53, 0.10);
+  background: rgba(232, 90, 37, 0.12);
   color: var(--accent);
-  border: 1px solid rgba(255, 107, 53, 0.18);
+  border: 1px solid rgba(232, 90, 37, 0.25);
 }
 .eyebrow--dark {
-  background: rgba(255, 255, 255, 0.06);
-  color: #FFC9B0;
-  border-color: rgba(255, 255, 255, 0.10);
+  background: rgba(246, 248, 252, 0.06);
+  color: var(--accent-soft);
+  border-color: rgba(232, 90, 37, 0.2);
 }
 .eyebrow__dot {
   width: 6px; height: 6px;
@@ -229,31 +253,27 @@ input, textarea, select { font: inherit; color: inherit; }
   animation: pulse-dot 2.4s ease-out infinite;
 }
 
-/* —— Mesh background utility —— */
+/* —— Subtle ambient glow (replaces mesh-bg) —— */
 .mesh-bg {
   position: absolute; inset: 0;
   pointer-events: none;
   z-index: 0;
   background-image:
-    radial-gradient(at 18% 20%, rgba(255, 107, 53, 0.18) 0px, transparent 45%),
-    radial-gradient(at 82% 0%, rgba(46, 90, 143, 0.45) 0px, transparent 50%),
-    radial-gradient(at 60% 95%, rgba(20, 40, 68, 0.55) 0px, transparent 55%);
+    radial-gradient(at 15% 15%, rgba(232, 90, 37, 0.12) 0px, transparent 45%),
+    radial-gradient(at 80% 80%, rgba(20, 40, 68, 0.5) 0px, transparent 55%);
 }
-.mesh-bg--light {
-  background-image:
-    radial-gradient(at 12% 0%, rgba(255, 107, 53, 0.08) 0px, transparent 40%),
-    radial-gradient(at 88% 30%, rgba(30, 58, 95, 0.06) 0px, transparent 45%);
-}
+.mesh-bg--light { background: none; }
 
-/* —— Grid pattern overlay —— */
+/* —— Grid pattern overlay (tech-editorial, 5-8% opacity) —— */
 .grid-overlay {
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(246,248,252,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246,248,252,0.05) 1px, transparent 1px);
   background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 35%, black 30%, transparent 85%);
   pointer-events: none;
+  z-index: 0;
 }
 
 /* —— Noise overlay (subtle) —— */

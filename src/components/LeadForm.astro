@@ -219,8 +219,8 @@ const cities = [
 
 <style>
   .lead {
-    background: var(--grad-dark);
-    color: #FFFFFF;
+    background: var(--bg-base);
+    color: var(--text-primary);
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -253,21 +253,18 @@ const cities = [
   }
   .lead__title {
     font-size: clamp(28px, 4vw, 44px);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.12;
     letter-spacing: var(--tracking-tighter);
     text-wrap: balance;
   }
   .lead__title-accent {
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
+    font-weight: 800;
   }
   .lead__sub {
     font-size: 15.5px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     line-height: 1.65;
     max-width: 540px;
   }
@@ -314,8 +311,8 @@ const cities = [
 
   /* Form card */
   .lead__form {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1px solid rgba(232, 90, 37, 0.2);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
@@ -323,7 +320,7 @@ const cities = [
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     min-width: 0;
     width: 100%;
     box-sizing: border-box;

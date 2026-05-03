@@ -1,10 +1,12 @@
 ---
 import Icon from '@/components/ui/Icon.astro';
 import Button from '@/components/ui/Button.astro';
+import ThreeScene from '@/components/ThreeScene.astro';
 import { WHATSAPP_URL } from '@/data/config';
 ---
 
 <section class="final section" data-reveal>
+  <ThreeScene variant="cta" id="final-three" />
   <div class="container">
     <div class="final__card">
       <div class="final__bg" aria-hidden="true"></div>
@@ -19,7 +21,7 @@ import { WHATSAPP_URL } from '@/data/config';
 
         <h2 class="final__title">
           Em 7 dias seu negócio pode estar
-          <span class="final__title-accent">aparecendo no Google</span>.
+          <span class="final__title-accent">aparecendo no Google.</span>
         </h2>
 
         <p class="final__sub">
@@ -66,17 +68,20 @@ import { WHATSAPP_URL } from '@/data/config';
 </section>
 
 <style>
-  .final { background: var(--bg-alt); }
+  .final { background: var(--bg-base); position: relative; overflow: hidden; }
 
   .final__card {
     position: relative;
-    background: var(--grad-dark);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1.5px solid rgba(232, 90, 37, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
     padding: 48px 28px;
     overflow: hidden;
     isolation: isolate;
-    color: #FFFFFF;
-    box-shadow: var(--shadow-xl);
+    color: var(--text-primary);
+    box-shadow: 0 0 60px rgba(232, 90, 37, 0.12), var(--shadow-xl);
     display: grid;
     grid-template-columns: 1fr;
     gap: 36px;
@@ -96,9 +101,7 @@ import { WHATSAPP_URL } from '@/data/config';
   .final__bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(circle at 20% 0%, rgba(255,107,53,0.32), transparent 50%),
-      radial-gradient(circle at 80% 100%, rgba(46,90,143,0.45), transparent 55%);
+    background: radial-gradient(circle at 20% 0%, rgba(232,90,37,0.2), transparent 50%);
     pointer-events: none;
     z-index: -1;
   }
@@ -112,21 +115,18 @@ import { WHATSAPP_URL } from '@/data/config';
   }
   .final__title {
     font-size: clamp(28px, 4vw, 46px);
-    font-weight: 700;
+    font-weight: 800;
     line-height: 1.1;
     letter-spacing: var(--tracking-tighter);
     text-wrap: balance;
   }
   .final__title-accent {
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
+    font-weight: 800;
   }
   .final__sub {
     font-size: 16px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     line-height: 1.65;
     max-width: 560px;
   }
@@ -147,10 +147,10 @@ import { WHATSAPP_URL } from '@/data/config';
     gap: 6px;
     padding: 6px 12px;
     border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(246, 248, 252, 0.05);
+    border: 1px solid rgba(246, 248, 252, 0.08);
     font-size: 12px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
   }
   .final__pills :global(svg) { color: var(--accent); }
 
@@ -172,19 +172,19 @@ import { WHATSAPP_URL } from '@/data/config';
   }
   .final__orb--1 {
     width: 220px; height: 220px;
-    background: rgba(255, 107, 53, 0.45);
+    background: rgba(232, 90, 37, 0.3);
     top: -40px; left: -20px;
   }
   .final__orb--2 {
     width: 180px; height: 180px;
-    background: rgba(46, 90, 143, 0.5);
+    background: rgba(20, 40, 68, 0.6);
     bottom: -20px; right: -20px;
   }
   .final__stat {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--glass-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: var(--glass-border);
     border-radius: var(--radius-lg);
     padding: 20px;
     display: flex;
@@ -197,11 +197,7 @@ import { WHATSAPP_URL } from '@/data/config';
   .final__stat strong {
     font-size: clamp(28px, 3.5vw, 40px);
     font-weight: 800;
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
     letter-spacing: var(--tracking-tighter);
     line-height: 1;
   }
@@ -212,7 +208,7 @@ import { WHATSAPP_URL } from '@/data/config';
   }
   .final__stat span {
     font-size: 12.5px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     line-height: 1.4;
   }
   .final__stat--3 {

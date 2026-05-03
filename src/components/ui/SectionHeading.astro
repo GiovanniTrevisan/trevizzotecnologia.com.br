@@ -51,12 +51,12 @@ const renderedTitle = highlight && title.includes(highlight)
   .section-heading__title {
     font-family: var(--font);
     font-size: clamp(28px, 4.5vw, 46px);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text-primary);
     line-height: 1.1;
     letter-spacing: var(--tracking-tight);
   }
-  .section-heading--dark .section-heading__title { color: var(--text-white); }
+  .section-heading--dark .section-heading__title { color: var(--text-primary); }
 
   .section-heading__subtitle {
     font-size: clamp(15px, 1.5vw, 18px);
@@ -65,14 +65,11 @@ const renderedTitle = highlight && title.includes(highlight)
     font-weight: 400;
     max-width: 620px;
   }
-  .section-heading--dark .section-heading__subtitle { color: #94A3B8; }
+  .section-heading--dark .section-heading__subtitle { color: var(--text-secondary); }
 
   :global(.section-heading__accent) {
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
+    font-weight: 800;
     position: relative;
     white-space: nowrap;
   }

@@ -84,7 +84,7 @@ const stats = [
 
 <style>
   .problem {
-    background: var(--bg-alt);
+    background: var(--bg-base);
     overflow: hidden;
   }
   .problem__container { position: relative; z-index: 1; }
@@ -100,9 +100,11 @@ const stats = [
   }
 
   .problem__card {
-    background: var(--bg-white);
-    border: 1px solid var(--border-soft);
+    background: var(--glass-bg);
+    border: var(--glass-border);
     border-radius: var(--radius-xl);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: 28px 24px;
     display: flex;
     flex-direction: column;
@@ -115,7 +117,7 @@ const stats = [
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
+    height: 2px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
     transform: scaleX(0);
     transform-origin: left;
@@ -124,7 +126,7 @@ const stats = [
   .problem__card:hover {
     transform: translateY(-6px);
     box-shadow: var(--shadow-lg);
-    border-color: rgba(255, 107, 53, 0.25);
+    border-color: rgba(232, 90, 37, 0.4);
   }
   .problem__card:hover::before { transform: scaleX(1); }
 
@@ -153,7 +155,7 @@ const stats = [
     display: block;
     font-size: 22px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--accent);
     letter-spacing: var(--tracking-tight);
     line-height: 1;
   }
@@ -182,10 +184,11 @@ const stats = [
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--bg-dark) 100%);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-2xl);
     padding: 36px 24px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-xl);
@@ -194,7 +197,7 @@ const stats = [
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 30% 20%, rgba(255,107,53,0.18), transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%, rgba(232,90,37,0.12), transparent 60%);
     pointer-events: none;
   }
   @media (min-width: 768px) {
@@ -212,11 +215,7 @@ const stats = [
     display: block;
     font-size: clamp(32px, 4vw, 48px);
     font-weight: 800;
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
     letter-spacing: var(--tracking-tighter);
     line-height: 1;
     transition: transform 0.3s ease;
@@ -228,7 +227,7 @@ const stats = [
     display: block;
     font-size: 13px;
     margin-top: 6px;
-    color: #94A3B8;
+    color: var(--text-secondary);
     line-height: 1.4;
   }
 </style>

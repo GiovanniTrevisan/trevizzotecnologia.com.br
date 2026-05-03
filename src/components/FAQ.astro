@@ -135,7 +135,8 @@ import { WHATSAPP_URL } from '@/data/config';
     flex-shrink: 0;
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: var(--bg-alt);
+    background: rgba(246, 248, 252, 0.06);
+    border: 1px solid var(--border-soft);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -144,8 +145,9 @@ import { WHATSAPP_URL } from '@/data/config';
     position: relative;
   }
   .faq__item[open] .faq__chevron {
-    background: var(--grad-accent);
-    color: #FFFFFF;
+    background: var(--accent);
+    color: var(--text-primary);
+    border-color: transparent;
     transform: rotate(180deg);
   }
   .faq__chevron :global(.faq__chevron-plus),
@@ -183,10 +185,13 @@ import { WHATSAPP_URL } from '@/data/config';
     top: 100px;
   }
   .faq__aside-inner {
-    background: linear-gradient(160deg, var(--primary) 0%, var(--bg-dark) 100%);
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border-radius: var(--radius-xl);
     padding: 28px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -198,13 +203,13 @@ import { WHATSAPP_URL } from '@/data/config';
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 100% 0%, rgba(255,107,53,0.18), transparent 50%);
+    background: radial-gradient(circle at 100% 0%, rgba(232,90,37,0.12), transparent 50%);
     pointer-events: none;
   }
   .faq__aside-icon {
     width: 44px; height: 44px;
     border-radius: 12px;
-    background: rgba(255, 107, 53, 0.18);
+    background: rgba(232, 90, 37, 0.18);
     color: var(--accent);
     display: flex;
     align-items: center;
@@ -221,19 +226,19 @@ import { WHATSAPP_URL } from '@/data/config';
   }
   .faq__aside-inner p {
     font-size: 14px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     line-height: 1.6;
     position: relative;
     z-index: 1;
   }
 
   .faq__aside-inner :global(.btn--ghost) {
-    --btn-color: #FFFFFF;
-    border-color: #FFFFFF;
+    --btn-color: var(--text-primary);
+    border-color: var(--border-medium);
   }
   .faq__aside-inner :global(.btn--ghost:hover) {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #FFFFFF;
-    color: #FFFFFF;
+    background: rgba(246, 248, 252, 0.08);
+    border-color: var(--accent);
+    color: var(--accent);
   }
 </style>

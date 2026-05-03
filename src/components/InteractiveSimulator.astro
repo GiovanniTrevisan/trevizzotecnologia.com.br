@@ -605,8 +605,8 @@ const segments = [
 
 <style>
   .sim {
-    background: var(--grad-dark);
-    color: #FFFFFF;
+    background: var(--bg-base);
+    color: var(--text-primary);
     position: relative;
     overflow: hidden;
     isolation: isolate;
@@ -618,8 +618,8 @@ const segments = [
     display: inline-flex;
     margin: 48px auto 32px;
     padding: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-full);
     gap: 4px;
   }
@@ -638,15 +638,15 @@ const segments = [
     border-radius: var(--radius-full);
     font-size: 13.5px;
     font-weight: 600;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     transition: background 0.3s, color 0.3s, transform 0.2s;
     white-space: nowrap;
   }
-  .sim__tab:hover { color: #FFFFFF; }
+  .sim__tab:hover { color: var(--text-primary); }
   .sim__tab.is-active {
-    background: var(--grad-accent);
-    color: #FFFFFF;
-    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.35);
+    background: var(--accent);
+    color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(232, 90, 37, 0.35);
   }
   @media (max-width: 480px) {
     .sim__tab { padding: 10px 14px; font-size: 12.5px; }
@@ -674,8 +674,8 @@ const segments = [
 
   .sim__controls,
   .sim__preview {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--glass-bg);
+    border: var(--glass-border);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
@@ -699,24 +699,24 @@ const segments = [
     gap: 12px;
     font-size: 17px;
     font-weight: 700;
-    color: #FFFFFF;
+    color: var(--text-primary);
     letter-spacing: var(--tracking-tight);
   }
   .sim__step-num {
     width: 28px; height: 28px;
     border-radius: 50%;
-    background: var(--grad-accent);
+    background: var(--accent);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 13px;
     font-weight: 800;
-    color: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
+    color: var(--text-primary);
+    box-shadow: 0 4px 12px rgba(232, 90, 37, 0.35);
   }
   .sim__controls-hint {
     font-size: 13.5px;
-    color: #94A3B8;
+    color: var(--text-muted);
     margin-top: -10px;
     line-height: 1.5;
   }
@@ -730,26 +730,26 @@ const segments = [
   .sim__field label {
     font-size: 12.5px;
     font-weight: 600;
-    color: #CBD5E1;
+    color: var(--text-secondary);
     letter-spacing: 0.01em;
   }
   .sim__field input[type="text"] {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-md);
     padding: 13px 16px;
     font-size: 14.5px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-family: var(--font);
     transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
     width: 100%;
   }
-  .sim__field input[type="text"]::placeholder { color: #64748B; }
+  .sim__field input[type="text"]::placeholder { color: var(--text-muted); }
   .sim__field input[type="text"]:focus {
     outline: none;
-    border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.07);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+    border-color: rgba(232, 90, 37, 0.5);
+    background: rgba(20, 40, 68, 0.7);
+    box-shadow: 0 0 0 3px rgba(232, 90, 37, 0.15);
   }
 
   /* Chips (segments) */
@@ -766,29 +766,29 @@ const segments = [
     border-radius: var(--radius-full);
     font-size: 13px;
     font-weight: 500;
-    color: #CBD5E1;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: var(--text-secondary);
+    background: rgba(20, 40, 68, 0.4);
+    border: 1px solid var(--border-soft);
     transition: all 0.25s var(--ease-out-expo);
     cursor: pointer;
   }
   .sim__chip:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.65);
     transform: translateY(-1px);
   }
   .sim__chip.is-active {
-    color: #FFFFFF;
-    background: rgba(255, 107, 53, 0.18);
-    border-color: rgba(255, 107, 53, 0.55);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+    color: var(--text-primary);
+    background: rgba(232, 90, 37, 0.18);
+    border-color: rgba(232, 90, 37, 0.55);
+    box-shadow: 0 4px 12px rgba(232, 90, 37, 0.25);
   }
   .sim__chip-emoji { font-size: 14px; line-height: 1; }
 
   /* Score */
   .sim__score {
     padding: 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.4);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
@@ -801,20 +801,20 @@ const segments = [
     align-items: center;
     font-size: 12.5px;
     font-weight: 600;
-    color: #CBD5E1;
+    color: var(--text-secondary);
   }
   .sim__score-value {
     font-size: 22px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
   }
-  .sim__score-sep { color: #475569; font-weight: 500; margin: 0 2px; }
+  .sim__score-sep { color: var(--text-muted); font-weight: 500; margin: 0 2px; }
   .sim__bar {
     position: relative;
     height: 44px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(20, 40, 68, 0.4);
     border-radius: var(--radius-full);
     overflow: hidden;
   }
@@ -830,7 +830,7 @@ const segments = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #FFFFFF;
+    color: var(--text-primary);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.9s var(--ease-out-expo);
@@ -838,20 +838,20 @@ const segments = [
     overflow: hidden;
   }
   .sim__bar-before {
-    background: rgba(148, 163, 184, 0.25);
+    background: rgba(20, 40, 68, 0.6);
     z-index: 1;
-    color: #CBD5E1;
+    color: var(--text-secondary);
   }
   .sim__bar-after {
-    background: var(--grad-accent);
+    background: var(--accent);
     z-index: 2;
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+    box-shadow: 0 0 20px rgba(232, 90, 37, 0.5);
   }
   .sim__score-legend {
     display: flex;
     gap: 16px;
     font-size: 11.5px;
-    color: #94A3B8;
+    color: var(--text-muted);
   }
   .sim__score-legend .dot {
     display: inline-block;
@@ -865,13 +865,13 @@ const segments = [
 
   /* Browser Mockup (in simulator) */
   .sim__browser {
-    background: linear-gradient(180deg, #1A2D4A 0%, #0F1B30 100%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: linear-gradient(180deg, #142844 0%, #0D1B30 100%);
+    border: 1px solid rgba(232, 90, 37, 0.2);
     border-radius: 14px;
     overflow: hidden;
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      0 0 0 1px rgba(232, 90, 37, 0.06) inset;
     min-width: 0;
     width: 100%;
     box-sizing: border-box;
@@ -881,14 +881,14 @@ const segments = [
     align-items: center;
     gap: 10px;
     padding: 10px 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(20, 40, 68, 0.6);
+    border-bottom: 1px solid rgba(232, 90, 37, 0.1);
   }
   .sim__dots { display: flex; gap: 5px; }
   .sim__dots span {
     width: 9px; height: 9px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(246, 248, 252, 0.15);
   }
   .sim__dots span:nth-child(1) { background: #FF5F57; }
   .sim__dots span:nth-child(2) { background: #FEBC2E; }
@@ -900,10 +900,10 @@ const segments = [
     justify-content: center;
     gap: 6px;
     padding: 5px 12px;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(20, 40, 68, 0.5);
     border-radius: 7px;
     font-size: 11.5px;
-    color: #94A3B8;
+    color: var(--text-muted);
   }
   .sim__browser-body {
     padding: 18px;
@@ -916,13 +916,13 @@ const segments = [
     align-items: center;
     gap: 10px;
     padding: 11px 16px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-full);
-    color: #CBD5E1;
+    color: var(--text-secondary);
     font-size: 13.5px;
   }
-  .sim__search :global(svg) { color: #64748B; flex-shrink: 0; }
+  .sim__search :global(svg) { color: var(--text-muted); flex-shrink: 0; }
   .sim__search > span:first-of-type + span { flex: 1; }
   .sim__cursor {
     flex: 0 1 auto !important;
@@ -935,17 +935,17 @@ const segments = [
     font-size: 11px;
     padding: 4px 10px;
     border-radius: var(--radius-full);
-    color: #94A3B8;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+    border: 1px solid var(--border-soft);
   }
   .sim__fchip.is-active {
     color: var(--accent);
-    background: rgba(255, 107, 53, 0.10);
-    border-color: rgba(255, 107, 53, 0.25);
+    background: rgba(232, 90, 37, 0.10);
+    border-color: rgba(232, 90, 37, 0.25);
   }
   .sim__label {
     font-size: 11px;
-    color: #64748B;
+    color: var(--text-muted);
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -953,8 +953,8 @@ const segments = [
 
   .sim__result {
     padding: 14px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(20, 40, 68, 0.3);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: column;
@@ -962,10 +962,10 @@ const segments = [
   }
   .sim__result--featured {
     background:
-      radial-gradient(circle at top right, rgba(255,107,53,0.18) 0%, transparent 60%),
-      rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 107, 53, 0.32);
-    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+      radial-gradient(circle at top right, rgba(232,90,37,0.18) 0%, transparent 60%),
+      rgba(20, 40, 68, 0.5);
+    border: 1px solid rgba(232, 90, 37, 0.35);
+    box-shadow: 0 8px 24px rgba(232, 90, 37, 0.15);
     transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s;
   }
   .sim__result--featured.is-pulsing {
@@ -973,7 +973,7 @@ const segments = [
   }
   @keyframes sim-pulse {
     0%   { transform: scale(1); }
-    40%  { transform: scale(1.015); box-shadow: 0 16px 40px rgba(255, 107, 53, 0.35); }
+    40%  { transform: scale(1.015); box-shadow: 0 16px 40px rgba(232, 90, 37, 0.35); }
     100% { transform: scale(1); }
   }
   .sim__badge {
@@ -998,13 +998,13 @@ const segments = [
   .sim__avatar {
     width: 34px; height: 34px;
     border-radius: 50%;
-    background: var(--grad-accent);
+    background: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     flex-shrink: 0;
     transition: transform 0.35s var(--ease-out-back);
   }
@@ -1012,7 +1012,7 @@ const segments = [
   .sim__result-title {
     font-size: 14.5px;
     font-weight: 600;
-    color: #FFFFFF;
+    color: var(--text-primary);
     line-height: 1.2;
   }
   .sim__result-url {
@@ -1022,7 +1022,7 @@ const segments = [
   }
   .sim__result-desc {
     font-size: 12px;
-    color: #94A3B8;
+    color: var(--text-muted);
     line-height: 1.55;
   }
   .sim__result-meta {
@@ -1030,21 +1030,21 @@ const segments = [
     flex-wrap: wrap;
     gap: 4px;
     font-size: 11px;
-    color: #64748B;
+    color: var(--text-muted);
   }
-  .sim__rating { color: #FBBF24; font-weight: 700; }
+  .sim__rating { color: var(--accent); font-weight: 700; }
 
   .sim__result--ghost { gap: 8px; padding: 12px; }
   .sim__ghost-line {
     height: 8px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(20, 40, 68, 0.5);
     border-radius: 4px;
     width: 90%;
   }
   .sim__ghost-line--title {
     height: 11px;
     width: 55%;
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(20, 40, 68, 0.7);
   }
 
   .sim__note {
@@ -1052,11 +1052,11 @@ const segments = [
     align-items: flex-start;
     gap: 8px;
     font-size: 12px;
-    color: #64748B;
+    color: var(--text-muted);
     line-height: 1.5;
     padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px dashed rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.3);
+    border: 1px dashed var(--border-soft);
     border-radius: var(--radius-md);
   }
   .sim__note :global(svg) { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
@@ -1068,10 +1068,10 @@ const segments = [
     justify-content: space-between;
     align-items: baseline;
     font-size: 13px;
-    color: #CBD5E1;
+    color: var(--text-secondary);
   }
   .sim__slider-head strong {
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-size: 18px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
@@ -1082,7 +1082,7 @@ const segments = [
     appearance: none;
     width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(20, 40, 68, 0.6);
     border-radius: var(--radius-full);
     outline: none;
     cursor: pointer;
@@ -1092,26 +1092,26 @@ const segments = [
     appearance: none;
     width: 22px; height: 22px;
     border-radius: 50%;
-    background: var(--grad-accent);
-    border: 3px solid #FFFFFF;
+    background: var(--accent);
+    border: 3px solid var(--bg-surface);
     cursor: grab;
-    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.5);
+    box-shadow: 0 4px 14px rgba(232, 90, 37, 0.5);
     transition: transform 0.2s;
   }
   .sim__slider input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.15); cursor: grabbing; }
   .sim__slider input[type="range"]::-moz-range-thumb {
     width: 22px; height: 22px;
     border-radius: 50%;
-    background: #FF6B35;
-    border: 3px solid #FFFFFF;
+    background: var(--accent);
+    border: 3px solid var(--bg-surface);
     cursor: grab;
-    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.5);
+    box-shadow: 0 4px 14px rgba(232, 90, 37, 0.5);
   }
   .sim__slider-scale {
     display: flex;
     justify-content: space-between;
     font-size: 10.5px;
-    color: #64748B;
+    color: var(--text-muted);
     letter-spacing: 0.04em;
   }
 
@@ -1123,8 +1123,8 @@ const segments = [
   }
   .sim__stat {
     padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--glass-bg);
+    border: var(--glass-border);
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
@@ -1132,13 +1132,13 @@ const segments = [
   }
   .sim__stat--highlight {
     background:
-      radial-gradient(circle at top right, rgba(255,107,53,0.2) 0%, transparent 70%),
-      rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 107, 53, 0.4);
+      radial-gradient(circle at top right, rgba(232,90,37,0.2) 0%, transparent 70%),
+      rgba(20, 40, 68, 0.5);
+    border-color: rgba(232, 90, 37, 0.4);
   }
   .sim__stat-label {
     font-size: 11px;
-    color: #94A3B8;
+    color: var(--text-muted);
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -1146,16 +1146,12 @@ const segments = [
   .sim__stat-value {
     font-size: 20px;
     font-weight: 800;
-    color: #FFFFFF;
+    color: var(--text-primary);
     letter-spacing: -0.01em;
     font-variant-numeric: tabular-nums;
   }
   .sim__stat--highlight .sim__stat-value {
-    background: var(--grad-text-accent);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
   }
   .sim__stat-delta {
     font-size: 11.5px;
@@ -1168,8 +1164,8 @@ const segments = [
     display: flex;
     flex-direction: column;
     gap: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(13, 27, 48, 0.4);
+    border: 1px solid var(--border-soft);
     border-radius: var(--radius-lg);
     padding: 14px 12px 8px;
     overflow: hidden;
@@ -1189,7 +1185,7 @@ const segments = [
     gap: 7px;
     font-size: 11px;
     font-weight: 600;
-    color: #94A3B8;
+    color: var(--text-muted);
     letter-spacing: 0.04em;
   }
   .sim__legend-line {
@@ -1198,8 +1194,8 @@ const segments = [
     height: 2.5px;
     border-radius: 2px;
   }
-  .sim__legend-item--gray .sim__legend-line { background: #94A3B8; }
-  .sim__legend-item--orange .sim__legend-line { background: #FF6B35; box-shadow: 0 0 6px rgba(255,107,53,0.6); }
+  .sim__legend-item--gray .sim__legend-line { background: var(--text-muted); }
+  .sim__legend-item--orange .sim__legend-line { background: var(--accent); box-shadow: 0 0 6px rgba(232,90,37,0.6); }
   .sim__chart-body {
     display: flex;
     gap: 6px;
@@ -1212,7 +1208,7 @@ const segments = [
     height: 160px; /* igual ao sim__chart-svg */
     flex-shrink: 0;
     align-self: flex-start;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid var(--border-soft);
     margin-right: 2px;
     flex-direction: column;
     display: flex;
@@ -1224,7 +1220,7 @@ const segments = [
     right: 8px;
     transform: translateY(-50%);
     font-weight: 600;
-    color: #94A3B8;
+    color: var(--text-muted);
     white-space: nowrap;
     letter-spacing: 0.02em;
     line-height: 1;
@@ -1238,7 +1234,7 @@ const segments = [
     top: 50%;
     width: 4px;
     height: 1px;
-    background: rgba(255, 255, 255, 0.14);
+    background: var(--border-soft);
   }
   .sim__chart-main {
     flex: 1;
@@ -1257,7 +1253,7 @@ const segments = [
     display: flex;
     justify-content: space-between;
     font-size: 9.5px;
-    color: #64748B;
+    color: var(--text-muted);
     font-weight: 600;
     letter-spacing: 0.04em;
   }
@@ -1304,37 +1300,37 @@ const segments = [
     gap: 4px;
   }
   .sim__roi-big {
-    background: var(--grad-accent);
-    box-shadow: 0 12px 30px rgba(255, 107, 53, 0.35);
+    background: var(--accent);
+    box-shadow: 0 12px 30px rgba(232, 90, 37, 0.35);
   }
   .sim__roi-big span {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(246, 248, 252, 0.85);
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
   .sim__roi-big strong {
     font-size: 26px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-weight: 800;
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
   }
   .sim__roi-vs {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--glass-bg);
+    border: var(--glass-border);
   }
   .sim__roi-vs span {
     font-size: 11px;
-    color: #94A3B8;
+    color: var(--text-muted);
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
   .sim__roi-vs strong {
     font-size: 18px;
-    color: #FFFFFF;
+    color: var(--text-primary);
     font-weight: 700;
   }
   .sim__roi-vs small {
