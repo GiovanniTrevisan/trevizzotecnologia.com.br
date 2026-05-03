@@ -60,7 +60,15 @@ import { WHATSAPP_URL } from '@/data/config';
 </section>
 
 <style>
-  .faq { background: var(--bg-white); }
+  .faq {
+    background: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --bg-white: #FFFFFF;
+    --border-soft: #E2E8F0;
+    --border-medium: #CBD5E1;
+  }
 
   .faq__layout {
     display: grid;
@@ -135,7 +143,7 @@ import { WHATSAPP_URL } from '@/data/config';
     flex-shrink: 0;
     width: 36px; height: 36px;
     border-radius: 50%;
-    background: rgba(246, 248, 252, 0.06);
+    background: #F6F8FC;
     border: 1px solid var(--border-soft);
     display: flex;
     align-items: center;
@@ -185,13 +193,13 @@ import { WHATSAPP_URL } from '@/data/config';
     top: 100px;
   }
   .faq__aside-inner {
-    background: var(--glass-bg);
-    border: var(--glass-border);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
+    background: linear-gradient(160deg, #1E3A5F 0%, #0B1426 100%);
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-radius: var(--radius-xl);
     padding: 28px;
-    color: var(--text-primary);
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -226,19 +234,19 @@ import { WHATSAPP_URL } from '@/data/config';
   }
   .faq__aside-inner p {
     font-size: 14px;
-    color: var(--text-secondary);
+    color: #CBD5E1;
     line-height: 1.6;
     position: relative;
     z-index: 1;
   }
 
   .faq__aside-inner :global(.btn--ghost) {
-    --btn-color: var(--text-primary);
-    border-color: var(--border-medium);
+    --btn-color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.35);
   }
   .faq__aside-inner :global(.btn--ghost:hover) {
-    background: rgba(246, 248, 252, 0.08);
-    border-color: var(--accent);
-    color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #FFFFFF;
+    color: #FFFFFF;
   }
 </style>

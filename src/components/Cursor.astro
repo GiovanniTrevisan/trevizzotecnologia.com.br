@@ -105,7 +105,7 @@
 
   // Attach to interactive elements after DOM ready
   function initMagnets() {
-    document.querySelectorAll('a, button, [data-magnetic]').forEach(attachMagnet);
+    document.querySelectorAll('a, [data-magnetic]').forEach(attachMagnet);
   }
 
   if (document.readyState === 'loading') {
@@ -116,7 +116,7 @@
 
   // Re-attach when new elements appear (e.g. mobile menu)
   const mo = new MutationObserver(() => {
-    document.querySelectorAll('a:not([data-cursor-init]), button:not([data-cursor-init])').forEach((el) => {
+    document.querySelectorAll('a:not([data-cursor-init]), [data-magnetic]:not([data-cursor-init])').forEach((el) => {
       (el as HTMLElement).dataset.cursorInit = 'true';
       attachMagnet(el);
     });
