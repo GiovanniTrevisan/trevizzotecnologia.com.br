@@ -18,44 +18,22 @@ const navLinks = [
 ---
 
 <header class:list={['header', { 'header--light': variant === 'light' }]} id="header">
+
   <div class="header__inner">
     <a href="/" class="header__logo" aria-label="Trevizzo Soluções - Página inicial">
-      <img
-        src="/images/logo.svg"
-        alt="Trevizzo Soluções"
-        width="160"
-        height="49"
-        class="header__logo-img header__logo-img--light"
-      />
-      <img
-        src="/images/logo-dark.svg"
-        alt="Trevizzo Soluções"
-        width="160"
-        height="49"
-        class="header__logo-img header__logo-img--dark"
-      />
+      <img src="/images/logo.svg" alt="Trevizzo Soluções" width="160" height="49" class="header__logo-img header__logo-img--light" />
+      <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="160" height="49" class="header__logo-img header__logo-img--dark" />
     </a>
-
     <nav class="header__nav" aria-label="Navegação principal">
-      {navLinks.map((link) => (
-        <a href={link.href} class="header__link">{link.label}</a>
-      ))}
+      {navLinks.map((link) => (<a href={link.href} class="header__link">{link.label}</a>))}
     </nav>
-
-    <Button href={WHATSAPP_URL} variant="primary" size="sm" class="header__cta" dataCta="header" target="_blank" rel="noopener noreferrer">
-      Quero Meu Site →
-    </Button>
-
-    <button
-      class="header__hamburger"
-      aria-label="Abrir menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
+    <Button href={WHATSAPP_URL} variant="primary" size="sm" class="header__cta" dataCta="header" target="_blank" rel="noopener noreferrer">Quero Meu Site →</Button>
+    <button class="header__hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
       <Icon name="menu" size={22} class="header__hamburger-icon header__hamburger-icon--open" />
       <Icon name="x" size={22} class="header__hamburger-icon header__hamburger-icon--close" />
     </button>
   </div>
+
 </header>
 
 <!-- Mobile Menu (outside header to avoid backdrop-filter containing block) -->
@@ -194,17 +172,19 @@ const navLinks = [
     position: absolute;
     bottom: -4px;
     left: 0;
-    width: 0;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
     height: 2px;
     background: var(--accent);
     border-radius: 1px;
-    transition: width 0.3s ease;
+    transition: transform 0.3s var(--ease-out-expo);
   }
   .header__link:hover {
     color: var(--primary);
   }
   .header__link:hover::after {
-    width: 100%;
+    transform: scaleX(1);
   }
   .header:not(.header--scrolled):not(.header--light) .header__link {
     color: rgba(255, 255, 255, 0.85);

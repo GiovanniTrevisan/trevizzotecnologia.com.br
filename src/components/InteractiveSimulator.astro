@@ -90,10 +90,10 @@ const segments = [
               </span>
             </div>
             <div class="sim__bar">
-              <div class="sim__bar-before" id="sim-bar-before" style="width: 0%;">
+              <div class="sim__bar-before" id="sim-bar-before" style="width: 100%; transform: scaleX(0);">
                 <span>hoje</span>
               </div>
-              <div class="sim__bar-after" id="sim-bar-after" style="width: 0%;">
+              <div class="sim__bar-after" id="sim-bar-after" style="width: 100%; transform: scaleX(0);">
                 <span>com Trevizzo</span>
               </div>
             </div>
@@ -372,8 +372,8 @@ const segments = [
     const before = randomScoreBefore();
     const after = 88 + ((state.name || '').length % 10); // 88-97
 
-    barBefore.style.width = before + '%';
-    barAfter.style.width = after + '%';
+    barBefore.style.transform = 'scaleX(' + (before / 100) + ')';
+    barAfter.style.transform = 'scaleX(' + (after / 100) + ')';
 
     // Animate the "now" number
     animateNumber(scoreNow, before, after);
@@ -822,6 +822,7 @@ const segments = [
     position: absolute;
     top: 0; left: 0;
     height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 0 14px;
@@ -830,7 +831,9 @@ const segments = [
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: #FFFFFF;
-    transition: width 0.9s var(--ease-out-expo);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.9s var(--ease-out-expo);
     white-space: nowrap;
     overflow: hidden;
   }
@@ -1344,6 +1347,7 @@ const segments = [
     .sim__result--featured, .sim__avatar, .sim__cbar, .sim__cbar-base, .sim__cbar-gain,
     .sim__bar-before, .sim__bar-after {
       transition: none !important;
+      transform: scaleX(1) !important;
     }
     .sim__cursor { animation: none; }
   }

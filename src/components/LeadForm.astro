@@ -65,34 +65,39 @@ const cities = [
 
         <div class="lead__field">
           <label for="lf-name">Seu nome</label>
-          <input id="lf-name" name="name" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required />
+          <input id="lf-name" name="name" type="text" autocomplete="name" placeholder="Como podemos te chamar?" required aria-describedby="lf-name-error" />
+          <span class="lead__error" id="lf-name-error" role="alert" hidden></span>
         </div>
 
         <div class="lead__field">
           <label for="lf-business">Nome do negócio</label>
-          <input id="lf-business" name="business" type="text" placeholder="Ex: Salão Márcia Beauty" required />
+          <input id="lf-business" name="business" type="text" placeholder="Ex: Salão Márcia Beauty" required aria-describedby="lf-business-error" />
+          <span class="lead__error" id="lf-business-error" role="alert" hidden></span>
         </div>
 
         <div class="lead__field-row">
           <div class="lead__field">
             <label for="lf-phone">WhatsApp</label>
-            <input id="lf-phone" name="phone" type="tel" autocomplete="tel" placeholder="(11) 9XXXX-XXXX" required data-mask="phone" />
+            <input id="lf-phone" name="phone" type="tel" autocomplete="tel" placeholder="(11) 9XXXX-XXXX" required data-mask="phone" aria-describedby="lf-phone-error" />
+            <span class="lead__error" id="lf-phone-error" role="alert" hidden></span>
           </div>
           <div class="lead__field">
             <label for="lf-city">Cidade / Região</label>
-            <select id="lf-city" name="city" required>
+            <select id="lf-city" name="city" required aria-describedby="lf-city-error">
               <option value="" disabled selected>Selecione</option>
               {cities.map((c) => <option value={c}>{c}</option>)}
             </select>
+            <span class="lead__error" id="lf-city-error" role="alert" hidden></span>
           </div>
         </div>
 
         <div class="lead__field">
           <label for="lf-segment">Segmento do negócio</label>
-          <select id="lf-segment" name="segment" required>
+          <select id="lf-segment" name="segment" required aria-describedby="lf-segment-error">
             <option value="" disabled selected>Em qual área você atua?</option>
             {segments.map((s) => <option value={s}>{s}</option>)}
           </select>
+          <span class="lead__error" id="lf-segment-error" role="alert" hidden></span>
         </div>
 
         <div class="lead__field">
@@ -101,9 +106,10 @@ const cities = [
         </div>
 
         <label class="lead__consent">
-          <input type="checkbox" required checked />
+          <input type="checkbox" required checked aria-describedby="lf-consent-error" />
           <span>Concordo em ser contatado(a) pela Trevizzo via WhatsApp.</span>
         </label>
+        <span class="lead__error" id="lf-consent-error" role="alert" hidden></span>
 
         <Button type="submit" variant="primary" size="xl" fullWidth dataCta="lead-submit">
           <Icon name="whatsapp" size={18} />
@@ -136,8 +142,54 @@ const cities = [
 
   const form = document.getElementById('lead-form');
   if (form) {
+    // Inline validation
+    function validateField(el) {
+      const field = el.closest('.lead__field') || el.closest('.lead__consent')?.parentElement;
+      const errId = el.getAttribute('aria-describedby');
+      const errEl = errId ? document.getElementById(errId) : null;
+      let msg = '';
+      if (el.type === 'checkbox') {
+        if (!el.checked) msg = 'É necessário aceitar para continuar.';
+      } else if (el.tagName === 'SELECT' && !el.value) {
+        msg = 'Selecione uma opção.';
+      } else if (!el.value.trim() && el.required) {
+        msg = 'Este campo é obrigatório.';
+      } else if (el.type === 'tel' && el.value) {
+        if (el.value.replace(/\D/g, '').length < 10) msg = 'WhatsApp inválido — inclua o DDD.';
+      }
+      if (errEl) { errEl.textContent = msg; errEl.hidden = !msg; }
+      if (field) field.classList.toggle('lead__field--error', !!msg);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      return !msg;
+    }
+
+    form.querySelectorAll('input[required], select[required]').forEach((el) => {
+      el.addEventListener('blur', () => validateField(el));
+      el.addEventListener('change', () => {
+        if (el.getAttribute('aria-invalid') === 'true') validateField(el);
+      });
+    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+
+      // Validate all required fields before sending
+      const required = [...form.querySelectorAll('input[required], select[required]')];
+      const allValid = required.map(validateField).every(Boolean);
+      if (!allValid) {
+        const firstErr = form.querySelector('[aria-invalid="true"]');
+        firstErr?.focus();
+        return;
+      }
+
+      // Protect against double-submit
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
+        btn.classList.add('is-loading');
+      }
+
       const data = new FormData(form);
       const lines = [
         'Olá! Vim pelo site da Trevizzo e quero solicitar um orçamento.',
@@ -152,6 +204,15 @@ const cities = [
       if (msg) { lines.push('', '*O que precisa:*', msg); }
       const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
       window.open(url, '_blank', 'noopener');
+
+      // Re-enable after delay (user may return and resubmit)
+      setTimeout(() => {
+        if (btn) {
+          btn.disabled = false;
+          btn.removeAttribute('aria-busy');
+          btn.classList.remove('is-loading');
+        }
+      }, 5000);
     });
   }
 </script>
@@ -389,4 +450,30 @@ const cities = [
     text-underline-offset: 2px;
   }
   .lead__legal a:hover { color: #FFFFFF; }
+
+  /* Inline validation */
+  .lead__error {
+    font-size: 12px;
+    color: #FC8181;
+    font-weight: 500;
+    margin-top: 2px;
+    display: block;
+  }
+  .lead__field--error input,
+  .lead__field--error select,
+  .lead__field--error textarea {
+    border-color: rgba(239, 68, 68, 0.6);
+    background: rgba(239, 68, 68, 0.05);
+  }
+  .lead__field--error input:focus,
+  .lead__field--error select:focus,
+  .lead__field--error textarea:focus {
+    border-color: rgba(239, 68, 68, 0.7);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+  }
+  :global(.lead__form button[type="submit"].is-loading) {
+    opacity: 0.65;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 </style>
