@@ -1,0 +1,214 @@
+---
+/**
+ * Cursor — custom glow-trail + magnetic-pull cursor.
+ * Rendered only on pointer devices; hidden on touch screens.
+ * Respects prefers-reduced-motion.
+ */
+---
+
+<div id="cursor-outer" class="cursor cursor--outer" aria-hidden="true"></div>
+<div id="cursor-dot"   class="cursor cursor--dot"   aria-hidden="true"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ————————————————————————————————————————————
+  //  Skip on touch-only / reduced-motion devices
+  // ————————————————————————————————————————————
+  const isTouch = window.matchMedia('(hover: none)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isTouch || reduceMotion) return;
+
+  const outer = document.getElementById('cursor-outer') as HTMLElement;
+  const dot    = document.getElementById('cursor-dot')   as HTMLElement;
+  if (!outer || !dot) return;
+
+  // ————————————————————————————————————————————
+  //  State
+  // ————————————————————————————————————————————
+  let mx = -200, my = -200;    // raw mouse pos
+  let ox = -200, oy = -200;    // outer (lagged) pos
+  let magnetEl: HTMLElement | null = null;          // currently hovered interactive element
+  let magnetOriginX = 0;
+  let magnetOriginY = 0;
+  let magnetOffX = 0;
+  let magnetOffY = 0;
+  let outerScale = 1;
+  let dotScale = 1;
+  let rafId: number | null = null;
+
+  // ————————————————————————————————————————————
+  //  Show cursor once mouse moves
+  // ————————————————————————————————————————————
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    outer.style.opacity = '1';
+    dot.style.opacity = '1';
+  }, { passive: true });
+
+  // ————————————————————————————————————————————
+  //  Scale on press
+  // ————————————————————————————————————————————
+  document.addEventListener('mousedown', () => {
+    outerScale = 0.8;
+    dotScale   = 1.5;
+  });
+  document.addEventListener('mouseup', () => {
+    outerScale = magnetEl ? 1.5 : 1;
+    dotScale   = 1;
+  });
+
+  // ————————————————————————————————————————————
+  //  Magnetic pull on interactive elements
+  //  Maximum displacement: 8px
+  // ————————————————————————————————————————————
+  const MAX_PULL = 8;
+
+  function attachMagnet(el: Element) {
+    const htmlEl = el as HTMLElement;
+    htmlEl.addEventListener('mouseenter', () => {
+      magnetEl = htmlEl;
+      outerScale = 1.5;
+      // Store element centre for displacement calc
+      const r = htmlEl.getBoundingClientRect();
+      magnetOriginX = r.left + r.width  / 2;
+      magnetOriginY = r.top  + r.height / 2;
+    });
+    htmlEl.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!magnetEl) return;
+      const r = htmlEl.getBoundingClientRect();
+      const cx = r.left + r.width  / 2;
+      const cy = r.top  + r.height / 2;
+      const dx = (e.clientX - cx) * 0.35;
+      const dy = (e.clientY - cy) * 0.35;
+      // clamp
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const scale = len > MAX_PULL ? MAX_PULL / len : 1;
+      magnetOffX = dx * scale;
+      magnetOffY = dy * scale;
+      htmlEl.style.transform = `translate(${magnetOffX}px, ${magnetOffY}px)`;
+      (htmlEl as HTMLElement).dataset.magnetised = 'true';
+    });
+    htmlEl.addEventListener('mouseleave', () => {
+      if (magnetEl === htmlEl) {
+        magnetEl = null;
+        outerScale = 1;
+        magnetOffX = 0;
+        magnetOffY = 0;
+      }
+      htmlEl.style.transform = '';
+      delete (htmlEl as HTMLElement).dataset.magnetised;
+    });
+  }
+
+  // Attach to interactive elements after DOM ready
+  function initMagnets() {
+    document.querySelectorAll('a, button, [data-magnetic]').forEach(attachMagnet);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMagnets);
+  } else {
+    initMagnets();
+  }
+
+  // Re-attach when new elements appear (e.g. mobile menu)
+  const mo = new MutationObserver(() => {
+    document.querySelectorAll('a:not([data-cursor-init]), button:not([data-cursor-init])').forEach((el) => {
+      (el as HTMLElement).dataset.cursorInit = 'true';
+      attachMagnet(el);
+    });
+  });
+  mo.observe(document.body, { childList: true, subtree: true });
+
+  // ————————————————————————————————————————————
+  //  Main render loop — lerp outer ring toward mouse
+  // ————————————————————————————————————————————
+  const LERP = 0.12;
+
+  function lerp(a: number, b: number, t: number): number { return a + (b - a) * t; }
+
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+
+    // Lerp outer ring toward mouse
+    ox = lerp(ox, mx, LERP);
+    oy = lerp(oy, my, LERP);
+
+    (outer as HTMLElement).style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%) scale(${outerScale})`;
+    (dot as HTMLElement).style.transform   = `translate(${mx}px, ${my}px) translate(-50%, -50%) scale(${dotScale})`;
+  }
+
+  rafId = requestAnimationFrame(tick);
+
+  // ————————————————————————————————————————————
+  //  Hide when cursor leaves window
+  // ————————————————————————————————————————————
+  document.addEventListener('mouseleave', () => {
+    outer.style.opacity = '0';
+    dot.style.opacity   = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    outer.style.opacity = '1';
+    dot.style.opacity   = '1';
+  });
+
+  // ————————————————————————————————————————————
+  //  Cleanup
+  // ————————————————————————————————————————————
+  window.addEventListener('beforeunload', () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    mo.disconnect();
+  });
+})();
+</script>
+
+<style is:global>
+  /* Hide system cursor site-wide (pointer devices only) */
+  @media (hover: hover) {
+    *, *::before, *::after { cursor: none !important; }
+  }
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Outer glow ring */
+  .cursor--outer {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    box-shadow:
+      0 0 12px rgba(232, 90, 37, 0.5),
+      0 0 28px rgba(232, 90, 37, 0.25),
+      inset 0 0 8px rgba(232, 90, 37, 0.1);
+    background: rgba(232, 90, 37, 0.04);
+    transition:
+      transform 0s,
+      width 0.25s var(--ease-out-expo),
+      height 0.25s var(--ease-out-expo),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  /* Inner dot */
+  .cursor--dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(232, 90, 37, 0.8);
+    transition: transform 0s, opacity 0.3s ease;
+  }
+</style>
