@@ -18,12 +18,13 @@
   'use strict';
 
   // ————————————————————————————————————————————
-  //  Skip on touch-only devices; respect reduced-motion but still render
-  //  a simplified cursor (reduced visual intensity) instead of hiding it.
+  //  Initialize only on devices that support hover + a fine pointer
+  //  (typical desktop mice). On touch/coarse-pointer devices we exit
+  //  early to avoid running cursor logic that doesn't work well.
   // ————————————————————————————————————————————
-  const isTouch = window.matchMedia('(hover: none)').matches;
+  const supportsCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (isTouch) return;
+  if (!supportsCursor) return;
   const REDUCE_MOTION = reduceMotion;
 
   const outer = document.getElementById('cursor-outer') as HTMLElement;
@@ -188,6 +189,17 @@
   /* Hide system cursor site-wide (pointer devices only) */
   @media (hover: hover) {
     *, *::before, *::after { cursor: none !important; }
+  }
+
+  /* Hide custom cursor elements on touch / coarse-pointer devices */
+  @media (hover: none), (pointer: coarse) {
+    #cursor-outer,
+    #cursor-dot-wrap {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
   }
 
   .cursor {
