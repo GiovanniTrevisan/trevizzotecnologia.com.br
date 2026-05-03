@@ -76,6 +76,9 @@
       magnetOriginX = r.left + r.width  / 2;
       magnetOriginY = r.top  + r.height / 2;
     });
+    // Mouse movement previously translated the element toward the cursor
+    // (magnetic pull). Per request, do NOT apply any transform to the
+    // interactive element itself — keep cursor visuals only.
     htmlEl.addEventListener('mousemove', (e: MouseEvent) => {
       if (!magnetEl) return;
       const r = htmlEl.getBoundingClientRect();
@@ -88,8 +91,7 @@
       const scale = len > MAX_PULL ? MAX_PULL / len : 1;
       magnetOffX = dx * scale;
       magnetOffY = dy * scale;
-      htmlEl.style.transform = `translate(${magnetOffX}px, ${magnetOffY}px)`;
-      (htmlEl as HTMLElement).dataset.magnetised = 'true';
+      // Intentionally do NOT set htmlEl.style.transform here.
     });
     htmlEl.addEventListener('mouseleave', () => {
       if (magnetEl === htmlEl) {
@@ -105,7 +107,7 @@
 
   // Attach to interactive elements after DOM ready
   function initMagnets() {
-    document.querySelectorAll('a, [data-magnetic]').forEach(attachMagnet);
+    document.querySelectorAll('a, button, [data-magnetic]').forEach(attachMagnet);
   }
 
   if (document.readyState === 'loading') {
@@ -116,7 +118,7 @@
 
   // Re-attach when new elements appear (e.g. mobile menu)
   const mo = new MutationObserver(() => {
-    document.querySelectorAll('a:not([data-cursor-init]), [data-magnetic]:not([data-cursor-init])').forEach((el) => {
+    document.querySelectorAll('a:not([data-cursor-init]), button:not([data-cursor-init])').forEach((el) => {
       (el as HTMLElement).dataset.cursorInit = 'true';
       attachMagnet(el);
     });
