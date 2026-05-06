@@ -70,8 +70,14 @@ const steps = [
 
 <style>
   .how {
-    background: var(--bg-white);
+    background: #F6F8FC;
     position: relative;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --bg-base: #FFFFFF;
+    --border-soft: #E2E8F0;
+    --border-medium: #CBD5E1;
   }
 
   .how__timeline {
@@ -136,7 +142,7 @@ const steps = [
     z-index: 2;
     width: 56px; height: 56px;
     border-radius: 50%;
-    background: var(--bg-white);
+    background: #FFFFFF;
     border: 2px solid var(--accent);
     color: var(--accent);
     font-size: 18px;
@@ -157,16 +163,18 @@ const steps = [
     z-index: 1;
   }
   .how__step:hover .how__step-number {
-    background: var(--grad-accent);
-    color: #FFFFFF;
+    background: var(--accent);
+    color: var(--text-primary);
     transform: scale(1.08);
     border-color: transparent;
   }
 
   .how__step-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border-soft);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: var(--radius-xl);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     padding: 24px;
     display: flex;
     flex-direction: column;
@@ -179,8 +187,8 @@ const steps = [
   }
   .how__step:hover .how__step-card {
     transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(255, 107, 53, 0.3);
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+    border-color: rgba(232, 90, 37, 0.35);
   }
 
   .how__step-head {
@@ -192,16 +200,16 @@ const steps = [
   .how__step-icon {
     width: 40px; height: 40px;
     border-radius: 12px;
-    background: rgba(30, 58, 95, 0.07);
-    color: var(--primary);
+    background: rgba(232, 90, 37, 0.12);
+    color: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.4s var(--ease-out-back);
   }
   .how__step:hover .how__step-icon {
-    background: var(--primary);
-    color: #FFFFFF;
+    background: var(--accent);
+    color: var(--text-primary);
     transform: rotate(-6deg);
   }
   .how__step-duration {
@@ -233,11 +241,11 @@ const steps = [
     align-items: center;
     gap: 8px;
     padding: 10px 12px;
-    background: rgba(34, 197, 94, 0.07);
-    border: 1px solid rgba(34, 197, 94, 0.18);
+    background: rgba(232, 90, 37, 0.08);
+    border: 1px solid rgba(232, 90, 37, 0.2);
     border-radius: var(--radius-sm);
     font-size: 12.5px;
     font-weight: 500;
-    color: #15803D;
+    color: var(--accent);
   }
 </style>

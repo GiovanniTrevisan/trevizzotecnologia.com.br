@@ -18,44 +18,22 @@ const navLinks = [
 ---
 
 <header class:list={['header', { 'header--light': variant === 'light' }]} id="header">
+
   <div class="header__inner">
     <a href="/" class="header__logo" aria-label="Trevizzo Soluções - Página inicial">
-      <img
-        src="/images/logo.svg"
-        alt="Trevizzo Soluções"
-        width="160"
-        height="49"
-        class="header__logo-img header__logo-img--light"
-      />
-      <img
-        src="/images/logo-dark.svg"
-        alt="Trevizzo Soluções"
-        width="160"
-        height="49"
-        class="header__logo-img header__logo-img--dark"
-      />
+      <img src="/images/logo.svg" alt="Trevizzo Soluções" width="160" height="49" class="header__logo-img header__logo-img--light" />
+      <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="160" height="49" class="header__logo-img header__logo-img--dark" />
     </a>
-
     <nav class="header__nav" aria-label="Navegação principal">
-      {navLinks.map((link) => (
-        <a href={link.href} class="header__link">{link.label}</a>
-      ))}
+      {navLinks.map((link) => (<a href={link.href} class="header__link">{link.label}</a>))}
     </nav>
-
-    <Button href={WHATSAPP_URL} variant="primary" size="sm" class="header__cta" dataCta="header" target="_blank" rel="noopener noreferrer">
-      Quero Meu Site →
-    </Button>
-
-    <button
-      class="header__hamburger"
-      aria-label="Abrir menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
+    <Button href={WHATSAPP_URL} variant="primary" size="sm" class="header__cta" dataCta="header" target="_blank" rel="noopener noreferrer">Quero Meu Site →</Button>
+    <button class="header__hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
       <Icon name="menu" size={22} class="header__hamburger-icon header__hamburger-icon--open" />
       <Icon name="x" size={22} class="header__hamburger-icon header__hamburger-icon--close" />
     </button>
   </div>
+
 </header>
 
 <!-- Mobile Menu (outside header to avoid backdrop-filter containing block) -->
@@ -114,22 +92,22 @@ const navLinks = [
     transition: background 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
   }
   .header--scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    background: rgba(6, 11, 23, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(246, 248, 252, 0.06);
+    border-bottom: 1px solid rgba(246, 248, 252, 0.06);
   }
-  /* When menu is open, force solid white header with dark text */
+  /* When menu is open, force solid dark header */
   .header--menu-open {
-    background: var(--bg-white) !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.08);
+    background: rgba(6, 11, 23, 0.96) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(246, 248, 252, 0.06);
   }
   .header--menu-open .header__hamburger {
-    background: #F1F5F9;
-    color: var(--primary);
+    background: rgba(246, 248, 252, 0.08);
+    color: var(--text-primary);
   }
 
   .header__inner {
@@ -147,32 +125,12 @@ const navLinks = [
     display: flex;
     align-items: center;
   }
-  .header__logo-img {
-    height: 48px;
-    width: auto;
-    display: block;
-  }
-  /* Light logo (for light/scrolled background) */
+  /* Always show the dark-bg (light) logo */
   .header__logo-img--light {
-    display: block;
+    display: none;
   }
-  /* Dark logo (for dark hero background) */
   .header__logo-img--dark {
-    display: none;
-  }
-  /* When over dark hero (not scrolled), show dark-bg logo and hide light logo */
-  .header:not(.header--scrolled):not(.header--light) .header__logo-img--light {
-    display: none;
-  }
-  .header:not(.header--scrolled):not(.header--light) .header__logo-img--dark {
     display: block;
-  }
-  /* When menu is open, keep light logo visible */
-  .header--menu-open .header__logo-img--light {
-    display: block !important;
-  }
-  .header--menu-open .header__logo-img--dark {
-    display: none !important;
   }
 
   .header__nav {
@@ -184,7 +142,7 @@ const navLinks = [
     font-family: var(--font);
     font-size: 15px;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
     position: relative;
@@ -194,26 +152,19 @@ const navLinks = [
     position: absolute;
     bottom: -4px;
     left: 0;
-    width: 0;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
     height: 2px;
     background: var(--accent);
     border-radius: 1px;
-    transition: width 0.3s ease;
+    transition: transform 0.3s var(--ease-out-expo);
   }
   .header__link:hover {
-    color: var(--primary);
+    color: var(--text-primary);
   }
   .header__link:hover::after {
-    width: 100%;
-  }
-  .header:not(.header--scrolled):not(.header--light) .header__link {
-    color: rgba(255, 255, 255, 0.85);
-  }
-  .header:not(.header--scrolled):not(.header--light) .header__link:hover {
-    color: var(--text-white);
-  }
-  .header:not(.header--scrolled):not(.header--light) .header__link::after {
-    background: var(--text-white);
+    transform: scaleX(1);
   }
 
   .header__cta {
@@ -227,19 +178,23 @@ const navLinks = [
     width: 40px;
     height: 40px;
     border-radius: var(--radius-sm);
-    background: rgba(241, 245, 249, 0.15);
-    color: var(--text-white);
-    border: none;
+    background: rgba(246, 248, 252, 0.08);
+    color: var(--text-primary);
+    border: 1px solid rgba(246, 248, 252, 0.1);
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .header__hamburger:hover {
+    background: rgba(246, 248, 252, 0.12);
+    border-color: var(--accent);
   }
   .header--light .header__hamburger {
-    background: #F1F5F9;
-    color: var(--primary);
+    background: rgba(246, 248, 252, 0.08);
+    color: var(--text-primary);
   }
   .header--scrolled .header__hamburger {
-    background: #F1F5F9;
-    color: var(--primary);
+    background: rgba(246, 248, 252, 0.08);
+    color: var(--text-primary);
   }
   .header__hamburger :global(.header__hamburger-icon--close) {
     display: none;
@@ -277,13 +232,16 @@ const navLinks = [
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--bg-white);
+    background: rgba(6, 11, 23, 0.97);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0.3s;
     z-index: 99;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    border-top: 1px solid rgba(246, 248, 252, 0.06);
   }
   .mobile-menu--open {
     opacity: 1;
@@ -300,16 +258,19 @@ const navLinks = [
     font-family: var(--font);
     font-size: 18px;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     padding: 12px 24px;
     border-radius: var(--radius-sm);
     width: 100%;
     text-align: center;
     text-decoration: none;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
+    border: 1px solid transparent;
   }
   .mobile-menu__link:hover {
-    background: var(--bg-alt);
+    background: rgba(246, 248, 252, 0.06);
+    color: var(--text-primary);
+    border-color: var(--border-soft);
   }
   .mobile-menu__cta {
     margin-top: 16px;

@@ -1,0 +1,286 @@
+---
+/**
+ * Cursor — custom glow-trail + magnetic-pull cursor.
+ * Rendered only on pointer devices; hidden on touch screens.
+ * Respects prefers-reduced-motion.
+ */
+---
+
+<div id="cursor-outer" class="cursor cursor--outer" aria-hidden="true">
+  <div class="cursor--outer-ring" aria-hidden="true"></div>
+</div>
+<div id="cursor-dot-wrap" class="cursor cursor--dot-wrap" aria-hidden="true">
+  <div id="cursor-dot" class="cursor cursor--dot" aria-hidden="true"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ————————————————————————————————————————————
+  //  Initialize only on devices that support hover + a fine pointer
+  //  (typical desktop mice). On touch/coarse-pointer devices we exit
+  //  early to avoid running cursor logic that doesn't work well.
+  // ————————————————————————————————————————————
+  const supportsCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!supportsCursor) return;
+  const REDUCE_MOTION = reduceMotion;
+
+  const outer = document.getElementById('cursor-outer') as HTMLElement;
+  const outerRing = outer ? outer.querySelector('.cursor--outer-ring') as HTMLElement : null;
+  const dotWrap = document.getElementById('cursor-dot-wrap') as HTMLElement;
+  const dot    = dotWrap ? dotWrap.querySelector('#cursor-dot') as HTMLElement : null;
+  if (!outer || !outerRing || !dotWrap || !dot) return;
+
+  // ————————————————————————————————————————————
+  //  State
+  // ————————————————————————————————————————————
+  let mx = -200, my = -200;    // raw mouse pos
+  let ox = -200, oy = -200;    // outer (lagged) pos
+  let magnetEl: HTMLElement | null = null;          // currently hovered interactive element
+  let magnetOriginX = 0;
+  let magnetOriginY = 0;
+  let magnetOffX = 0;
+  let magnetOffY = 0;
+  let outerScale = 1;
+  let dotScale = 1;
+  let rafId: number | null = null;
+
+  // ————————————————————————————————————————————
+  //  Show cursor once mouse moves
+  // ————————————————————————————————————————————
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    outer.style.opacity = '1';
+    dotWrap.style.opacity = '1';
+    dot.style.opacity = '1';
+  }, { passive: true });
+
+  // ————————————————————————————————————————————
+  //  Scale on press
+  // ————————————————————————————————————————————
+  document.addEventListener('mousedown', () => {
+    outerScale = 0.8;
+    dotScale   = 1.5;
+  });
+  document.addEventListener('mouseup', () => {
+    outerScale = magnetEl ? 1.5 : 1;
+    dotScale   = 1;
+  });
+
+  // ————————————————————————————————————————————
+  //  Magnetic pull on interactive elements
+  //  Maximum displacement: 8px
+  // ————————————————————————————————————————————
+  const MAX_PULL = 8;
+
+  function attachMagnet(el: Element) {
+    const htmlEl = el as HTMLElement;
+    htmlEl.addEventListener('mouseenter', () => {
+      magnetEl = htmlEl;
+      outerScale = 1.5;
+      // Store element centre for displacement calc
+      const r = htmlEl.getBoundingClientRect();
+      magnetOriginX = r.left + r.width  / 2;
+      magnetOriginY = r.top  + r.height / 2;
+    });
+    // Mouse movement previously translated the element toward the cursor
+    // (magnetic pull). Per request, do NOT apply any transform to the
+    // interactive element itself — keep cursor visuals only.
+    htmlEl.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!magnetEl) return;
+      const r = htmlEl.getBoundingClientRect();
+      const cx = r.left + r.width  / 2;
+      const cy = r.top  + r.height / 2;
+      const dx = (e.clientX - cx) * 0.35;
+      const dy = (e.clientY - cy) * 0.35;
+      // clamp
+      const len = Math.sqrt(dx * dx + dy * dy);
+      const scale = len > MAX_PULL ? MAX_PULL / len : 1;
+      magnetOffX = dx * scale;
+      magnetOffY = dy * scale;
+      // Intentionally do NOT set htmlEl.style.transform here.
+    });
+    htmlEl.addEventListener('mouseleave', () => {
+      if (magnetEl === htmlEl) {
+        magnetEl = null;
+        outerScale = 1;
+        magnetOffX = 0;
+        magnetOffY = 0;
+      }
+      htmlEl.style.transform = '';
+      delete (htmlEl as HTMLElement).dataset.magnetised;
+    });
+  }
+
+  // Attach to interactive elements after DOM ready
+  function initMagnets() {
+    document.querySelectorAll('a, button, [data-magnetic]').forEach(attachMagnet);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMagnets);
+  } else {
+    initMagnets();
+  }
+
+  // Re-attach when new elements appear (e.g. mobile menu)
+  const mo = new MutationObserver(() => {
+    document.querySelectorAll('a:not([data-cursor-init]), button:not([data-cursor-init])').forEach((el) => {
+      (el as HTMLElement).dataset.cursorInit = 'true';
+      attachMagnet(el);
+    });
+  });
+  mo.observe(document.body, { childList: true, subtree: true });
+
+  // ————————————————————————————————————————————
+  //  Main render loop — lerp outer ring toward mouse. Reduced-motion
+  //  users get an immediate (non-lagged) follow to minimize perceived motion.
+  // ————————————————————————————————————————————
+  const LERP = REDUCE_MOTION ? 1 : 0.12;
+
+  function lerp(a: number, b: number, t: number): number { return a + (b - a) * t; }
+
+  function tick() {
+    rafId = requestAnimationFrame(tick);
+
+    // Lerp outer ring toward mouse
+    ox = lerp(ox, mx, LERP);
+    oy = lerp(oy, my, LERP);
+
+    // Position outer container (no scale here) so translation is immediate and smooth
+    outer.style.transform = `translate(${ox}px, ${oy}px) translate(-50%, -50%)`;
+    // Apply scale and subtle magnet offset to the visual ring (this will transition via CSS)
+    outerRing!.style.transform = `translate(${magnetOffX}px, ${magnetOffY}px) scale(${outerScale})`;
+    // Dot: position container follows pointer instantly; the inner dot only scales (animates on click)
+    dotWrap!.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    dot!.style.transform = `scale(${dotScale})`;
+  }
+
+  rafId = requestAnimationFrame(tick);
+
+  // ————————————————————————————————————————————
+  //  Hide when cursor leaves window
+  // ————————————————————————————————————————————
+  document.addEventListener('mouseleave', () => {
+    outer.style.opacity = '0';
+    dotWrap.style.opacity = '0';
+    dot.style.opacity   = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    outer.style.opacity = '1';
+    dotWrap.style.opacity = '1';
+    dot.style.opacity   = '1';
+  });
+
+  // ————————————————————————————————————————————
+  //  Cleanup
+  // ————————————————————————————————————————————
+  window.addEventListener('beforeunload', () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    mo.disconnect();
+  });
+})();
+</script>
+
+<style is:global>
+  /* Hide system cursor site-wide (pointer devices only) */
+  @media (hover: hover) {
+    *, *::before, *::after { cursor: none !important; }
+  }
+
+  /* Hide custom cursor elements on touch / coarse-pointer devices */
+  @media (hover: none), (pointer: coarse) {
+    #cursor-outer,
+    #cursor-dot-wrap {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  }
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: block;
+  }
+
+  /* Outer container — handles translation only. Keep same size as visual ring so
+     translate(-50%, -50%) centers correctly. */
+  .cursor--outer {
+    width: 42px;
+    height: 42px;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Outer glow ring (visual) — scale and shadow transitions live here */
+  .cursor--outer-ring {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent);
+    box-shadow:
+      0 0 12px rgba(232, 90, 37, 0.5),
+      0 0 28px rgba(232, 90, 37, 0.25),
+      inset 0 0 8px rgba(232, 90, 37, 0.1);
+    background: rgba(232, 90, 37, 0.04);
+    transform-origin: center;
+    will-change: transform, box-shadow;
+    transition:
+      transform 220ms var(--ease-out-back),
+      box-shadow 220ms var(--ease-out-back),
+      width 0.25s var(--ease-out-expo),
+      height 0.25s var(--ease-out-expo),
+      border-color 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  /* Dot wrapper (handles translation only) */
+  .cursor--dot-wrap { width: 7px; height: 7px; display: block; pointer-events: none; }
+
+  /* Inner dot (visual) — scale animates on click, translation is instant via the wrapper */
+  .cursor--dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px rgba(232, 90, 37, 0.8);
+    transform-origin: center;
+    will-change: transform, opacity, box-shadow;
+    transition: transform 180ms var(--ease-out-back), opacity 0.2s ease, box-shadow 180ms var(--ease-out-back);
+  }
+
+  /* Small-screen: reduce ring glow and size */
+  @media (max-width: 640px) {
+    .cursor--outer-ring {
+      opacity: 0.55;
+      box-shadow: 0 0 6px rgba(232, 90, 37, 0.12);
+      width: 34px;
+      height: 34px;
+      border-width: 1px;
+    }
+    .cursor--dot { box-shadow: 0 0 6px rgba(232, 90, 37, 0.6); width: 6px; height: 6px; }
+  }
+
+  /* Respect prefers-reduced-motion: remove decorative glow and heavy transitions */
+  @media (prefers-reduced-motion: reduce) {
+    .cursor--outer-ring {
+      box-shadow: none !important;
+      opacity: 0.6 !important;
+      transition: none !important;
+    }
+    .cursor--dot {
+      transition: none !important;
+    }
+  }
+</style>

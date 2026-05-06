@@ -36,7 +36,7 @@ import { testimonials } from '@/data/testimonials';
 
 <style>
   .testimonials {
-    background: var(--bg-alt);
+    background: var(--bg-surface);
   }
   .testimonials__cards {
     display: flex;
@@ -45,9 +45,11 @@ import { testimonials } from '@/data/testimonials';
     margin-top: 28px;
   }
   .testimonials__card {
-    background: var(--bg-white);
-    border: 1px solid #E2E8F0;
+    background: var(--glass-bg);
+    border: var(--glass-border);
     border-radius: var(--radius-lg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: 24px 20px;
     display: flex;
     flex-direction: column;
@@ -57,21 +59,21 @@ import { testimonials } from '@/data/testimonials';
   }
   .testimonials__card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-    border-color: #FBBF24;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(232, 90, 37, 0.35);
   }
   .testimonials__stars {
     display: flex;
     gap: 2px;
   }
   .testimonials__star {
-    fill: #FBBF24;
-    color: #FBBF24;
+    fill: var(--accent);
+    color: var(--accent);
   }
   .testimonials__quote {
     font-family: var(--font);
     font-size: 14px;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     line-height: 1.6;
     font-style: italic;
     border: none;

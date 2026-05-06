@@ -37,8 +37,8 @@ import { WHATSAPP_URL } from '@/data/config';
     box-shadow:
       0 12px 32px rgba(37, 211, 102, 0.35),
       0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.4s var(--ease-out-back), box-shadow 0.4s, padding 0.5s var(--ease-out-expo);
-    overflow: hidden;
+    transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s;
+    overflow: visible;
     text-decoration: none;
   }
   .whatsapp-btn:hover {
@@ -46,7 +46,6 @@ import { WHATSAPP_URL } from '@/data/config';
     box-shadow:
       0 16px 40px rgba(37, 211, 102, 0.42),
       0 6px 16px rgba(0, 0, 0, 0.25);
-    padding: 6px 16px 6px 6px;
   }
 
   .whatsapp-btn__pulse {
@@ -76,21 +75,30 @@ import { WHATSAPP_URL } from '@/data/config';
   }
 
   .whatsapp-btn__label {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    right: calc(100% + 10px);
+    bottom: 50%;
+    transform: translateY(50%) translateX(6px);
     display: flex;
     flex-direction: column;
     line-height: 1.2;
-    max-width: 0;
-    overflow: hidden;
+    background: rgba(20, 40, 68, 0.75);
+    color: var(--text-primary);
+    border: 1px solid rgba(232, 90, 37, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
     white-space: nowrap;
+    pointer-events: none;
     opacity: 0;
-    transition: max-width 0.5s var(--ease-out-expo), opacity 0.4s, margin-left 0.5s var(--ease-out-expo);
+    box-shadow: var(--shadow-md);
+    transition: opacity 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo);
   }
   .whatsapp-btn:hover .whatsapp-btn__label {
-    max-width: 200px;
     opacity: 1;
-    margin-left: 12px;
+    transform: translateY(50%) translateX(0);
+    pointer-events: auto;
   }
   .whatsapp-btn__label strong {
     font-size: 13px;

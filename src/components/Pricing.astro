@@ -6,12 +6,11 @@ import { WHATSAPP_URL } from '@/data/config';
 
 const checklist = [
   { text: 'Landing page profissional sob medida', highlight: true },
-  { text: 'SEO técnico + on-page completo' },
-  { text: 'Google Meu Negócio configurado e otimizado' },
+  { text: 'SEO técnico + on-page completo', highlight: true },
+  { text: 'Google Meu Negócio configurado e otimizado', highlight: true },
   { text: 'Domínio .com.br + hospedagem + SSL' },
   { text: 'Botão WhatsApp e formulários integrados' },
   { text: '12 meses de suporte humano via WhatsApp', highlight: true },
-  { text: 'Relatórios mensais de performance' },
   { text: 'Site 100% responsivo (mobile, tablet, desktop)' },
   { text: 'Entrega garantida em 7 dias úteis' },
 ];
@@ -27,7 +26,7 @@ const comparison = [
 ---
 
 <section class="pricing section" id="preco" data-reveal>
-  <div class="mesh-bg mesh-bg--light" aria-hidden="true"></div>
+  <div class="mesh-bg" aria-hidden="true"></div>
 
   <div class="container pricing__container">
     <SectionHeading
@@ -45,7 +44,7 @@ const comparison = [
         <div class="pricing__card-head">
           <span class="pricing__badge">
             <Icon name="sparkles" size={12} />
-            Pacote Completo
+            Pacote Essencial
           </span>
           <h3 class="pricing__plan">Plano Trevizzo Essencial</h3>
         </div>
@@ -152,7 +151,7 @@ const comparison = [
 </section>
 
 <style>
-  .pricing { background: var(--bg-alt); position: relative; overflow: hidden; }
+  .pricing { background: var(--bg-base); position: relative; overflow: hidden; }
   .pricing__container { position: relative; z-index: 1; }
 
   .pricing__layout {
@@ -172,16 +171,18 @@ const comparison = [
   /* Pricing card */
   .pricing__card {
     position: relative;
-    background: var(--bg-white);
-    border: 1.5px solid rgba(255, 107, 53, 0.25);
+    background: rgba(20, 40, 68, 0.5);
+    border: 1.5px solid rgba(232, 90, 37, 0.4);
     border-radius: var(--radius-2xl);
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    box-shadow: 0 30px 80px rgba(255, 107, 53, 0.10), var(--shadow-lg);
+    box-shadow: 0 0 60px rgba(232, 90, 37, 0.12), var(--shadow-lg);
     overflow: hidden;
     isolation: isolate;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   @media (min-width: 768px) {
     .pricing__card { padding: 44px 40px; }
@@ -190,7 +191,7 @@ const comparison = [
     position: absolute;
     top: -120px; right: -120px;
     width: 320px; height: 320px;
-    background: radial-gradient(circle, rgba(255,107,53,0.2), transparent 70%);
+    background: radial-gradient(circle, rgba(232,90,37,0.2), transparent 70%);
     filter: blur(40px);
     pointer-events: none;
     z-index: -1;
@@ -206,15 +207,15 @@ const comparison = [
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--grad-accent);
-    color: #FFFFFF;
+    background: var(--accent);
+    color: var(--text-primary);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 6px 14px;
     border-radius: var(--radius-full);
-    box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 4px 14px rgba(232, 90, 37, 0.3);
   }
   .pricing__plan {
     font-size: clamp(20px, 2vw, 26px);
@@ -247,7 +248,7 @@ const comparison = [
   .pricing__value {
     font-size: clamp(48px, 7vw, 68px);
     font-weight: 800;
-    color: var(--primary);
+    color: var(--text-primary);
     line-height: 1;
     letter-spacing: var(--tracking-tighter);
   }
@@ -303,8 +304,8 @@ const comparison = [
     flex-shrink: 0;
     width: 22px; height: 22px;
     border-radius: 50%;
-    background: rgba(34, 197, 94, 0.15);
-    color: #16A34A;
+    background: rgba(255, 232, 220, 0.12);
+    color: var(--accent-soft);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,9 +315,9 @@ const comparison = [
     font-weight: 600;
   }
   .pricing__check-item--hl .pricing__check-icon {
-    background: var(--grad-accent);
-    color: #FFFFFF;
-    box-shadow: 0 4px 10px rgba(255, 107, 53, 0.35);
+    background: var(--accent);
+    color: var(--text-primary);
+    box-shadow: 0 4px 10px rgba(232, 90, 37, 0.35);
   }
 
   .pricing__actions {
@@ -346,9 +347,11 @@ const comparison = [
 
   /* Compare panel */
   .pricing__compare {
-    background: var(--bg-white);
-    border: 1px solid var(--border-soft);
+    background: var(--glass-bg);
+    border: var(--glass-border);
     border-radius: var(--radius-2xl);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     padding: 28px 24px;
     display: flex;
     flex-direction: column;
@@ -454,7 +457,7 @@ const comparison = [
 
   .pricing__compare-row--price {
     margin-top: 8px;
-    background: var(--bg-alt) !important;
+    background: rgba(232, 90, 37, 0.06) !important;
     font-weight: 600;
   }
 
@@ -464,11 +467,11 @@ const comparison = [
     align-items: center;
     gap: 10px;
     padding: 14px 16px;
-    background: rgba(34, 197, 94, 0.08);
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    background: rgba(255, 232, 220, 0.06);
+    border: 1px solid rgba(232, 90, 37, 0.25);
     border-radius: var(--radius-md);
     font-size: 13.5px;
-    color: #15803D;
+    color: var(--accent-soft);
     line-height: 1.4;
   }
   .pricing__compare-conclusion strong { font-weight: 700; }

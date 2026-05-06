@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+// import Cursor from '@/components/Cursor.astro';
 import { faqItems } from '@/data/faq';
 import { SITE_URL, SITE_NAME } from '@/data/config';
 
@@ -74,7 +75,7 @@ const faqSchema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B1426" />
+    <meta name="theme-color" content="#060B17" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Trevizzo Soluções — Grupo Yuzan" />
@@ -120,6 +121,7 @@ const faqSchema = {
   <body>
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
     <slot />
+    <!-- <Cursor /> -->
 
     <!-- Scroll Reveal + count-up -->
     <script>
@@ -165,5 +167,6 @@ const faqSchema = {
       }, { threshold: 0.4 });
       document.querySelectorAll('[data-count-to]').forEach((el) => countObserver.observe(el));
     </script>
-  </body>
+
+</body>
 </html>
