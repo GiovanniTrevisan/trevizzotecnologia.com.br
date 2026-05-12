@@ -49,14 +49,70 @@ const productSchema = {
   '@type': 'Product',
   name: 'Pacote Completo — Landing Page + SEO',
   description: 'Landing page profissional com SEO completo, Google Meu Negócio, domínio, hospedagem e 12 meses de suporte humano.',
+  image: `${SITE_URL}images/icon.png`,
+  sku: 'PACK-LP-SEO-001',
   brand: { '@type': 'Brand', name: SITE_NAME },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    reviewCount: '3',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  review: [
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Dona Márcia' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5', worstRating: '1' },
+      reviewBody: 'Antes eu dependia só de indicação. Agora clientes me acham no Google e ligam direto. Melhor investimento!',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Seu Carlos' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5', worstRating: '1' },
+      reviewBody: 'Meu filho vivia dizendo que eu precisava de um site. A Trevizzo fez tudo — nem precisei mexer no computador.',
+    },
+    {
+      '@type': 'Review',
+      author: { '@type': 'Person', name: 'Rafaela' },
+      reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5', worstRating: '1' },
+      reviewBody: 'Eu já vendia pelo Instagram, mas quando apareci no Google as encomendas dobraram. Em 7 dias!',
+    },
+  ],
   offers: {
     '@type': 'Offer',
     price: '1198.80',
     priceCurrency: 'BRL',
     availability: 'https://schema.org/InStock',
     priceValidUntil: '2027-12-31',
-  },
+    url: SITE_URL,
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingRate: {
+        '@type': 'MonetaryAmount',
+        value: '0',
+        currency: 'BRL'
+      },
+      deliveryTime: {
+        '@type': 'ShippingDeliveryTime',
+        handlingTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 1,
+          maxValue: 5,
+          unitCode: 'DAY'
+        }
+      },
+      shippingDestination: {
+        '@type': 'DefinedRegion',
+        addressCountry: 'BR'
+      }
+    },
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      applicableCountry: 'BR',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted'
+    }
+  }
 };
 
 const faqSchema = {
