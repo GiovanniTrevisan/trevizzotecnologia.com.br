@@ -131,20 +131,6 @@ import { WHATSAPP_URL } from '@/data/config';
       </div>
     </div>
   </div>
-
-  <!-- Trust strip -->
-  <div class="hero__trust">
-    <div class="hero__trust-inner">
-      <span class="hero__trust-label">Onde atuamos</span>
-      <div class="hero__trust-logos" aria-hidden="true">
-        <span>Barueri / Alphaville</span>
-        <span>·</span>
-        <span>Belo Horizonte</span>
-        <span>·</span>
-        <span>Atendimento remoto em todo o Brasil</span>
-      </div>
-    </div>
-  </div>
 </section>
 
 <script>
@@ -189,6 +175,10 @@ import { WHATSAPP_URL } from '@/data/config';
     padding: 128px 24px 80px;
     overflow: hidden;
     isolation: isolate;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   @media (min-width: 1024px) {
     .hero { padding: 156px 64px 100px; }
