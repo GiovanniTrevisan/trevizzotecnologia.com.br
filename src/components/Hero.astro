@@ -131,29 +131,6 @@ import { WHATSAPP_URL } from '@/data/config';
       </div>
     </div>
   </div>
-
-  <!-- Trust strip -->
-  <div class="hero__trust">
-    <div class="hero__trust-inner">
-      <span class="hero__trust-label">Confiam na Trevizzo</span>
-      <div class="hero__trust-logos" aria-hidden="true">
-        <span>🚧 Em Construção</span>
-        <span>·</span>
-        <span>🚀 Vem ser um dos primeiros!</span>
-        <!-- <span>Salão Márcia Beauty</span>
-        <span>·</span>
-        <span>Santos Materiais</span>
-        <span>·</span>
-        <span>Rafa Doces</span>
-        <span>·</span>
-        <span>Padaria São Bento</span>
-        <span>·</span>
-        <span>Auto Center BH</span>
-        <span>·</span>
-        <span>Studio Pilates Alphaville</span> -->
-      </div>
-    </div>
-  </div>
 </section>
 
 <script>
@@ -198,6 +175,10 @@ import { WHATSAPP_URL } from '@/data/config';
     padding: 128px 24px 80px;
     overflow: hidden;
     isolation: isolate;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   @media (min-width: 1024px) {
     .hero { padding: 156px 64px 100px; }

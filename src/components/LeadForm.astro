@@ -116,6 +116,10 @@ const cities = [
           Enviar e falar pelo WhatsApp
         </Button>
 
+        <p class="lead__status" id="lead-form-status" aria-live="polite">
+          Ao enviar, abrimos o WhatsApp com seus dados preenchidos.
+        </p>
+
         <p class="lead__legal">
           <Icon name="lock" size={12} />
           Seus dados são tratados conforme nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.
@@ -141,10 +145,12 @@ const cities = [
   }
 
   const form = document.getElementById('lead-form');
+  const statusEl = document.getElementById('lead-form-status');
   if (form) {
     // Inline validation
     function validateField(el) {
-      const field = el.closest('.lead__field') || el.closest('.lead__consent')?.parentElement;
+      const field = el.closest('.lead__field');
+      const consent = el.closest('.lead__consent');
       const errId = el.getAttribute('aria-describedby');
       const errEl = errId ? document.getElementById(errId) : null;
       let msg = '';
@@ -159,6 +165,7 @@ const cities = [
       }
       if (errEl) { errEl.textContent = msg; errEl.hidden = !msg; }
       if (field) field.classList.toggle('lead__field--error', !!msg);
+      if (consent) consent.classList.toggle('lead__consent--error', !!msg);
       el.setAttribute('aria-invalid', msg ? 'true' : 'false');
       return !msg;
     }
@@ -173,10 +180,19 @@ const cities = [
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
+      if (statusEl) {
+        statusEl.textContent = 'Abrindo o WhatsApp com seus dados...';
+        statusEl.classList.remove('lead__status--success', 'lead__status--error');
+      }
+
       // Validate all required fields before sending
       const required = [...form.querySelectorAll('input[required], select[required]')];
       const allValid = required.map(validateField).every(Boolean);
       if (!allValid) {
+        if (statusEl) {
+          statusEl.textContent = 'Revise os campos destacados para continuar.';
+          statusEl.classList.add('lead__status--error');
+        }
         const firstErr = form.querySelector('[aria-invalid="true"]');
         firstErr?.focus();
         return;
@@ -203,7 +219,17 @@ const cities = [
       const msg = (data.get('message') || '').toString().trim();
       if (msg) { lines.push('', '*O que precisa:*', msg); }
       const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
-      window.open(url, '_blank', 'noopener');
+      const popup = window.open(url, '_blank', 'noopener');
+
+      if (statusEl) {
+        if (popup) {
+          statusEl.textContent = 'WhatsApp aberto. Se a aba não aparecer, use o botão flutuante.';
+          statusEl.classList.add('lead__status--success');
+        } else {
+          statusEl.textContent = 'Não conseguimos abrir o WhatsApp automaticamente. Toque no botão de novo ou use o botão flutuante.';
+          statusEl.classList.add('lead__status--error');
+        }
+      }
 
       // Re-enable after delay (user may return and resubmit)
       setTimeout(() => {
@@ -211,6 +237,10 @@ const cities = [
           btn.disabled = false;
           btn.removeAttribute('aria-busy');
           btn.classList.remove('is-loading');
+        }
+        if (statusEl) {
+          statusEl.textContent = 'Ao enviar, abrimos o WhatsApp com seus dados preenchidos.';
+          statusEl.classList.remove('lead__status--success', 'lead__status--error');
         }
       }, 5000);
     });
@@ -393,6 +423,13 @@ const cities = [
     box-sizing: border-box;
     min-width: 0;
   }
+  @media (max-width: 767px) {
+    .lead__field input,
+    .lead__field select,
+    .lead__field textarea {
+      font-size: 16px;
+    }
+  }
   .lead__field input::placeholder,
   .lead__field textarea::placeholder { color: #64748B; }
   .lead__field input:focus,
@@ -430,6 +467,9 @@ const cities = [
     width: 16px; height: 16px;
     flex-shrink: 0;
   }
+  .lead__consent--error {
+    color: #FCA5A5;
+  }
 
   .lead__legal {
     display: flex;
@@ -447,6 +487,19 @@ const cities = [
     text-underline-offset: 2px;
   }
   .lead__legal a:hover { color: #FFFFFF; }
+
+  .lead__status {
+    min-height: 1.2em;
+    font-size: 12.5px;
+    color: #94A3B8;
+    line-height: 1.5;
+  }
+  .lead__status--success {
+    color: #86EFAC;
+  }
+  .lead__status--error {
+    color: #FCA5A5;
+  }
 
   /* Inline validation */
   .lead__error {

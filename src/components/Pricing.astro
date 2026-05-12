@@ -98,6 +98,10 @@ const comparison = [
             <span>Atendimento humano</span>
           </div>
         </div>
+
+        <p class="pricing__note">
+          Sem fidelidade. <a href="/termos-de-servico">Veja os termos de serviço</a> antes de contratar.
+        </p>
       </div>
 
       <!-- Tabela comparativa -->
@@ -344,6 +348,19 @@ const comparison = [
   .pricing__trust-icon--green   { color: var(--success); }
   .pricing__trust-icon--blue    { color: var(--primary); }
   .pricing__trust-icon--accent  { color: var(--accent); }
+
+  .pricing__note {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    text-align: center;
+  }
+  .pricing__note a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .pricing__note a:hover { color: var(--accent); }
 
   /* Compare panel */
   .pricing__compare {
