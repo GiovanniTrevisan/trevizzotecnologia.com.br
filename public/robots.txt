@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://trevizzotecnologia.com.br/sitemap-index.xml
+Sitemap: https://trevizzosolucoes.com.br/sitemap-index.xml
