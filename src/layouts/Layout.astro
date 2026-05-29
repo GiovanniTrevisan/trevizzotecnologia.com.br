@@ -1,8 +1,7 @@
 ---
 import '@/styles/global.css';
-// import Cursor from '@/components/Cursor.astro';
 import { faqItems } from '@/data/faq';
-import { SITE_URL, SITE_NAME } from '@/data/config';
+import { SITE_URL, SITE_NAME, WHATSAPP_NUMBER } from '@/data/config';
 
 interface Props {
   title?: string;
@@ -35,7 +34,7 @@ const localBusinessSchema = {
   name: SITE_NAME,
   description,
   url: SITE_URL,
-  telephone: '+5511999999999',
+  telephone: `+${WHATSAPP_NUMBER}`,
   address: [
     { '@type': 'PostalAddress', addressLocality: 'Barueri', addressRegion: 'SP', addressCountry: 'BR' },
     { '@type': 'PostalAddress', addressLocality: 'Belo Horizonte', addressRegion: 'MG', addressCountry: 'BR' },
@@ -86,7 +85,7 @@ const faqSchema = {
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/images/icon.png" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -95,24 +94,18 @@ const faqSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content={`${SITE_URL}images/icon.png`} />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+    <meta property="og:image" content={`${SITE_URL}images/og-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Trevizzo Soluções" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITE_URL}images/icon.png`} />
+    <meta name="twitter:image" content={`${SITE_URL}images/og-image.png`} />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts: self-hosted via @fontsource (ver global.css) -->
 
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
@@ -123,7 +116,6 @@ const faqSchema = {
   <body>
     <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
     <slot />
-    <!-- <Cursor /> -->
 
     <!-- Scroll Reveal + count-up -->
     <script>
@@ -144,7 +136,9 @@ const faqSchema = {
       );
       document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
 
-      // Count-up
+      // Count-up — o HTML já contém o valor final (fallback sem-JS).
+      // Só reanima do zero quando há JS e movimento é permitido.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const countObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
@@ -153,6 +147,8 @@ const faqSchema = {
           const decimals = parseInt(el.dataset.countDecimals || '0', 10);
           const suffix = el.dataset.countSuffix || '';
           const prefix = el.dataset.countPrefix || '';
+          countObserver.unobserve(el);
+          if (reduceMotion) return; // mantém o valor final já presente no HTML
           const duration = 1400;
           const start = performance.now();
           const startVal = 0;
@@ -164,7 +160,6 @@ const faqSchema = {
             if (p < 1) requestAnimationFrame(tick);
           }
           requestAnimationFrame(tick);
-          countObserver.unobserve(el);
         });
       }, { threshold: 0.4 });
       document.querySelectorAll('[data-count-to]').forEach((el) => countObserver.observe(el));
