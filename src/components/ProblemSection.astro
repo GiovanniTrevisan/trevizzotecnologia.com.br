@@ -67,18 +67,14 @@ const stats = [
     </div>
 
     <!-- Big stats strip (semantic <dl>) -->
-    <dl class="problem__bigstats" role="list" aria-label="Estatísticas principais">
+    <dl class="problem__bigstats" aria-label="Estatísticas principais">
       {stats.map((s) => (
-        <div class="problem__bigstat" data-stagger role="listitem">
-          <dt>
-            <strong
-              class="problem__stat-value"
+        <div class="problem__bigstat" data-stagger>
+          <dt class="problem__stat-value"
               data-count-to={s.value}
               data-count-suffix={s.suffix}
               data-count-decimals={s.decimals}
-              aria-live="polite"
-            >0{s.suffix}</strong>
-          </dt>
+          >{s.value.toLocaleString('pt-BR')}{s.suffix}</dt>
           <dd class="problem__stat-label">{s.label}</dd>
         </div>
       ))}
@@ -221,9 +217,8 @@ const stats = [
     flex-direction: column;
     align-items: center;
   }
-  .problem__bigstat dt { margin: 0; }
-  .problem__bigstat dt .problem__stat-value,
-  .problem__bigstat dt strong {
+  .problem__bigstat dt.problem__stat-value {
+    margin: 0;
     display: block;
     font-size: clamp(32px, 4vw, 48px);
     font-weight: 800;
@@ -232,7 +227,7 @@ const stats = [
     line-height: 1;
     transition: transform 0.24s var(--ease-out-back), color 0.18s ease;
   }
-  .problem__bigstat dt .problem__stat-value:hover { transform: scale(1.06); }
+  .problem__bigstat dt.problem__stat-value:hover { transform: scale(1.06); }
   .problem__bigstat dd {
     margin: 0;
     display: block;
@@ -242,6 +237,6 @@ const stats = [
     line-height: 1.4;
   }
   @media (prefers-reduced-motion: reduce) {
-    .problem__bigstat dt .problem__stat-value { transition: none !important; }
+    .problem__bigstat dt.problem__stat-value { transition: none !important; }
   }
 </style>

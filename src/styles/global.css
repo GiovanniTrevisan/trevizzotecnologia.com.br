@@ -3,6 +3,14 @@
    Dark Luxury Palette: #060B17 base · #E85A25 accent · Poppins
    ===================================================================== */
 
+/* Self-hosted Poppins (latin) — apenas os pesos usados: 400/500/600/700/800.
+   Elimina a dependência do Google Fonts (melhor LCP/CLS e privacidade). */
+@import '@fontsource/poppins/latin-400.css';
+@import '@fontsource/poppins/latin-500.css';
+@import '@fontsource/poppins/latin-600.css';
+@import '@fontsource/poppins/latin-700.css';
+@import '@fontsource/poppins/latin-800.css';
+
 :root {
   /* —— Brand colors (5-token system) —— */
   --bg-base:    #060B17;   /* absolute dark — page background              */
