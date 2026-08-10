@@ -1,8 +1,8 @@
 ---
 import '@/styles/global.css';
-// import Cursor from '@/components/Cursor.astro';
+import '@/styles/site-v2.css';
 import { faqItems } from '@/data/faq';
-import { SITE_URL, SITE_NAME } from '@/data/config';
+import { SITE_URL, SITE_NAME, COMPANY_LEGAL_NAME, COMPANY_CNPJ } from '@/data/config';
 
 interface Props {
   title?: string;
@@ -10,8 +10,9 @@ interface Props {
 }
 
 const {
-  title = 'Trevizzo Soluções — Site profissional + SEO no Google em 7 dias',
-  description = 'Landing page de alta conversão, SEO técnico e Google Meu Negócio para pequenos negócios. Entrega em 7 dias, suporte humano por 12 meses. A partir de 12x R$99,90.',
+  title = 'Trevizzo Soluções — Presença digital, automação e sistemas sob medida',
+  description =
+    'Presença digital, automação com IA e sistemas sob medida desenvolvidos a partir da realidade de cada empresa. O projeto começa por um diagnóstico gratuito.',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, SITE_URL);
@@ -20,10 +21,10 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: SITE_NAME,
-  legalName: 'Trevizzo Tecnologia e Consultoria em Informática LTDA',
+  legalName: COMPANY_LEGAL_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}images/logo.svg`,
-  taxID: '48.676.032/0001-38',
+  taxID: COMPANY_CNPJ,
   foundingDate: '2026-04',
   parentOrganization: { '@type': 'Organization', name: 'Grupo Yuzan' },
   sameAs: [],
@@ -31,31 +32,24 @@ const organizationSchema = {
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'ProfessionalService',
   name: SITE_NAME,
   description,
   url: SITE_URL,
-  telephone: '+5511999999999',
   address: [
     { '@type': 'PostalAddress', addressLocality: 'Barueri', addressRegion: 'SP', addressCountry: 'BR' },
     { '@type': 'PostalAddress', addressLocality: 'Belo Horizonte', addressRegion: 'MG', addressCountry: 'BR' },
   ],
-  priceRange: '$$',
-  areaServed: ['Barueri', 'Alphaville', 'Belo Horizonte', 'Brasil'],
-};
-
-const productSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: 'Pacote Completo — Landing Page + SEO',
-  description: 'Landing page profissional com SEO completo, Google Meu Negócio, domínio, hospedagem e 12 meses de suporte humano.',
-  brand: { '@type': 'Brand', name: SITE_NAME },
-  offers: {
-    '@type': 'Offer',
-    price: '1198.80',
-    priceCurrency: 'BRL',
-    availability: 'https://schema.org/InStock',
-    priceValidUntil: '2027-12-31',
+  areaServed: ['Barueri', 'Alphaville', 'São Paulo', 'Belo Horizonte', 'Brasil'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Soluções digitais',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Presença digital', description: 'Sites, landing pages, lojas, catálogos, SEO e presença no Google.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Automação e IA', description: 'Automações e inteligência artificial aplicadas a atendimento e organização de informações.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Sistemas sob medida', description: 'Sistemas e plataformas desenvolvidos para o fluxo real da empresa.' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Software por assinatura', description: 'Produtos digitais que podem ser comercializados por assinatura.' } },
+    ],
   },
 };
 
@@ -80,7 +74,10 @@ const faqSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Trevizzo Soluções — Grupo Yuzan" />
-    <meta name="keywords" content="landing page, criação de site, SEO, Google Meu Negócio, site para pequenos negócios, Barueri, Alphaville, Belo Horizonte" />
+    <meta
+      name="keywords"
+      content="presença digital, criação de site, automação, inteligência artificial, sistemas sob medida, software por assinatura, Barueri, Alphaville, Belo Horizonte"
+    />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
@@ -117,58 +114,10 @@ const faqSchema = {
     <!-- JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </head>
   <body>
-    <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
+    <a href="#conteudo" class="tz-skip">Pular para o conteúdo</a>
     <slot />
-    <!-- <Cursor /> -->
-
-    <!-- Scroll Reveal + count-up -->
-    <script>
-      // Marca o documento como "js-reveal" para ativar o esconde-e-revela.
-      // Sem JS, o conteúdo permanece visível (sem opacity:0).
-      document.documentElement.classList.add('js-reveal');
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
-      );
-      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
-
-      // Count-up
-      const countObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const target = parseFloat(el.dataset.countTo || '0');
-          const decimals = parseInt(el.dataset.countDecimals || '0', 10);
-          const suffix = el.dataset.countSuffix || '';
-          const prefix = el.dataset.countPrefix || '';
-          const duration = 1400;
-          const start = performance.now();
-          const startVal = 0;
-          function tick(now: number) {
-            const p = Math.min(1, (now - start) / duration);
-            const eased = 1 - Math.pow(1 - p, 3);
-            const v = startVal + (target - startVal) * eased;
-            el.textContent = prefix + v.toFixed(decimals).replace('.', ',') + suffix;
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-          countObserver.unobserve(el);
-        });
-      }, { threshold: 0.4 });
-      document.querySelectorAll('[data-count-to]').forEach((el) => countObserver.observe(el));
-    </script>
-
-</body>
+  </body>
 </html>

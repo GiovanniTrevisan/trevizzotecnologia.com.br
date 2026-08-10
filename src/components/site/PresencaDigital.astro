@@ -1,0 +1,65 @@
+---
+import { presence } from '@/data/site';
+---
+
+<section id="presenca" class="tz-section pres">
+  <div class="pres__glow" aria-hidden="true"></div>
+  <div class="tz-shell pres__grid">
+    <div class="pres__intro">
+      <div class="tz-eyebrow">
+        <span class="tz-eyebrow__n">03</span>
+        <span class="tz-eyebrow__label">Presença digital</span>
+      </div>
+      <h2 class="tz-h2">Confiança para quem chega. <em>Clareza para quem decide.</em></h2>
+      <p>Construímos a jornada digital para que o próximo passo do cliente seja simples.</p>
+    </div>
+
+    <div class="pres__cards">
+      {presence.map((p) => (
+        <article class="pres__card">
+          <h3>{p.title}</h3>
+          <p>{p.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pres { background: var(--tz-base); overflow: hidden; }
+  .pres__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(at 80% 20%, rgba(232, 90, 37, 0.1) 0px, transparent 45%);
+  }
+  .pres__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+  .pres__intro { display: flex; flex-direction: column; gap: 18px; }
+  .pres__intro p {
+    font-size: 16px;
+    color: var(--tz-text-2);
+    line-height: 1.65;
+    max-width: 480px;
+    margin: 0;
+  }
+  .pres__cards { display: flex; flex-direction: column; gap: 16px; }
+  .pres__card {
+    background: var(--tz-glass);
+    border: 1px solid rgba(232, 90, 37, 0.18);
+    border-radius: var(--tz-r-lg);
+    backdrop-filter: blur(20px);
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pres__card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
+  .pres__card p { font-size: 14.5px; color: var(--tz-text-2); line-height: 1.6; margin: 0; }
+</style>

@@ -1,0 +1,93 @@
+---
+import { helpRows } from '@/data/site';
+import Arrow from './Arrow.astro';
+---
+
+<section id="solucoes" class="tz-section help">
+  <div class="tz-shell">
+    <div class="help__head">
+      <div class="help__intro">
+        <div class="tz-eyebrow tz-eyebrow--light">
+          <span class="tz-eyebrow__n">02</span>
+          <span class="tz-eyebrow__label">Como ajudamos</span>
+        </div>
+        <h2 class="tz-h2 help__title">Uma parceira para cada etapa da evolução digital.</h2>
+      </div>
+      <p class="help__aside">A solução é definida pelo problema, não pelo nome da tecnologia.</p>
+    </div>
+
+    <div class="help__rows">
+      {helpRows.map((row) => (
+        <a href={row.href} class="help__row">
+          <span class="help__n">{row.n}</span>
+          <strong>{row.title}</strong>
+          <span class="help__desc">{row.desc}</span>
+          <span class="help__go"><Arrow size={15} /></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .help { background: var(--tz-light); }
+  .help__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .help__intro { display: flex; flex-direction: column; gap: 18px; max-width: 660px; }
+  .help__title { color: var(--tz-ink); }
+  .help__aside {
+    font-size: 16px;
+    color: var(--tz-ink-soft);
+    line-height: 1.65;
+    max-width: 360px;
+    margin: 0;
+  }
+
+  .help__rows {
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+    border-top: 1px solid var(--tz-line);
+  }
+  .help__row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: clamp(16px, 3vw, 40px);
+    align-items: center;
+    padding: clamp(22px, 3vw, 30px) 4px;
+    border-bottom: 1px solid var(--tz-line);
+    color: var(--tz-ink);
+    transition: background .25s, padding-left .25s;
+  }
+  .help__row:hover { color: var(--tz-ink); background: #EEF2F8; padding-left: 16px; }
+  .help__n { font-size: 13px; font-weight: 700; color: var(--tz-accent); letter-spacing: 0.14em; }
+  .help__row strong {
+    font-size: clamp(18px, 2vw, 23px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .help__desc { font-size: 15px; color: var(--tz-ink-soft); line-height: 1.6; grid-column: 2; }
+  .help__go {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #CBD5E1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 900px) {
+    .help__row {
+      grid-template-columns: auto minmax(160px, 1fr) minmax(200px, 2fr) auto;
+    }
+    .help__desc { grid-column: auto; }
+  }
+</style>

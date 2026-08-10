@@ -1,0 +1,312 @@
+---
+import { diagnosisQuestions, cities, needOptions } from '@/data/site';
+import { WHATSAPP_NUMBER } from '@/data/config';
+import Arrow from './Arrow.astro';
+---
+
+<section id="diagnostico" class="tz-section diag">
+  <div class="diag__glow" aria-hidden="true"></div>
+  <div class="tz-shell diag__grid">
+    <div class="diag__intro">
+      <div class="tz-eyebrow">
+        <span class="tz-eyebrow__n">08</span>
+        <span class="tz-eyebrow__label">Próximo passo</span>
+      </div>
+      <h2 class="tz-h2 diag__title">A solução certa começa com as <em>perguntas certas</em>.</h2>
+      <p class="diag__lead">
+        Após o diagnóstico, você recebe uma recomendação e uma proposta personalizada para o seu cenário.
+      </p>
+      <ul class="diag__questions">
+        {diagnosisQuestions.map((q) => (
+          <li><span>{q.n}</span>{q.text}</li>
+        ))}
+      </ul>
+    </div>
+
+    <form class="diag__form" data-tz-lead novalidate>
+      <div class="diag__formhead">
+        <h3>Solicitar diagnóstico</h3>
+        <span>Sem custo</span>
+      </div>
+
+      <div class="diag__field">
+        <label for="lead-name">Seu nome</label>
+        <input type="text" id="lead-name" name="name" placeholder="Nome e sobrenome" autocomplete="name" />
+        <span class="diag__error" data-error-for="name"></span>
+      </div>
+
+      <div class="diag__field">
+        <label for="lead-business">Empresa</label>
+        <input type="text" id="lead-business" name="business" placeholder="Nome da empresa" autocomplete="organization" />
+        <span class="diag__error" data-error-for="business"></span>
+      </div>
+
+      <div class="diag__row">
+        <div class="diag__field">
+          <label for="lead-phone">WhatsApp</label>
+          <input type="tel" id="lead-phone" name="phone" placeholder="(11) 9XXXX-XXXX" autocomplete="tel" data-tz-phone />
+          <span class="diag__error" data-error-for="phone"></span>
+        </div>
+        <div class="diag__field">
+          <label for="lead-city">Onde a empresa está</label>
+          <select id="lead-city" name="city">
+            <option value="">Selecione</option>
+            {cities.map((c) => <option value={c}>{c}</option>)}
+          </select>
+          <span class="diag__error" data-error-for="city"></span>
+        </div>
+      </div>
+
+      <div class="diag__field">
+        <label for="lead-need">O que precisa avançar</label>
+        <select id="lead-need" name="need">
+          <option value="">Selecione a frente principal</option>
+          {needOptions.map((n) => <option value={n}>{n}</option>)}
+        </select>
+        <span class="diag__error" data-error-for="need"></span>
+      </div>
+
+      <div class="diag__field">
+        <label for="lead-message">Contexto <span class="diag__optional">(opcional)</span></label>
+        <textarea
+          id="lead-message"
+          name="message"
+          rows="3"
+          placeholder="O que consome tempo hoje, onde a operação trava, o que já foi tentado."
+        ></textarea>
+      </div>
+
+      <label class="diag__consent" data-consent-label>
+        <input type="checkbox" name="consent" checked />
+        <span>Concordo em ser contatado(a) pela Trevizzo via WhatsApp.</span>
+      </label>
+
+      <button type="submit" class="diag__submit">Enviar para diagnóstico<Arrow /></button>
+
+      <p class="diag__status" data-tz-status>Ao enviar, abrimos o WhatsApp com suas respostas preenchidas.</p>
+
+      <p class="diag__legal">
+        Seus dados são tratados conforme nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.
+      </p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .diag { background: var(--tz-base); overflow: hidden; border-top: 1px solid var(--tz-border-soft); }
+  .diag__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(at 20% 20%, rgba(232, 90, 37, 0.12) 0px, transparent 45%);
+  }
+  .diag__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    align-items: start;
+  }
+  .diag__intro { display: flex; flex-direction: column; gap: 20px; }
+  .diag__title { font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.03em; line-height: 1.1; }
+  .diag__lead { font-size: 16px; color: var(--tz-text-2); line-height: 1.65; max-width: 520px; margin: 0; }
+  .diag__questions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .diag__questions li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--tz-border-soft);
+    border-radius: var(--tz-r-md);
+    background: rgba(20, 40, 68, 0.3);
+    font-size: 15px;
+    color: #E2E8F0;
+    line-height: 1.5;
+  }
+  .diag__questions li span { color: var(--tz-accent); font-weight: 700; flex-shrink: 0; }
+
+  .diag__form {
+    background: rgba(20, 40, 68, 0.5);
+    border: 1px solid rgba(232, 90, 37, 0.2);
+    backdrop-filter: blur(20px);
+    border-radius: var(--tz-r-2xl);
+    padding: clamp(24px, 4vw, 36px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  }
+  .diag__formhead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .diag__formhead h3 { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.01em; margin: 0; }
+  .diag__formhead span {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--tz-ink-mute);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 5px 10px;
+    border-radius: var(--tz-r-full);
+  }
+
+  .diag__field { display: flex; flex-direction: column; gap: 6px; }
+  .diag__field label { font-size: 12.5px; font-weight: 600; color: #CBD5E1; }
+  .diag__optional { color: var(--tz-text-3); font-weight: 500; }
+  .diag__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+
+  .diag__field input,
+  .diag__field select,
+  .diag__field textarea {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--tz-r-md);
+    padding: 13px 16px;
+    font-size: 15px;
+    color: #fff;
+    font-family: var(--tz-font);
+    width: 100%;
+  }
+  .diag__field textarea { resize: vertical; min-height: 84px; }
+  .diag__field select option { color: var(--tz-ink); }
+  .diag__field input:focus,
+  .diag__field select:focus,
+  .diag__field textarea:focus {
+    outline: none;
+    border-color: var(--tz-accent);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 0 3px rgba(232, 90, 37, 0.15);
+  }
+  .diag__field.has-error input,
+  .diag__field.has-error select { border-color: rgba(239, 68, 68, 0.6); }
+
+  .diag__error { font-size: 12px; color: #FC8181; font-weight: 500; min-height: 0; }
+
+  .diag__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--tz-ink-mute);
+    line-height: 1.4;
+    cursor: pointer;
+  }
+  .diag__consent.has-error { color: #FCA5A5; }
+  .diag__consent input { margin-top: 3px; accent-color: var(--tz-accent); width: 16px; height: 16px; flex-shrink: 0; }
+
+  .diag__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    font-family: var(--tz-font);
+    color: #fff;
+    background: var(--tz-accent);
+    border-radius: var(--tz-r-lg);
+    padding: 19px 32px;
+    box-shadow: 0 8px 28px rgba(232, 90, 37, 0.4);
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: transform .35s var(--tz-ease-back), box-shadow .35s;
+  }
+  .diag__submit:hover { transform: translateY(-3px); box-shadow: 0 14px 42px rgba(232, 90, 37, 0.52); }
+
+  .diag__status { min-height: 1.2em; font-size: 12.5px; color: var(--tz-ink-mute); line-height: 1.5; margin: 0; }
+  .diag__status.is-error { color: #FCA5A5; }
+  .diag__status.is-success { color: #86EFAC; }
+
+  .diag__legal { text-align: center; font-size: 11.5px; color: var(--tz-text-3); margin: 0; }
+  .diag__legal a { color: #CBD5E1; text-decoration: underline; }
+  .diag__legal a:hover { color: #fff; }
+</style>
+
+<script is:inline define:vars={{ WHATSAPP_NUMBER }}>
+  (function () {
+    const form = document.querySelector('[data-tz-lead]');
+    if (!form) return;
+    const status = form.querySelector('[data-tz-status]');
+    const phone = form.querySelector('[data-tz-phone]');
+
+    if (phone) {
+      phone.addEventListener('input', function () {
+        let v = phone.value.replace(/\D/g, '').slice(0, 11);
+        if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+        else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+        else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+        else if (v.length > 0) v = v.replace(/^(\d{0,2}).*/, '($1');
+        phone.value = v;
+      });
+    }
+
+    function setError(name, message) {
+      const slot = form.querySelector('[data-error-for="' + name + '"]');
+      const field = slot && slot.closest('.diag__field');
+      if (slot) slot.textContent = message || '';
+      if (field) field.classList.toggle('has-error', !!message);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = {
+        name: form.elements.name.value.trim(),
+        business: form.elements.business.value.trim(),
+        phone: form.elements.phone.value.trim(),
+        city: form.elements.city.value,
+        need: form.elements.need.value,
+        message: form.elements.message.value.trim(),
+        consent: form.elements.consent.checked,
+      };
+
+      const errors = {};
+      if (!data.name) errors.name = 'Este campo é obrigatório.';
+      if (!data.business) errors.business = 'Este campo é obrigatório.';
+      if (data.phone.replace(/\D/g, '').length < 10) errors.phone = 'WhatsApp inválido, inclua o DDD.';
+      if (!data.city) errors.city = 'Selecione uma opção.';
+      if (!data.need) errors.need = 'Selecione uma opção.';
+
+      ['name', 'business', 'phone', 'city', 'need'].forEach(function (k) {
+        setError(k, errors[k]);
+      });
+      const consentLabel = form.querySelector('[data-consent-label]');
+      if (consentLabel) consentLabel.classList.toggle('has-error', !data.consent);
+
+      if (Object.keys(errors).length || !data.consent) {
+        if (status) {
+          status.textContent = 'Revise os campos destacados para continuar.';
+          status.className = 'diag__status is-error';
+        }
+        return;
+      }
+
+      const lines = [
+        'Olá! Vim pelo site da Trevizzo e quero solicitar um diagnóstico.',
+        '',
+        '*Nome:* ' + data.name,
+        '*Empresa:* ' + data.business,
+        '*Localização:* ' + data.city,
+        '*Frente principal:* ' + data.need,
+        '*WhatsApp:* ' + data.phone,
+      ];
+      if (data.message) lines.push('', '*Contexto:*', data.message);
+
+      window.open(
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n')),
+        '_blank',
+        'noopener'
+      );
+
+      if (status) {
+        status.textContent = 'WhatsApp aberto. Se a aba não aparecer, use o botão flutuante.';
+        status.className = 'diag__status is-success';
+      }
+    });
+  })();
+</script>

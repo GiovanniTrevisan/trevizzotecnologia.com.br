@@ -1,0 +1,82 @@
+---
+import { custom } from '@/data/site';
+---
+
+<section id="sob-medida" class="tz-section sob">
+  <div class="sob__glow" aria-hidden="true"></div>
+  <div class="tz-shell sob__inner">
+    <div class="sob__head">
+      <div class="sob__intro">
+        <div class="tz-eyebrow">
+          <span class="tz-eyebrow__n">05</span>
+          <span class="tz-eyebrow__label">Soluções sob medida</span>
+        </div>
+        <h2 class="tz-h2">Quando a solução pronta limita, criamos a <em>solução certa</em>.</h2>
+      </div>
+      <p class="sob__aside">Da melhoria de um processo interno à criação de um produto digital escalável.</p>
+    </div>
+
+    <div class="sob__grid">
+      {custom.map((c) => (
+        <article class="sob__card">
+          <span class="sob__n">{c.n}</span>
+          <h3>{c.title}</h3>
+          <p>{c.desc}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sob { background: var(--tz-base); overflow: hidden; }
+  .sob__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(at 15% 30%, rgba(232, 90, 37, 0.1) 0px, transparent 45%);
+  }
+  .sob__inner { position: relative; z-index: 1; }
+  .sob__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .sob__intro { display: flex; flex-direction: column; gap: 18px; max-width: 620px; }
+  .sob__aside {
+    font-size: 16px;
+    color: var(--tz-text-2);
+    line-height: 1.65;
+    max-width: 340px;
+    margin: 0;
+  }
+  .sob__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 44px;
+  }
+  .sob__card {
+    background: var(--tz-glass);
+    border: 1px solid rgba(232, 90, 37, 0.18);
+    border-radius: var(--tz-r-xl);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .35s var(--tz-ease-back), border-color .35s;
+  }
+  .sob__card:hover { transform: translateY(-3px); border-color: rgba(232, 90, 37, 0.4); }
+  .sob__n { font-size: 13px; font-weight: 700; color: var(--tz-accent); letter-spacing: 0.16em; }
+  .sob__card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .sob__card p { font-size: 14.5px; color: var(--tz-text-2); line-height: 1.6; margin: 0; }
+</style>

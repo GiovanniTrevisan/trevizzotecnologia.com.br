@@ -1,0 +1,47 @@
+---
+import { WHATSAPP_URL } from '@/data/config';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+---
+
+<a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp" class="wa">
+  <span class="wa__pulse" aria-hidden="true"></span>
+  <span class="wa__disc"><WhatsAppIcon size={26} /></span>
+</a>
+
+<style>
+  .wa {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: var(--tz-r-full);
+    background: var(--tz-whatsapp);
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.35);
+    transition: transform .3s var(--tz-ease-back);
+  }
+  .wa:hover { color: #fff; transform: translateY(-3px) scale(1.02); }
+  .wa__pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--tz-r-full);
+    background: rgba(37, 211, 102, 0.45);
+    animation: tzWaPulse 2.4s ease-out infinite;
+    z-index: 0;
+  }
+  .wa__disc {
+    position: relative;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+</style>

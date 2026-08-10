@@ -1,0 +1,95 @@
+---
+import { processPhases } from '@/data/site';
+---
+
+<section id="processo" class="tz-section proc">
+  <div class="tz-shell proc__inner">
+    <div class="proc__intro">
+      <div class="tz-eyebrow tz-eyebrow--light">
+        <span class="tz-eyebrow__n">06</span>
+        <span class="tz-eyebrow__label">Nosso processo</span>
+      </div>
+      <h2 class="tz-h2 proc__title">O projeto começa pelo negócio. A tecnologia vem depois.</h2>
+      <p>Três fases, seis etapas. Cada uma com prazo definido junto com você antes de começar.</p>
+    </div>
+
+    <div class="proc__list">
+      {processPhases.map((phase, pi) => (
+        <div class="proc__phase">
+          <div class="proc__phaselabel" style={pi > 0 ? 'margin-top:40px' : ''}>
+            <span>{phase.phase}</span>
+            <span class="proc__rule"></span>
+          </div>
+          {phase.steps.map((step) => (
+            <div class="proc__step">
+              <span class="proc__n">{step.n}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .proc { background: var(--tz-light); }
+  .proc__inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(40px, 6vw, 88px);
+    align-items: flex-start;
+  }
+  .proc__intro {
+    flex: 1 1 320px;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .proc__title { color: var(--tz-ink); font-size: clamp(28px, 4.2vw, 42px); }
+  .proc__intro p { font-size: 15.5px; color: var(--tz-ink-soft); line-height: 1.65; margin: 0; }
+
+  .proc__list { flex: 3 1 520px; display: flex; flex-direction: column; }
+  .proc__phaselabel { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; }
+  .proc__phaselabel > span:first-child {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tz-accent);
+  }
+  .proc__rule { flex: 1; height: 1px; background: var(--tz-line); }
+
+  .proc__step {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+    padding: 24px 0;
+    border-bottom: 1px solid #E8EDF4;
+  }
+  .proc__phase:last-child .proc__step:last-child { border-bottom: none; }
+  .proc__n {
+    font-size: 32px;
+    font-weight: 800;
+    color: #CBD5E1;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .proc__step h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tz-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  .proc__step p { font-size: 14.5px; color: var(--tz-ink-soft); line-height: 1.6; margin: 0; }
+
+  @media (min-width: 1024px) {
+    .proc__intro { position: sticky; top: 96px; }
+  }
+</style>
