@@ -1,0 +1,133 @@
+---
+import { footerCols, locations } from '@/data/site';
+import { WHATSAPP_URL, COMPANY_LEGAL_NAME, COMPANY_CNPJ } from '@/data/config';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+---
+
+<footer class="ft">
+  <div class="ft__hairline" aria-hidden="true"></div>
+  <div class="ft__top">
+    <div class="ft__grid">
+      <div class="ft__brand">
+        <img src="/images/logo-dark.svg" alt="Trevizzo Soluções" width="150" height="40" />
+        <p>Presença digital, automação e sistemas desenvolvidos a partir da realidade de cada empresa.</p>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="ft__wa">
+          <span class="ft__waicon"><WhatsAppIcon size={18} /></span>
+          <span>
+            <strong>Falar com a Trevizzo</strong>
+            <small>WhatsApp</small>
+          </span>
+        </a>
+      </div>
+
+      {footerCols.map((col) => (
+        <div>
+          <h4>{col.title}</h4>
+          <ul class="ft__links">
+            {col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+
+      <div>
+        <h4>Atendemos em</h4>
+        <ul class="ft__locs">
+          {locations.map((loc) => (
+            <li>
+              <strong>{loc.title}</strong>
+              <small>{loc.sub}</small>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft__bottom">
+    <div class="ft__legal">
+      <span>© 2026 <strong>{COMPANY_LEGAL_NAME}</strong></span>
+      <span class="ft__dot">·</span>
+      <span>CNPJ {COMPANY_CNPJ}</span>
+      <span class="ft__dot">·</span>
+      <span>Empresa do <strong class="ft__group">Grupo Yuzan</strong></span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ft { background: var(--tz-base); color: #CBD5E1; position: relative; overflow: hidden; }
+  .ft__hairline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 90, 37, 0.4), transparent);
+  }
+  .ft__top { padding: 64px var(--tz-gutter) 40px; max-width: var(--tz-shell); margin: 0 auto; }
+  .ft__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+
+  .ft__brand { display: flex; flex-direction: column; gap: 18px; }
+  .ft__brand img { height: 40px; width: auto; }
+  .ft__brand p { font-size: 14px; color: var(--tz-ink-mute); line-height: 1.6; max-width: 320px; margin: 0; }
+
+  .ft__wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--tz-r-md);
+    align-self: flex-start;
+    color: #CBD5E1;
+    transition: background .25s, border-color .25s;
+  }
+  .ft__wa:hover { color: #CBD5E1; background: rgba(232, 90, 37, 0.1); border-color: rgba(232, 90, 37, 0.3); }
+  .ft__waicon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--tz-accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ft__wa strong { display: block; font-size: 14px; color: #fff; font-weight: 600; line-height: 1.2; }
+  .ft__wa small { display: block; font-size: 11.5px; color: var(--tz-text-3); margin-top: 2px; }
+
+  .ft h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .ft__links, .ft__locs { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+  .ft__links { gap: 10px; }
+  .ft__links a { font-size: 14px; color: var(--tz-ink-mute); }
+  .ft__links a:hover { color: var(--tz-accent); }
+  .ft__locs { gap: 14px; }
+  .ft__locs strong { display: block; font-size: 13.5px; color: #fff; font-weight: 600; line-height: 1.2; }
+  .ft__locs small { display: block; font-size: 11.5px; color: var(--tz-text-3); margin-top: 2px; }
+
+  .ft__bottom { border-top: 1px solid rgba(255, 255, 255, 0.06); padding: 22px var(--tz-gutter); }
+  .ft__legal {
+    max-width: var(--tz-shell);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--tz-text-3);
+    text-align: center;
+  }
+  .ft__legal strong { color: #CBD5E1; font-weight: 500; }
+  .ft__group { color: var(--tz-accent) !important; }
+  .ft__dot { color: rgba(255, 255, 255, 0.2); }
+</style>

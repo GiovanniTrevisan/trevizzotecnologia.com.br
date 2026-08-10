@@ -1,0 +1,192 @@
+/* Trevizzo Soluções — tokens, resets e keyframes do site v2.
+   Importado pelo Layout DEPOIS de global.css, então sobrescreve o que precisa. */
+
+:root {
+  --tz-base: #060B17;
+  --tz-hero: #050912;
+  --tz-surface: #142844;
+  --tz-alt: #0D1B30;
+  --tz-glass: rgba(20, 40, 68, 0.45);
+
+  --tz-accent: #E85A25;
+  --tz-accent-hover: #C94D1C;
+  --tz-accent-soft: #FFC9B0;
+
+  --tz-light: #F6F8FC;
+  --tz-ink: #0F172A;
+  --tz-ink-soft: #475569;
+  --tz-ink-mute: #94A3B8;
+  --tz-line: #E2E8F0;
+
+  --tz-text: #F6F8FC;
+  --tz-text-2: rgba(246, 248, 252, 0.72);
+  --tz-text-3: rgba(246, 248, 252, 0.45);
+  --tz-border-soft: rgba(246, 248, 252, 0.06);
+  --tz-border-medium: rgba(246, 248, 252, 0.12);
+
+  --tz-whatsapp: #25D366;
+
+  --tz-r-sm: 8px;
+  --tz-r-md: 12px;
+  --tz-r-lg: 18px;
+  --tz-r-xl: 24px;
+  --tz-r-2xl: 32px;
+  --tz-r-full: 9999px;
+
+  --tz-font: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tz-ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --tz-ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --tz-header-h: clamp(64px, 7vw, 76px);
+  --tz-shell: 1280px;
+  --tz-gutter: clamp(20px, 5vw, 64px);
+  --tz-section-y: clamp(64px, 10vw, 112px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--tz-font);
+  background: var(--tz-base);
+  color: var(--tz-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: var(--tz-accent); text-decoration: none; }
+a:hover { color: #FF8559; }
+::selection { background: var(--tz-accent); color: #F6F8FC; }
+img { max-width: 100%; }
+
+.tz-shell {
+  max-width: var(--tz-shell);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.tz-section {
+  padding: var(--tz-section-y) var(--tz-gutter);
+  position: relative;
+}
+
+.tz-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.tz-eyebrow__n {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tz-accent);
+  letter-spacing: 0.18em;
+}
+.tz-eyebrow__label {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tz-text-3);
+}
+.tz-eyebrow--light .tz-eyebrow__label { color: var(--tz-ink-mute); }
+.tz-eyebrow__rule { flex: 1; height: 1px; background: var(--tz-border-soft); }
+
+.tz-h2 {
+  font-size: clamp(28px, 4.2vw, 44px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+.tz-h2 em { font-style: normal; color: var(--tz-accent); }
+
+.tz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  background: var(--tz-accent);
+  border-radius: var(--tz-r-full);
+  padding: 19px 34px;
+  box-shadow: 0 10px 30px rgba(232, 90, 37, 0.34);
+  border: none;
+  cursor: pointer;
+  transition: transform .35s var(--tz-ease-back), box-shadow .35s, background .2s;
+}
+.tz-btn:hover {
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 16px 44px rgba(232, 90, 37, 0.46);
+}
+.tz-btn--ghost {
+  background: rgba(246, 248, 252, 0.06);
+  border: 1px solid rgba(246, 248, 252, 0.14);
+  color: var(--tz-text);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+  border-radius: var(--tz-r-lg);
+  padding: 18px 30px;
+}
+.tz-btn--ghost:hover {
+  color: var(--tz-text);
+  background: rgba(246, 248, 252, 0.1);
+  border-color: rgba(232, 90, 37, 0.3);
+  transform: none;
+  box-shadow: none;
+}
+
+.tz-arrow { display: inline-flex; align-items: center; justify-content: center; }
+
+.tz-skip {
+  position: absolute;
+  top: -200%;
+  left: 16px;
+  z-index: 1000;
+  padding: 10px 18px;
+  background: var(--tz-surface);
+  color: var(--tz-text);
+  border-radius: var(--tz-r-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+.tz-skip:focus { top: 12px; color: var(--tz-text); }
+
+@keyframes tzWord {
+  from { opacity: 0; transform: translateY(26px) rotate(1.2deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes tzFade {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes tzLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes tzMenuIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes tzWaPulse {
+  0% { transform: scale(1); opacity: .7; }
+  70% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

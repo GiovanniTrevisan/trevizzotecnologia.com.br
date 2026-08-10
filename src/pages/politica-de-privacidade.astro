@@ -1,108 +1,156 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Header from '@/components/Header.astro';
-import Footer from '@/components/Footer.astro';
+import Header from '@/components/site/Header.astro';
+import Footer from '@/components/site/Footer.astro';
+import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
 ---
 
-<Layout title="Política de Privacidade — Trevizzo Soluções" description="Política de Privacidade da Trevizzo Tecnologia e Consultoria em Informática LTDA.">
+<Layout
+  title="Política de Privacidade — Trevizzo Soluções"
+  description="Como a Trevizzo Tecnologia e Consultoria em Informática LTDA coleta, usa e protege os dados enviados pelo site, conforme a LGPD."
+>
   <Header variant="light" />
-  <main class="legal">
-    <div class="container legal__inner">
-      <h1 class="legal__title">Política de Privacidade</h1>
-      <p class="legal__updated">Última atualização: 14/04/2026</p>
+  <main class="lg" id="conteudo">
+    <div class="lg__inner">
+      <h1>Política de Privacidade</h1>
+      <p class="lg__updated">Última atualização: 10/08/2026</p>
 
-      <section class="legal__section">
-        <h2>1. Informações que Coletamos</h2>
-        <p>Coletamos informações que você nos fornece diretamente, como quando você cria uma conta, envia mensagens ou interage com nossos serviços. Isso pode incluir seu nome, endereço de e-mail, número de telefone e conteúdo das mensagens.</p>
-      </section>
+      <p class="lg__lead">
+        Esta política explica quais dados a Trevizzo Tecnologia e Consultoria em Informática LTDA
+        (CNPJ 48.676.032/0001-38) coleta neste site, para que eles são usados e quais são os seus
+        direitos como titular, conforme a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+      </p>
 
-      <section class="legal__section">
-        <h2>2. Como Usamos suas Informações</h2>
-        <p>Utilizamos as informações coletadas para:</p>
+      <section>
+        <h2>1. Dados que coletamos</h2>
+        <p>Coletamos apenas os dados que você informa por vontade própria no formulário de diagnóstico:</p>
         <ul>
-          <li>Fornecer e melhorar nossos serviços</li>
-          <li>Processar e responder às suas mensagens</li>
-          <li>Enviar comunicações importantes sobre o serviço</li>
-          <li>Garantir a segurança e prevenir fraudes</li>
+          <li>Nome e sobrenome</li>
+          <li>Nome da empresa</li>
+          <li>Número de WhatsApp</li>
+          <li>Cidade ou região de atuação</li>
+          <li>Frente principal de interesse e o contexto que você descrever</li>
         </ul>
+        <p>
+          Não pedimos dados sensíveis, documentos, dados bancários ou informações de cartão em nenhum
+          momento pelo site.
+        </p>
       </section>
 
-      <section class="legal__section">
-        <h2>3. Compartilhamento de Informações</h2>
-        <p>Não vendemos, alugamos ou compartilhamos suas informações pessoais com terceiros para fins comerciais. Podemos compartilhar informações apenas quando necessário para cumprir obrigações legais ou proteger nossos direitos.</p>
+      <section>
+        <h2>2. Como usamos esses dados</h2>
+        <ul>
+          <li>Entrar em contato para realizar o diagnóstico solicitado</li>
+          <li>Entender o cenário do seu negócio e preparar uma recomendação e proposta</li>
+          <li>Dar continuidade ao atendimento comercial e ao projeto, se houver contratação</li>
+        </ul>
+        <p>
+          A base legal é o seu consentimento, manifestado ao marcar a caixa de contato no formulário, e,
+          quando houver relação contratual, a execução do contrato.
+        </p>
       </section>
 
-      <section class="legal__section">
-        <h2>4. Segurança dos Dados</h2>
-        <p>Implementamos medidas de segurança técnicas e organizacionais para proteger suas informações contra acesso não autorizado, alteração, divulgação ou destruição.</p>
+      <section>
+        <h2>3. Envio pelo WhatsApp</h2>
+        <p>
+          O formulário do site não armazena dados em banco próprio: ao enviar, abrimos uma conversa no
+          WhatsApp com as suas respostas preenchidas, e você decide se envia a mensagem. A partir daí, o
+          conteúdo trafega pela plataforma WhatsApp, operada pela Meta, sujeita aos termos e à política de
+          privacidade dela.
+        </p>
       </section>
 
-      <section class="legal__section">
-        <h2>5. Seus Direitos</h2>
-        <p>Você tem o direito de acessar, corrigir ou excluir suas informações pessoais. Para exercer esses direitos, entre em contato conosco através dos canais disponibilizados.</p>
+      <section>
+        <h2>4. Compartilhamento</h2>
+        <p>
+          Não vendemos, alugamos nem cedemos seus dados. O compartilhamento ocorre apenas com
+          fornecedores necessários para o funcionamento do site e do atendimento (hospedagem, domínio e
+          mensageria), ou quando exigido por obrigação legal, regulatória ou judicial.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Cookies e medição</h2>
+        <p>
+          Este site não usa cookies de publicidade nem rastreamento entre sites. Recursos de hospedagem e
+          de verificação de propriedade do domínio podem registrar dados técnicos de acesso, como
+          endereço IP e tipo de navegador, para segurança e funcionamento da página.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Retenção</h2>
+        <p>
+          Mantemos o histórico de contato pelo tempo necessário ao atendimento comercial e, em caso de
+          contratação, pelo prazo exigido para a execução do contrato e cumprimento de obrigações legais.
+          Depois disso, os dados são eliminados ou anonimizados.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Segurança</h2>
+        <p>
+          Adotamos medidas técnicas e organizacionais razoáveis para proteger as informações contra acesso
+          não autorizado, perda ou divulgação indevida, incluindo acesso restrito às conversas e aos
+          registros de atendimento.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Seus direitos</h2>
+        <p>
+          Você pode solicitar, a qualquer momento, confirmação de tratamento, acesso, correção,
+          anonimização, portabilidade ou eliminação dos seus dados, além de revogar o consentimento.
+          Para exercer esses direitos, fale com a gente pelo WhatsApp informado no site.
+        </p>
+      </section>
+
+      <section>
+        <h2>9. Alterações desta política</h2>
+        <p>
+          Esta política pode ser atualizada para refletir mudanças no site ou na legislação. A data de
+          última atualização sempre aparece no topo desta página.
+        </p>
       </section>
     </div>
   </main>
   <Footer />
+  <WhatsAppButton />
 </Layout>
 
 <style>
-  .legal {
-    padding: 120px 24px 80px;
-    background: var(--bg-white);
+  .lg {
+    background: #fff;
+    padding: clamp(120px, 16vw, 150px) var(--tz-gutter) clamp(64px, 9vw, 100px);
   }
-  .legal__inner {
-    max-width: 720px;
-    margin: 0 auto;
+  .lg__inner { max-width: 720px; margin: 0 auto; }
+  .lg h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--tz-ink);
+    letter-spacing: -0.025em;
+    margin: 0 0 8px;
   }
-  .legal__title {
-    font-family: var(--font);
-    font-size: 32px;
+  .lg__updated { font-size: 14px; color: var(--tz-ink-soft); margin: 0 0 32px; }
+  .lg__lead {
+    font-size: 16.5px;
+    color: var(--tz-ink);
+    line-height: 1.7;
+    margin: 0 0 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--tz-line);
+    text-wrap: pretty;
+  }
+  .lg section { margin-bottom: 32px; }
+  .lg h2 {
+    font-size: 19px;
     font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 8px;
+    color: var(--tz-ink);
+    letter-spacing: -0.015em;
+    margin: 0 0 12px;
   }
-  .legal__updated {
-    font-family: var(--font);
-    font-size: 14px;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-  }
-  .legal__section {
-    margin-bottom: 32px;
-  }
-  .legal__section h2 {
-    font-family: var(--font);
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 12px;
-  }
-  .legal__section p {
-    font-family: var(--font);
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-    margin-bottom: 12px;
-  }
-  .legal__section ul {
-    list-style: disc;
-    padding-left: 24px;
-    margin-bottom: 12px;
-  }
-  .legal__section li {
-    font-family: var(--font);
-    font-size: 15px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
-
-  @media (min-width: 1024px) {
-    .legal {
-      padding: 140px 80px 100px;
-    }
-    .legal__title { font-size: 40px; }
-    .legal__section h2 { font-size: 22px; }
-    .legal__section p, .legal__section li { font-size: 16px; }
-  }
+  .lg p, .lg li { font-size: 15px; color: var(--tz-ink-soft); line-height: 1.8; }
+  .lg p { margin: 0 0 12px; }
+  .lg p:last-child { margin-bottom: 0; }
+  .lg ul { padding-left: 22px; margin: 0 0 12px; }
 </style>

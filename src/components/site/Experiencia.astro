@@ -1,0 +1,264 @@
+---
+import { projects } from '@/data/site';
+import Arrow from './Arrow.astro';
+---
+
+<section id="experiencia" class="tz-section exp">
+  <div class="exp__glow" aria-hidden="true"></div>
+  <div class="tz-shell exp__inner">
+    <div class="exp__head">
+      <div class="exp__intro">
+        <div class="tz-eyebrow">
+          <span class="tz-eyebrow__n">07</span>
+          <span class="tz-eyebrow__label">Experiência</span>
+        </div>
+        <h2 class="tz-h2">Capacidade demonstrada com <em>transparência</em>.</h2>
+      </div>
+      <p class="exp__aside">Projeto, natureza da solução e estágio real, lado a lado.</p>
+    </div>
+
+    <div class="exp__scroll">
+      <div class="exp__table">
+        <div class="exp__thead">
+          <span>Preview</span><span>Projeto</span><span>Solução</span><span>Estágio</span>
+        </div>
+
+        <div class="exp__rows">
+          {projects.map((p) => {
+            const Tag = p.href ? 'a' : 'div';
+            return (
+              <Tag
+                class="exp__row"
+                href={p.href}
+                target={p.href ? '_blank' : undefined}
+                rel={p.href ? 'noopener noreferrer' : undefined}
+              >
+                <div class="exp__grid">
+                  <div class="exp__thumb">
+                    <img src={p.img} alt={p.alt} loading="lazy" style={`object-position:${p.pos}`} />
+                  </div>
+                  <div class="exp__name">
+                    <strong>{p.name}</strong>
+                    <span>{p.domain}</span>
+                  </div>
+                  <span class="exp__solution">{p.solution}</span>
+                  <span class:list={['exp__status', `exp__status--${p.tone}`]}>{p.status}</span>
+                </div>
+
+                <div class="exp__detailwrap">
+                  <div class="exp__detailclip">
+                    <div class="exp__detail">
+                      <div class="exp__shot">
+                        <img src={p.img} alt={p.alt} loading="lazy" style={`object-position:${p.pos}`} />
+                      </div>
+                      <div class="exp__body">
+                        <span class="exp__label">O que foi entregue</span>
+                        <ul class="exp__bullets">
+                          {p.bullets.map((b) => (
+                            <li><span aria-hidden="true"></span>{b}</li>
+                          ))}
+                        </ul>
+                        <ul class="exp__tags">
+                          {p.tags.map((t) => <li>{t}</li>)}
+                        </ul>
+                        <span class="exp__cta">{p.cta}<Arrow size={15} /></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Tag>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+    <p class="exp__note">
+      Cada projeto é apresentado de acordo com seu estágio real, sem promessas ou resultados inventados.
+    </p>
+  </div>
+</section>
+
+<style>
+  .exp { background: var(--tz-base); overflow: hidden; }
+  .exp__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(at 70% 10%, rgba(232, 90, 37, 0.1) 0px, transparent 50%);
+  }
+  .exp__inner { position: relative; z-index: 1; }
+  .exp__head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .exp__intro { display: flex; flex-direction: column; gap: 18px; max-width: 660px; }
+  .exp__aside {
+    font-size: 14.5px;
+    color: var(--tz-text-2);
+    line-height: 1.6;
+    max-width: 320px;
+    margin: 0;
+  }
+
+  .exp__scroll { margin-top: 44px; overflow-x: auto; }
+  .exp__table { min-width: 760px; border-top: 1px solid var(--tz-border-medium); }
+  .exp__thead,
+  .exp__grid {
+    display: grid;
+    grid-template-columns: 120px minmax(180px, 1.4fr) minmax(160px, 1.6fr) 130px;
+    gap: clamp(12px, 2vw, 28px);
+  }
+  .exp__thead {
+    padding: 12px 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tz-text-3);
+    border-bottom: 1px solid var(--tz-border-soft);
+  }
+  .exp__grid { align-items: center; }
+
+  .exp__row {
+    display: block;
+    padding: 18px 4px;
+    border-bottom: 1px solid var(--tz-border-soft);
+    border-radius: var(--tz-r-md);
+    color: var(--tz-text);
+    background: rgba(246, 248, 252, 0);
+    transition: background .5s var(--tz-ease-expo), padding-left .45s var(--tz-ease-expo), opacity .4s ease;
+  }
+  .exp__row:hover { color: var(--tz-text); }
+
+  .exp__thumb {
+    width: 120px;
+    height: 70px;
+    border-radius: var(--tz-r-sm);
+    overflow: hidden;
+    border: 1px solid rgba(246, 248, 252, 0.1);
+    background: var(--tz-alt);
+    transition: opacity .45s ease, transform .55s var(--tz-ease-expo);
+  }
+  .exp__thumb img,
+  .exp__shot img { width: 100%; height: 100%; display: block; object-fit: cover; }
+
+  .exp__name {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+    transition: transform .55s var(--tz-ease-expo);
+  }
+  .exp__name strong { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .exp__name span { font-size: 12.5px; color: var(--tz-text-3); }
+  .exp__solution { font-size: 13.5px; color: var(--tz-text-2); line-height: 1.5; }
+  .exp__status {
+    padding: 5px 12px;
+    border-radius: var(--tz-r-full);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+  .exp__status--green {
+    background: rgba(34, 197, 94, 0.14);
+    border: 1px solid rgba(34, 197, 94, 0.32);
+    color: #86EFAC;
+  }
+  .exp__status--orange {
+    background: rgba(232, 90, 37, 0.14);
+    border: 1px solid rgba(232, 90, 37, 0.32);
+    color: var(--tz-accent-soft);
+  }
+
+  .exp__detailwrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .6s var(--tz-ease-expo);
+  }
+  .exp__detailclip { overflow: hidden; min-height: 0; }
+  .exp__detail {
+    padding: 20px 0 8px;
+    display: flex;
+    gap: 28px;
+    align-items: stretch;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .45s ease .06s, transform .55s var(--tz-ease-expo) .06s;
+  }
+  .exp__shot {
+    width: 400px;
+    height: 225px;
+    flex-shrink: 0;
+    border-radius: var(--tz-r-md);
+    overflow: hidden;
+    border: 1px solid var(--tz-border-medium);
+    background: var(--tz-alt);
+  }
+  .exp__body { display: flex; flex-direction: column; gap: 14px; flex: 1; min-width: 0; }
+  .exp__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tz-text-3);
+  }
+  .exp__bullets { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .exp__bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--tz-text-2);
+  }
+  .exp__bullets li span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tz-accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .exp__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .exp__tags li {
+    padding: 3px 10px;
+    border-radius: var(--tz-r-full);
+    border: 1px solid var(--tz-border-medium);
+    font-size: 11px;
+    color: var(--tz-text-2);
+  }
+  .exp__cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 18px;
+    border-radius: var(--tz-r-full);
+    background: var(--tz-accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    width: fit-content;
+  }
+
+  .exp__note { font-size: 13.5px; color: var(--tz-text-3); line-height: 1.6; margin: 20px 0 0; }
+
+  @media (hover: hover) and (min-width: 1024px) {
+    .exp__rows:hover .exp__row { opacity: .4; }
+    .exp__rows:hover .exp__row:hover { opacity: 1; }
+    .exp__row:hover {
+      background: rgba(20, 40, 68, 0.5);
+      padding-left: 18px;
+    }
+    .exp__row:hover .exp__thumb { opacity: 0; transform: scale(.9); }
+    .exp__row:hover .exp__name { transform: translateX(-146px); }
+    .exp__row:hover .exp__detailwrap { grid-template-rows: 1fr; }
+    .exp__row:hover .exp__detail { opacity: 1; transform: none; }
+  }
+</style>

@@ -6,51 +6,39 @@ export interface FAQItem {
 
 export const faqItems: FAQItem[] = [
   {
-    category: 'Entrega',
-    question: 'Quanto tempo leva para o site ficar pronto?',
+    category: 'Início',
+    question: 'Como começa um projeto com a Trevizzo?',
     answer:
-      'Até 7 dias úteis após o envio das informações do seu negócio. Em alguns casos entregamos antes — depende só de quão rápido você nos passa o material (fotos, textos, contato).',
+      'Pelo diagnóstico. Em uma conversa entendemos o cenário, as prioridades e os objetivos. Depois disso você recebe uma recomendação de caminho e uma proposta com escopo definido.',
   },
   {
-    category: 'Operação',
-    question: 'Preciso entender de tecnologia?',
+    category: 'Investimento',
+    question: 'Quanto custa?',
     answer:
-      'Não. A gente cuida 100% da parte técnica: design, programação, SEO, domínio, hospedagem e Google Meu Negócio. Você só precisa nos contar sobre o seu negócio em uma conversa de 30 minutos.',
+      'Depende do escopo. Como as soluções variam entre presença digital, automação e sistemas sob medida, o valor é apresentado na proposta, após o diagnóstico, com o que será desenvolvido e entregue descrito de forma clara.',
   },
   {
-    category: 'Contrato',
-    question: 'O que acontece depois dos 12 meses?',
+    category: 'Prazo',
+    question: 'Quanto tempo leva?',
     answer:
-      'Você pode renovar o suporte por um valor reduzido ou seguir só com o site funcionando. O domínio, a hospedagem e o site continuam seus para sempre. Sem fidelidade, sem multa.',
+      'O prazo é definido junto com o escopo. Projetos de presença digital são mais curtos que sistemas e plataformas, e o cronograma é combinado antes do início do desenvolvimento.',
   },
   {
-    category: 'Operação',
-    question: 'Como funciona o suporte?',
+    category: 'Tecnologia',
+    question: 'Vocês escolhem a tecnologia antes ou depois?',
     answer:
-      'Suporte direto por WhatsApp com um dos sócios — sem ticket, sem fila, sem robô. Alterações de texto, troca de fotos, novos horários e pequenos ajustes estão inclusos durante os 12 meses.',
+      'Depois. A solução é definida pelo problema, não pelo nome da tecnologia. A escolha técnica acontece na etapa de recomendação, considerando a relação entre valor e esforço.',
   },
   {
-    category: 'Escopo',
-    question: 'Vocês fazem sites com várias páginas ou e-commerce?',
+    category: 'IA',
+    question: 'Como a inteligência artificial entra nos projetos?',
     answer:
-      'Nosso pacote principal é a landing page de alta conversão, otimizada para captar clientes locais. Para projetos maiores (várias páginas, catálogo, e-commerce), preparamos um orçamento personalizado — fala com a gente.',
+      'Como ferramenta, em pontos onde reduz trabalho repetitivo: organização de informações, respostas iniciais consistentes e fluxos automáticos. As decisões seguem com as pessoas.',
   },
   {
-    category: 'SEO',
-    question: 'Meu site vai aparecer em primeiro no Google?',
+    category: 'Continuidade',
+    question: 'O que acontece depois da entrega?',
     answer:
-      'Posição depende de muitos fatores (concorrência, histórico, região). O que garantimos é aplicar todas as boas práticas de SEO técnico e local — schema, velocidade, Google Meu Negócio, conteúdo otimizado — para maximizar suas chances nos resultados locais.',
-  },
-  {
-    category: 'Pagamento',
-    question: 'Como é o pagamento?',
-    answer:
-      '12x de R$99,90 no cartão de crédito (sem juros) ou R$1.198,80 à vista no Pix com 5% de desconto. Tudo via plataforma de pagamento segura. A produção começa após a confirmação.',
-  },
-  {
-    category: 'Garantia',
-    question: 'E se eu não gostar do resultado?',
-    answer:
-      'Antes do site ir ao ar, você aprova layout, textos e fotos. Fazemos ajustes até estar 100% alinhado. Caso, mesmo após os ajustes, você desista nos primeiros 7 dias após o lançamento, devolvemos integralmente o valor pago.',
+      'A entrega é acompanhada, com revisão, testes e ajustes antes da publicação. A continuidade, quando necessária, é combinada no escopo: hospedagem, manutenção e suporte.',
   },
 ];
