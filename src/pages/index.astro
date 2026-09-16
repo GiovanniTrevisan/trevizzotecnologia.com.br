@@ -14,11 +14,30 @@ import FAQ from '@/components/site/FAQ.astro';
 import FinalCTA from '@/components/site/FinalCTA.astro';
 import Footer from '@/components/site/Footer.astro';
 import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import { organization, website, localBusiness, webPage, faqPage } from '@/data/schema';
+import { faqItems } from '@/data/faq';
+import { abs } from '@/data/config';
+
+const title = 'Trevizzo Soluções — Presença digital, automação e sistemas sob medida';
+const description =
+  'Presença digital, automação com IA e sistemas sob medida desenvolvidos a partir da realidade de cada empresa. O projeto começa por um diagnóstico gratuito.';
+const pageUrl = abs('');
 ---
 
-<Layout>
+<Layout
+  title={title}
+  description={description}
+  schemas={[
+    organization({ includeOfferCatalog: true }),
+    website(),
+    localBusiness('bh'),
+    localBusiness('barueri'),
+    webPage({ url: pageUrl, name: title, description }),
+    faqPage(faqItems),
+  ]}
+>
   <Header />
-  <main>
+  <main id="conteudo">
     <Hero />
     <Cenario />
     <ComoAjudamos />

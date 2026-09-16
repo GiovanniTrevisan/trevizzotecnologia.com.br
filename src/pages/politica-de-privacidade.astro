@@ -3,15 +3,29 @@ import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/site/Header.astro';
 import Footer from '@/components/site/Footer.astro';
 import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import Breadcrumb from '@/components/site/Breadcrumb.astro';
+import { organization, webPage, breadcrumb } from '@/data/schema';
+import { abs } from '@/data/config';
+
+const title = 'Política de Privacidade — Trevizzo Soluções';
+const description =
+  'Como a Trevizzo Tecnologia e Consultoria em Informática LTDA coleta, usa e protege os dados enviados pelo site, conforme a LGPD.';
+const pageUrl = abs('politica-de-privacidade/');
+const trail = [
+  { name: 'Início', url: abs('') },
+  { name: 'Política de Privacidade', url: pageUrl },
+];
 ---
 
 <Layout
-  title="Política de Privacidade — Trevizzo Soluções"
-  description="Como a Trevizzo Tecnologia e Consultoria em Informática LTDA coleta, usa e protege os dados enviados pelo site, conforme a LGPD."
+  title={title}
+  description={description}
+  schemas={[organization(), webPage({ url: pageUrl, name: title, description }), breadcrumb(trail)]}
 >
   <Header variant="light" />
   <main class="lg" id="conteudo">
     <div class="lg__inner">
+      <Breadcrumb trail={trail} />
       <h1>Política de Privacidade</h1>
       <p class="lg__updated">Última atualização: 10/08/2026</p>
 

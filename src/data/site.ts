@@ -157,8 +157,8 @@ export const footerCols = [
     links: [
       { label: 'Experiência', href: '/#experiencia' },
       { label: 'Perguntas frequentes', href: '/#faq' },
-      { label: 'Política de Privacidade', href: '/politica-de-privacidade' },
-      { label: 'Termos de Serviço', href: '/termos-de-servico' },
+      { label: 'Política de Privacidade', href: '/politica-de-privacidade/' },
+      { label: 'Termos de Serviço', href: '/termos-de-servico/' },
     ],
   },
 ];

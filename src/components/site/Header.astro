@@ -5,31 +5,39 @@ import Arrow from './Arrow.astro';
 
 interface Props {
   variant?: 'dark' | 'light';
+  /** True when we are NOT on the homepage, so links must be prefixed with `/`.
+   * Independent from `variant` (color theme) — a dark-themed page can still
+   * live away from the homepage and needs `/`-prefixed links, just like a
+   * light-themed one. Defaults to `variant === 'light'` so the two existing
+   * call sites (`<Header />` on the homepage, `<Header variant="light" />` on
+   * the legal pages) keep their exact current behavior without changes. New
+   * pages should pass `home` explicitly instead of relying on this default. */
+  home?: boolean;
 }
-const { variant = 'dark' } = Astro.props;
-const home = variant === 'light' ? '/' : '';
+const { variant = 'dark', home = variant === 'light' } = Astro.props;
+const prefix = home ? '/' : '';
 const logo = variant === 'light' ? '/images/logo.svg' : '/images/logo-dark.svg';
 ---
 
 <header class:list={['hd', { 'hd--light': variant === 'light' }]} data-tz-header>
   <div class="hd__bar">
-    <a href={variant === 'light' ? '/' : '#conteudo'} class="hd__logo" aria-label="Trevizzo Soluções, página inicial">
+    <a href={home ? '/' : '#conteudo'} class="hd__logo" aria-label="Trevizzo Soluções, página inicial">
       <img src={logo} alt="Trevizzo Soluções" width="150" height="46" />
     </a>
 
     <nav class="hd__nav" aria-label="Navegação principal">
       {navItems.map((item) => (
-        <a href={`${home}${item.href}`} data-tz-navlink>{item.label}</a>
+        <a href={`${prefix}${item.href}`} data-tz-navlink>{item.label}</a>
       ))}
     </nav>
 
     <div class="hd__actions">
       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="hd__wa">WhatsApp</a>
-      <a href={`${home}#diagnostico`} class="hd__cta">Iniciar diagnóstico<Arrow size={16} /></a>
+      <a href={`${prefix}#diagnostico`} class="hd__cta">Iniciar diagnóstico<Arrow size={16} /></a>
     </div>
 
     <div class="hd__mobile">
-      <a href={`${home}#diagnostico`} class="hd__cta hd__cta--sm">Diagnóstico</a>
+      <a href={`${prefix}#diagnostico`} class="hd__cta hd__cta--sm">Diagnóstico</a>
       <button class="hd__burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="tz-menu" data-tz-burger>
         <span></span><span></span><span></span>
       </button>
@@ -40,9 +48,9 @@ const logo = variant === 'light' ? '/images/logo.svg' : '/images/logo-dark.svg';
 
 <div class="hd__menu" id="tz-menu" data-tz-menu hidden>
   {navItems.map((item) => (
-    <a href={`${home}${item.href}`} data-tz-menulink>{item.label}<Arrow size={15} /></a>
+    <a href={`${prefix}${item.href}`} data-tz-menulink>{item.label}<Arrow size={15} /></a>
   ))}
-  <a href={`${home}#diagnostico`} class="hd__menucta" data-tz-menulink>Iniciar diagnóstico<Arrow size={17} /></a>
+  <a href={`${prefix}#diagnostico`} class="hd__menucta" data-tz-menulink>Iniciar diagnóstico<Arrow size={17} /></a>
   <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="hd__menughost" data-tz-menulink>Falar pelo WhatsApp</a>
   <p>Diagnóstico primeiro. Recomendação e proposta depois.</p>
 </div>

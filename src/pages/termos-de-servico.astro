@@ -3,15 +3,29 @@ import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/site/Header.astro';
 import Footer from '@/components/site/Footer.astro';
 import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import Breadcrumb from '@/components/site/Breadcrumb.astro';
+import { organization, webPage, breadcrumb } from '@/data/schema';
+import { abs } from '@/data/config';
+
+const title = 'Termos de Serviço — Trevizzo Soluções';
+const description =
+  'Termos de Serviço da Trevizzo Tecnologia e Consultoria em Informática LTDA: escopo, propostas, prazos, pagamento, propriedade intelectual e suporte.';
+const pageUrl = abs('termos-de-servico/');
+const trail = [
+  { name: 'Início', url: abs('') },
+  { name: 'Termos de Serviço', url: pageUrl },
+];
 ---
 
 <Layout
-  title="Termos de Serviço — Trevizzo Soluções"
-  description="Termos de Serviço da Trevizzo Tecnologia e Consultoria em Informática LTDA: escopo, propostas, prazos, pagamento, propriedade intelectual e suporte."
+  title={title}
+  description={description}
+  schemas={[organization(), webPage({ url: pageUrl, name: title, description }), breadcrumb(trail)]}
 >
   <Header variant="light" />
   <main class="lg" id="conteudo">
     <div class="lg__inner">
+      <Breadcrumb trail={trail} />
       <h1>Termos de Serviço</h1>
       <p class="lg__updated">Última atualização: 10/08/2026</p>
 
@@ -124,7 +138,7 @@ import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
         <h2>11. Dados pessoais</h2>
         <p>
           O tratamento de dados enviados pelo site está descrito na
-          <a href="/politica-de-privacidade">Política de Privacidade</a>.
+          <a href="/politica-de-privacidade/">Política de Privacidade</a>.
         </p>
       </section>
 
