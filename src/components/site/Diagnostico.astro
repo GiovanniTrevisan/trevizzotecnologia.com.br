@@ -237,7 +237,14 @@ import Arrow from './Arrow.astro';
 
     if (phone) {
       phone.addEventListener('input', function () {
-        let v = phone.value.replace(/\D/g, '').slice(0, 11);
+        let v = phone.value.replace(/\D/g, '');
+        // Quem digita o número com o código do país (+55 11 ...) tinha o 55
+        // lido como DDD, gerando um telefone que não existe — o lead chegava
+        // com um número para o qual não dá para ligar de volta.
+        // Só removemos quando passa de 11 dígitos: DDD 55 (Santa Maria, RS) é
+        // válido, e com 11 dígitos exatos não há como distinguir os dois.
+        if (v.length > 11 && v.slice(0, 2) === '55') v = v.slice(2);
+        v = v.slice(0, 11);
         if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
         else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
         else if (v.length > 2) v = v.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
@@ -314,12 +321,13 @@ import Arrow from './Arrow.astro';
               access_key: LEAD_FORM_KEY,
               subject: 'Novo diagnóstico pelo site — ' + data.business,
               from_name: 'Site Trevizzo',
-              nome: data.name,
-              empresa: data.business,
-              whatsapp: data.phone,
-              localizacao: data.city,
-              frente_principal: data.need,
-              contexto: data.message || '(sem contexto adicional)',
+              // O Web3Forms usa a chave do JSON como rótulo no e-mail.
+              Nome: data.name,
+              Empresa: data.business,
+              WhatsApp: data.phone,
+              Localização: data.city,
+              'Frente principal': data.need,
+              Contexto: data.message || '(sem contexto adicional)',
             }),
           })
             .then(function (r) {
