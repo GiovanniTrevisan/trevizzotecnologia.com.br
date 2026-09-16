@@ -28,7 +28,11 @@ const pageUrl = abs('');
 // literal word — so the Hero's --i-staggered animation renders exactly 9
 // words as specified, with accentFrom=6 putting the accent on the final
 // clause "para sua / empresa / crescer." (= "para sua empresa crescer").
-const heroWords = ['Sites,', 'automação', 'com IA', 'e', 'sistemas', 'sob medida', 'para sua', 'empresa', 'crescer.'];
+// Uma palavra por span. Blocos compostos ('com IA', 'sob medida') são
+// unidades inquebráveis e forçavam uma linha a mais no mobile. A animação é
+// dirigida por --i, então qualquer contagem funciona — não há número mágico
+// a manter em sincronia aqui.
+const heroWords = ['Sites,', 'automação', 'com', 'IA', 'e', 'sistemas', 'sob', 'medida', 'para', 'sua', 'empresa', 'crescer.'];
 ---
 
 <Layout
@@ -48,7 +52,7 @@ const heroWords = ['Sites,', 'automação', 'com IA', 'e', 'sistemas', 'sob medi
     <Hero
       kicker="Tecnologia criada para fazer seu negócio avançar."
       words={heroWords}
-      accentFrom={6}
+      accentFrom={8}
     />
     <Cenario />
     <ComoAjudamos />
