@@ -321,8 +321,28 @@ import Arrow from './Arrow.astro';
               frente_principal: data.need,
               contexto: data.message || '(sem contexto adicional)',
             }),
-          }).catch(function () {});
-        } catch (err) {}
+          })
+            .then(function (r) {
+              return r.json().catch(function () {
+                return { success: false, message: 'resposta não-JSON (HTTP ' + r.status + ')' };
+              });
+            })
+            .then(function (j) {
+              // Nunca afeta o que o visitante vê — o WhatsApp abre de qualquer
+              // forma. Serve para que uma falha de integração seja
+              // diagnosticável no console em vez de sumir em silêncio.
+              if (!j || j.success !== true) {
+                console.warn('[Trevizzo] lead não gravado:', j && j.message ? j.message : j);
+              } else {
+                console.info('[Trevizzo] lead gravado com sucesso.');
+              }
+            })
+            .catch(function (err) {
+              console.warn('[Trevizzo] lead não gravado (falha de rede):', err && err.message);
+            });
+        } catch (err) {
+          console.warn('[Trevizzo] lead não gravado (exceção):', err && err.message);
+        }
       }
 
       const win = window.open(waUrl, '_blank', 'noopener');
