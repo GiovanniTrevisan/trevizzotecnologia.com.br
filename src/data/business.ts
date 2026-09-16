@@ -96,8 +96,7 @@ export const business: BusinessData = {
       closes: '23:59',
     },
   ],
-  // Ainda vazio: não existe perfil social da empresa. É isto que conecta a
-  // Trevizzo a uma entidade no Knowledge Graph do Google — criar Instagram e
-  // LinkedIn e listá-los aqui é o passo que falta.
-  sameAs: [],
+  // Conecta a empresa a uma entidade no Knowledge Graph do Google. Falta o
+  // LinkedIn — quando existir, é só acrescentar aqui.
+  sameAs: ['https://www.instagram.com/trevizzo.solucoes/'],
 };
