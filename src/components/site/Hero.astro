@@ -36,10 +36,13 @@ const {
         <span>{kicker}</span>
       </div>
 
+      {/* O espaço entre os spans é obrigatório: .hero__title é flex, então
+          whitespace entre flex items não é renderizado (o gap vem de
+          `gap: 0 0.24em`), mas continua existindo no DOM. Sem ele, o
+          textContent do h1 sai como "Sitesautomaçãocom IA..." — e é assim
+          que o Google extrai o texto do elemento de maior peso da página. */}
       <h1 class="hero__title">
-        {words.map((w, i) => (
-          <span style={`--i:${i}`} class:list={[i >= accentFrom && 'hero__accent']}>{w}</span>
-        ))}
+        {words.map((w, i) => (<>{i > 0 && ' '}<span style={`--i:${i}`} class:list={[i >= accentFrom && 'hero__accent']}>{w}</span></>))}
       </h1>
 
       <p class="hero__lead">

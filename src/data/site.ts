@@ -30,10 +30,10 @@ export const scenario = [
 ];
 
 export const helpRows = [
-  { n: '01', title: 'Ser encontrado', desc: 'Sites, landing pages, lojas, catálogos e presença no Google.', href: '#presenca' },
-  { n: '02', title: 'Atender melhor', desc: 'Automações e inteligência artificial para respostas e organização.', href: '#automacao' },
-  { n: '03', title: 'Operar melhor', desc: 'Sistemas e plataformas que centralizam informações e processos.', href: '#sob-medida' },
-  { n: '04', title: 'Criar um produto', desc: 'Soluções online que podem gerar receita recorrente e escalar.', href: '#sob-medida' },
+  { n: '01', title: 'Ser encontrado', desc: 'Sites, landing pages, lojas, catálogos e presença no Google.', href: '/criacao-de-sites/' },
+  { n: '02', title: 'Atender melhor', desc: 'Automações e inteligência artificial para respostas e organização.', href: '/automacao-e-ia/' },
+  { n: '03', title: 'Operar melhor', desc: 'Sistemas e plataformas que centralizam informações e processos.', href: '/sistemas-sob-medida/' },
+  { n: '04', title: 'Criar um produto', desc: 'Soluções online que podem gerar receita recorrente e escalar.', href: '/sistemas-sob-medida/' },
 ];
 
 export const presence = [
@@ -151,9 +151,9 @@ export const footerCols = [
   {
     title: 'Soluções',
     links: [
-      { label: 'Presença digital', href: '/#presenca' },
-      { label: 'Automação e IA', href: '/#automacao' },
-      { label: 'Soluções sob medida', href: '/#sob-medida' },
+      { label: 'Criação de sites', href: '/criacao-de-sites/' },
+      { label: 'Automação e IA', href: '/automacao-e-ia/' },
+      { label: 'Sistemas sob medida', href: '/sistemas-sob-medida/' },
       { label: 'Nosso processo', href: '/#processo' },
     ],
   },
@@ -170,6 +170,6 @@ export const footerCols = [
 
 export const locations = [
   { title: 'Barueri / Alphaville', sub: 'São Paulo, SP' },
-  { title: 'Belo Horizonte', sub: 'Minas Gerais, MG' },
+  { title: 'Belo Horizonte', sub: 'Minas Gerais, MG', href: '/criacao-de-sites-belo-horizonte/' },
   { title: 'Atendimento remoto', sub: 'Todo o Brasil' },
 ];

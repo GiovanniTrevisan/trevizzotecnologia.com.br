@@ -11,12 +11,16 @@ interface Crumb {
 
 interface Props {
   trail: Crumb[];
+  /** 'light' (default) keeps the original styling used on the white legal
+   * pages. 'dark' is for the new dark-themed service/city pages, where the
+   * light-page ink tokens would be nearly invisible against --tz-base. */
+  variant?: 'light' | 'dark';
 }
 
-const { trail } = Astro.props;
+const { trail, variant = 'light' } = Astro.props;
 ---
 
-<nav class="bc" aria-label="Breadcrumb">
+<nav class:list={['bc', { 'bc--dark': variant === 'dark' }]} aria-label="Breadcrumb">
   <ol class="bc__list">
     {trail.map((item, i) => (
       <li>
@@ -51,4 +55,10 @@ const { trail } = Astro.props;
   .bc__list a:hover { color: var(--tz-accent); }
   .bc__list span[aria-current] { color: var(--tz-ink); font-weight: 500; }
   .bc__sep { display: inline-flex; color: var(--tz-ink-mute); }
+
+  .bc--dark .bc__list { color: var(--tz-text-3); }
+  .bc--dark .bc__list a { color: var(--tz-text-3); }
+  .bc--dark .bc__list a:hover { color: var(--tz-accent); }
+  .bc--dark .bc__list span[aria-current] { color: var(--tz-text); }
+  .bc--dark .bc__sep { color: var(--tz-text-3); }
 </style>

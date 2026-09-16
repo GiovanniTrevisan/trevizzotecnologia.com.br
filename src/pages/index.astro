@@ -18,10 +18,17 @@ import { organization, website, localBusiness, webPage, faqPage } from '@/data/s
 import { faqItems } from '@/data/faq';
 import { abs } from '@/data/config';
 
-const title = 'Trevizzo Soluções — Presença digital, automação e sistemas sob medida';
+const title = 'Criação de sites, automação e sistemas sob medida | Trevizzo';
 const description =
   'Presença digital, automação com IA e sistemas sob medida desenvolvidos a partir da realidade de cada empresa. O projeto começa por um diagnóstico gratuito.';
 const pageUrl = abs('');
+
+// Approved <h1> (plan §2.2 / copy doc): "Sites, automação com IA e sistemas
+// sob medida para sua empresa crescer." Tokenized as 9 spans — not one per
+// literal word — so the Hero's --i-staggered animation renders exactly 9
+// words as specified, with accentFrom=6 putting the accent on the final
+// clause "para sua / empresa / crescer." (= "para sua empresa crescer").
+const heroWords = ['Sites,', 'automação', 'com IA', 'e', 'sistemas', 'sob medida', 'para sua', 'empresa', 'crescer.'];
 ---
 
 <Layout
@@ -38,7 +45,11 @@ const pageUrl = abs('');
 >
   <Header />
   <main id="conteudo">
-    <Hero />
+    <Hero
+      kicker="Tecnologia criada para fazer seu negócio avançar."
+      words={heroWords}
+      accentFrom={6}
+    />
     <Cenario />
     <ComoAjudamos />
     <PresencaDigital />

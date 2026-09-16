@@ -1,5 +1,6 @@
 ---
 import { presence } from '@/data/site';
+import Arrow from './Arrow.astro';
 ---
 
 <section id="presenca" class="tz-section pres">
@@ -10,7 +11,7 @@ import { presence } from '@/data/site';
         <span class="tz-eyebrow__n">03</span>
         <span class="tz-eyebrow__label">Presença digital</span>
       </div>
-      <h2 class="tz-h2">Confiança para quem chega. <em>Clareza para quem decide.</em></h2>
+      <h2 class="tz-h2">Criação de sites e landing pages: confiança para quem chega, <em>clareza para quem decide.</em></h2>
       <p>Construímos a jornada digital para que o próximo passo do cliente seja simples.</p>
     </div>
 
@@ -21,6 +22,7 @@ import { presence } from '@/data/site';
           <p>{p.desc}</p>
         </article>
       ))}
+      <a href="/criacao-de-sites/" class="pres__more">Ver em detalhe<Arrow size={15} /></a>
     </div>
   </div>
 </section>
@@ -62,4 +64,18 @@ import { presence } from '@/data/site';
   }
   .pres__card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
   .pres__card p { font-size: 14.5px; color: var(--tz-text-2); line-height: 1.6; margin: 0; }
+  .pres__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    margin-top: 4px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--tz-text);
+    border-bottom: 1px solid rgba(246, 248, 252, 0.25);
+    padding-bottom: 3px;
+    transition: border-color .25s, color .25s;
+  }
+  .pres__more:hover { color: var(--tz-text); border-color: var(--tz-accent); }
 </style>

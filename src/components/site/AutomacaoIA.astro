@@ -1,5 +1,6 @@
 ---
 import { automation } from '@/data/site';
+import Arrow from './Arrow.astro';
 ---
 
 <section id="automacao" class="tz-section auto">
@@ -9,7 +10,7 @@ import { automation } from '@/data/site';
         <span class="tz-eyebrow__n">04</span>
         <span class="tz-eyebrow__label">Automação e IA</span>
       </div>
-      <h2 class="tz-h2 auto__title">Automação devolve tempo para quem precisa fazer o negócio crescer.</h2>
+      <h2 class="tz-h2 auto__title">Automação de atendimento com IA <em>devolve tempo ao seu time.</em></h2>
     </div>
 
     <div class="auto__grid">
@@ -22,7 +23,10 @@ import { automation } from '@/data/site';
       ))}
     </div>
 
-    <p class="auto__note"><span aria-hidden="true"></span>IA como ferramenta. Pessoas no centro das decisões.</p>
+    <div class="auto__foot">
+      <p class="auto__note"><span aria-hidden="true"></span>IA como ferramenta. Pessoas no centro das decisões.</p>
+      <a href="/automacao-e-ia/" class="auto__more">Ver em detalhe<Arrow size={15} /></a>
+    </div>
   </div>
 </section>
 
@@ -64,8 +68,16 @@ import { automation } from '@/data/site';
     margin: 0;
   }
   .auto__card p { font-size: 14.5px; color: var(--tz-ink-soft); line-height: 1.6; margin: 0; }
+  .auto__foot {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
   .auto__note {
-    margin: 32px 0 0;
+    margin: 0;
     font-size: 15px;
     font-weight: 600;
     color: var(--tz-ink);
@@ -74,4 +86,16 @@ import { automation } from '@/data/site';
     gap: 12px;
   }
   .auto__note span { width: 28px; height: 1px; background: var(--tz-accent); flex-shrink: 0; }
+  .auto__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--tz-ink);
+    border-bottom: 1px solid var(--tz-line);
+    padding-bottom: 3px;
+    transition: border-color .25s, color .25s;
+  }
+  .auto__more:hover { color: var(--tz-ink); border-color: var(--tz-accent); }
 </style>
