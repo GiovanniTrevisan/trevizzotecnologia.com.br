@@ -1,4 +1,9 @@
-export const WHATSAPP_NUMBER = '553183336890';
+// 13 dígitos: 55 (Brasil) + 31 (DDD de BH) + 9 8333-6890.
+// Era '553183336890' (12 dígitos, sem o 9 do celular). O número correto é o
+// que consta no Google Business Profile: (31) 98333-6890. Links wa.me com o
+// formato antigo podiam funcionar por normalização do WhatsApp, o que fazia
+// o erro passar despercebido — e divergia do NAP declarado no Google.
+export const WHATSAPP_NUMBER = '5531983336890';
 export const WHATSAPP_MESSAGE =
   'Olá! Vim pelo site da Trevizzo e gostaria de entender qual solução faz sentido para a minha empresa.';
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;

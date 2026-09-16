@@ -107,7 +107,13 @@ export function organization(opts: { includeOfferCatalog?: boolean } = {}) {
   // data, and stripEmpty() alone wouldn't catch that (the @type key itself
   // is never empty).
   const contactPoint = business.email
-    ? { '@type': 'ContactPoint', email: business.email, contactType: 'customer service' }
+    ? stripEmpty({
+        '@type': 'ContactPoint',
+        email: business.email,
+        telephone: business.locations.bh.telephone,
+        contactType: 'customer service',
+        availableLanguage: 'Portuguese',
+      })
     : undefined;
 
   return stripEmpty({
@@ -157,7 +163,16 @@ export function localBusiness(city: City) {
     parentOrganization: { '@id': ORG_ID },
     address,
     telephone: loc.telephone,
+    email: business.email,
     areaServed: CITY_AREA_SERVED[city],
+    // Precisa bater com o horário declarado no Google Business Profile —
+    // divergência de NAP prejudica o sinal de consistência na busca local.
+    openingHoursSpecification: business.openingHours?.map((h) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: h.dayOfWeek,
+      opens: h.opens,
+      closes: h.closes,
+    })),
   });
 }
 

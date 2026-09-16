@@ -43,6 +43,13 @@ export interface LocationData {
   telephone?: string;
 }
 
+export interface OpeningHours {
+  /** Dias no vocabulário schema.org: 'Monday', 'Tuesday', ... */
+  dayOfWeek: string[];
+  opens: string;
+  closes: string;
+}
+
 export interface BusinessData {
   locations: {
     barueri: LocationData;
@@ -61,21 +68,36 @@ export interface BusinessData {
 export const business: BusinessData = {
   locations: {
     barueri: {
+      // Sem endereço registrável: a empresa opera como prestadora de área de
+      // atendimento (service-area business), sem loja física. Omitir
+      // streetAddress/postalCode é válido em schema.org; inventar um endereço
+      // desqualificaria o perfil no Google Business Profile.
       streetAddress: undefined,
       addressLocality: 'Barueri',
       addressRegion: 'SP',
       postalCode: undefined,
-      telephone: undefined,
+      telephone: '+5531983336890',
     },
     bh: {
+      // Idem Barueri: service-area business, sem endereço público. É esta a
+      // unidade registrada no Google Business Profile.
       streetAddress: undefined,
       addressLocality: 'Belo Horizonte',
       addressRegion: 'MG',
       postalCode: undefined,
-      telephone: undefined,
+      telephone: '+5531983336890',
     },
   },
-  email: undefined,
-  openingHours: undefined,
+  email: 'contato@trevizzosolucoes.com.br',
+  openingHours: [
+    {
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  ],
+  // Ainda vazio: não existe perfil social da empresa. É isto que conecta a
+  // Trevizzo a uma entidade no Knowledge Graph do Google — criar Instagram e
+  // LinkedIn e listá-los aqui é o passo que falta.
   sameAs: [],
 };
