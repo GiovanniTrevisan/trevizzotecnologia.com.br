@@ -275,7 +275,18 @@ import Arrow from './Arrow.astro';
       const errors = {};
       if (!data.name) errors.name = 'Este campo é obrigatório.';
       if (!data.business) errors.business = 'Este campo é obrigatório.';
-      if (data.phone.replace(/\D/g, '').length < 10) errors.phone = 'WhatsApp inválido, inclua o DDD.';
+      const digits = data.phone.replace(/\D/g, '');
+      if (digits.length < 10) {
+        errors.phone = 'WhatsApp inválido, inclua o DDD.';
+      } else if (digits.length === 11 && digits.charAt(2) !== '9') {
+        // Número nacional de 11 dígitos é sempre celular, e o nono dígito é
+        // obrigatoriamente 9. Sem esta checagem, um erro de digitação como
+        // "(55) 11949-2001" passava e o lead chegava com um telefone para o
+        // qual não dá para ligar de volta.
+        errors.phone = 'Confira o número: celular tem 9 depois do DDD.';
+      } else if (digits.charAt(0) === '0') {
+        errors.phone = 'Informe o DDD sem o zero à frente.';
+      }
       if (!data.city) errors.city = 'Selecione uma opção.';
       if (!data.need) errors.need = 'Selecione uma opção.';
 
