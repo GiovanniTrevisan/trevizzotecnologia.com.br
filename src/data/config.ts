@@ -40,4 +40,4 @@ export const abs = (p: string) => new URL(p, SITE_URL + '/').href;
  * Não é segredo: chaves do Web3Forms são públicas por design (o formulário é
  * client-side) e só servem para entregar no e-mail cadastrado.
  */
-export const LEAD_FORM_KEY = '';
+export const LEAD_FORM_KEY = '2e9ceb6a-64b6-41cf-bb14-eb3c90c3feae';
