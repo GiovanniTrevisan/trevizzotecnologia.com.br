@@ -1,6 +1,6 @@
 ---
 import { diagnosisQuestions, cities, needOptions } from '@/data/site';
-import { WHATSAPP_NUMBER } from '@/data/config';
+import { WHATSAPP_NUMBER, LEAD_FORM_KEY } from '@/data/config';
 import Arrow from './Arrow.astro';
 ---
 
@@ -228,7 +228,7 @@ import Arrow from './Arrow.astro';
   .diag__legal a:hover { color: #fff; }
 </style>
 
-<script is:inline define:vars={{ WHATSAPP_NUMBER }}>
+<script is:inline define:vars={{ WHATSAPP_NUMBER, LEAD_FORM_KEY }}>
   (function () {
     const form = document.querySelector('[data-tz-lead]');
     if (!form) return;
@@ -297,15 +297,49 @@ import Arrow from './Arrow.astro';
       ];
       if (data.message) lines.push('', '*Contexto:*', data.message);
 
-      window.open(
-        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n')),
-        '_blank',
-        'noopener'
-      );
+      const waUrl =
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+
+      // Grava o lead antes de abrir o WhatsApp. `keepalive` faz a requisição
+      // sobreviver à suspensão da página que o window.open pode causar — sem
+      // ele há uma corrida e o envio se perde. Falha aqui nunca bloqueia o
+      // lead: o WhatsApp abre de qualquer forma.
+      if (LEAD_FORM_KEY) {
+        try {
+          fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            keepalive: true,
+            body: JSON.stringify({
+              access_key: LEAD_FORM_KEY,
+              subject: 'Novo diagnóstico pelo site — ' + data.business,
+              from_name: 'Site Trevizzo',
+              nome: data.name,
+              empresa: data.business,
+              whatsapp: data.phone,
+              localizacao: data.city,
+              frente_principal: data.need,
+              contexto: data.message || '(sem contexto adicional)',
+            }),
+          }).catch(function () {});
+        } catch (err) {}
+      }
+
+      const win = window.open(waUrl, '_blank', 'noopener');
 
       if (status) {
-        status.textContent = 'WhatsApp aberto. Se a aba não aparecer, use o botão flutuante.';
-        status.className = 'diag__status is-success';
+        if (win) {
+          status.textContent = 'WhatsApp aberto. Se a aba não aparecer, use o botão flutuante.';
+          status.className = 'diag__status is-success';
+        } else {
+          // Pop-up bloqueado: sem isto o visitante fica num beco sem saída,
+          // achando que enviou. Um link real preserva o contato.
+          status.innerHTML =
+            'Seu navegador bloqueou a nova aba. ' +
+            '<a href="' + waUrl.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer">' +
+            'Clique aqui para abrir o WhatsApp</a>.';
+          status.className = 'diag__status is-error';
+        }
       }
     });
   })();
