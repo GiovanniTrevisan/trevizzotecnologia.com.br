@@ -1,6 +1,13 @@
 ---
-import { projects } from '@/data/site';
+import { Picture } from 'astro:assets';
+import { projects as defaultProjects, type Project } from '@/data/site';
 import Arrow from './Arrow.astro';
+
+interface Props {
+  items?: Project[];
+}
+
+const { items = defaultProjects } = Astro.props;
 ---
 
 <section id="experiencia" class="tz-section exp">
@@ -24,7 +31,7 @@ import Arrow from './Arrow.astro';
         </div>
 
         <div class="exp__rows">
-          {projects.map((p) => {
+          {items.map((p) => {
             const Tag = p.href ? 'a' : 'div';
             return (
               <Tag
@@ -35,7 +42,17 @@ import Arrow from './Arrow.astro';
               >
                 <div class="exp__grid">
                   <div class="exp__thumb">
-                    <img src={p.img} alt={p.alt} loading="lazy" style={`object-position:${p.pos}`} />
+                    <Picture
+                      src={p.img}
+                      alt={p.alt}
+                      formats={['avif', 'webp']}
+                      fallbackFormat="webp"
+                      width={240}
+                      widths={[120, 240]}
+                      sizes="120px"
+                      loading="lazy"
+                      style={`object-position:${p.pos}`}
+                    />
                   </div>
                   <div class="exp__name">
                     <strong>{p.name}</strong>
@@ -49,7 +66,17 @@ import Arrow from './Arrow.astro';
                   <div class="exp__detailclip">
                     <div class="exp__detail">
                       <div class="exp__shot">
-                        <img src={p.img} alt={p.alt} loading="lazy" style={`object-position:${p.pos}`} />
+                        <Picture
+                          src={p.img}
+                          alt=""
+                          formats={['avif', 'webp']}
+                          fallbackFormat="webp"
+                          width={800}
+                          widths={[400, 800]}
+                          sizes="400px"
+                          loading="lazy"
+                          style={`object-position:${p.pos}`}
+                        />
                       </div>
                       <div class="exp__body">
                         <span class="exp__label">O que foi entregue</span>

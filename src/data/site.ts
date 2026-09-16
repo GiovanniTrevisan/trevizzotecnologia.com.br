@@ -1,3 +1,8 @@
+import type { ImageMetadata } from 'astro';
+import caseVwSuplementos from '@/assets/case-vw-suplementos.png';
+import protoLeadScraper from '@/assets/proto-lead-scraper.png';
+import protoJobHunter from '@/assets/proto-job-hunter.png';
+
 export interface NavItem {
   label: string;
   href: string;
@@ -77,7 +82,7 @@ export interface Project {
   name: string;
   domain: string;
   href?: string;
-  img: string;
+  img: ImageMetadata;
   pos: string;
   alt: string;
   solution: string;
@@ -93,7 +98,7 @@ export const projects: Project[] = [
     name: 'VW Suplementos',
     domain: 'vwsuplementosbh.com.br',
     href: 'https://vwsuplementosbh.com.br',
-    img: '/images/case-vw-suplementos.png',
+    img: caseVwSuplementos,
     pos: 'center top',
     alt: 'Site publicado da VW Suplementos BH',
     solution: 'Presença digital para apresentar a marca, os produtos e facilitar o contato com o público.',
@@ -106,7 +111,7 @@ export const projects: Project[] = [
   {
     name: 'Lead Scraper',
     domain: 'Ferramenta interna',
-    img: '/images/proto-lead-scraper.png',
+    img: protoLeadScraper,
     pos: 'left top',
     alt: 'Dashboard do Lead Scraper',
     solution: 'Automação de prospecção e triagem de oportunidades, com pontuação por IA e integração ao ClickUp.',
@@ -120,7 +125,7 @@ export const projects: Project[] = [
     name: 'Job Hunter',
     domain: 'trevizzo-job-hunter-web.vercel.app',
     href: 'https://trevizzo-job-hunter-web.vercel.app/',
-    img: '/images/proto-job-hunter.png',
+    img: protoJobHunter,
     pos: 'left top',
     alt: 'Dashboard do Job Hunter',
     solution: 'Garimpo multi-board de vagas com painel de triagem, score de aderência por IA e acompanhamento de candidaturas.',
