@@ -1,0 +1,180 @@
+---
+// The hard rule from the plan (§2.4) and the copy doc (§4): this page must
+// not be turned into another city by find-and-replacing a string. The VW
+// Suplementos case — a real BH business, "BH" literally in the domain — is
+// the centerpiece, not decoration. No Barueri equivalent exists yet (no
+// Google Business Profile, no regional client), so only this one city page
+// ships; see criacao-de-sites.astro for where Barueri lives instead.
+import { Picture } from 'astro:assets';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/site/Header.astro';
+import Breadcrumb from '@/components/site/Breadcrumb.astro';
+import Hero from '@/components/site/Hero.astro';
+import ServiceBody from '@/components/site/ServiceBody.astro';
+import Processo from '@/components/site/Processo.astro';
+import Diagnostico from '@/components/site/Diagnostico.astro';
+import FAQ from '@/components/site/FAQ.astro';
+import FinalCTA from '@/components/site/FinalCTA.astro';
+import Footer from '@/components/site/Footer.astro';
+import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import Arrow from '@/components/site/Arrow.astro';
+import { organization, webPage, breadcrumb, localBusiness } from '@/data/schema';
+import { projects } from '@/data/site';
+import { abs } from '@/data/config';
+import type { FAQItem } from '@/data/faq';
+
+const vw = projects.find((p) => p.domain === 'vwsuplementosbh.com.br')!;
+
+const title = 'Criação de sites em Belo Horizonte | Trevizzo Soluções';
+const description =
+  'Criação de sites para empresas de Belo Horizonte e região metropolitana. Veja o caso da VW Suplementos BH e comece pelo diagnóstico gratuito.';
+const pageUrl = abs('criacao-de-sites-belo-horizonte/');
+const trail = [
+  { name: 'Início', url: abs('') },
+  { name: 'Criação de sites em Belo Horizonte', url: pageUrl },
+];
+
+const bodySections = [
+  {
+    heading: 'Atendimento em Belo Horizonte',
+    paragraphs: [
+      'O WhatsApp da Trevizzo tem DDD 31, o mesmo de Belo Horizonte. O atendimento é feito para empresas da cidade e da região metropolitana: Contagem, Betim, Nova Lima e arredores.',
+    ],
+  },
+  {
+    heading: 'Atendimento presencial e remoto',
+    paragraphs: [
+      'O trabalho é conduzido remotamente, com encontros presenciais em Belo Horizonte quando o projeto pede. Não existe uma sede fixa na cidade — o que existe é atendimento real, pelo WhatsApp local e por encontros combinados quando fazem sentido.',
+    ],
+  },
+];
+
+const faqBH: FAQItem[] = [
+  {
+    category: 'Belo Horizonte',
+    question: 'Vocês atendem presencialmente em BH?',
+    answer: 'O projeto é conduzido remotamente, com encontros presenciais quando o escopo justifica.',
+  },
+  {
+    category: 'Belo Horizonte',
+    question: 'Atendem cidades da região metropolitana?',
+    answer: 'Sim: Contagem, Betim, Nova Lima e região.',
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  schemas={[
+    organization(),
+    webPage({ url: pageUrl, name: title, description }),
+    breadcrumb(trail),
+    localBusiness('bh'),
+  ]}
+>
+  <Header home={true} />
+  <div class="bc-bar">
+    <div class="tz-shell">
+      <Breadcrumb trail={trail} variant="dark" />
+    </div>
+  </div>
+  <main id="conteudo">
+    <Hero
+      kicker="Belo Horizonte, MG"
+      words={['Criação', 'de', 'sites', 'em', 'Belo', 'Horizonte.']}
+      accentFrom={4}
+      lead="Atendemos empresas de BH e da região metropolitana, com projeto acompanhado do diagnóstico à publicação."
+      showIndex={false}
+      showField={false}
+      ctaSecondary={{ label: 'Ver o case da VW Suplementos', href: '#case-bh' }}
+    />
+
+    <ServiceBody sections={bodySections} theme="light" />
+
+    <section id="case-bh" class="tz-section bhcase">
+      <div class="bhcase__glow" aria-hidden="true"></div>
+      <div class="tz-shell bhcase__grid">
+        <div class="bhcase__media">
+          <Picture
+            src={vw.img}
+            alt={vw.alt}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            width={640}
+            widths={[400, 640, 960]}
+            sizes="(min-width: 900px) 480px, 100vw"
+            style={`object-position:${vw.pos}`}
+            loading="eager"
+          />
+        </div>
+        <div class="bhcase__copy">
+          <div class="tz-eyebrow">
+            <span class="tz-eyebrow__n">Case</span>
+            <span class="tz-eyebrow__label">{vw.name} — {vw.domain}</span>
+          </div>
+          <h2 class="tz-h2">Um site de Belo Horizonte, <em>publicado e em operação</em>.</h2>
+          <p class="bhcase__lead">{vw.solution}</p>
+          <ul class="bhcase__bullets">
+            {vw.bullets.map((b) => (
+              <li><span aria-hidden="true"></span>{b}</li>
+            ))}
+          </ul>
+          <a href={vw.href} target="_blank" rel="noopener noreferrer" class="tz-btn bhcase__cta">
+            Ver o site {vw.domain}<Arrow />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Processo />
+    <Diagnostico />
+    <FAQ items={faqBH} />
+    <FinalCTA />
+  </main>
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .bc-bar {
+    background: var(--tz-base);
+    padding: calc(var(--tz-header-h) + 20px) var(--tz-gutter) 0;
+  }
+
+  .bhcase { background: var(--tz-base); overflow: hidden; }
+  .bhcase__glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(at 20% 30%, rgba(232, 90, 37, 0.12) 0px, transparent 50%);
+  }
+  .bhcase__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .bhcase__media {
+    border-radius: var(--tz-r-xl);
+    overflow: hidden;
+    border: 1px solid var(--tz-border-medium);
+    background: var(--tz-alt);
+  }
+  .bhcase__media :global(img) { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .bhcase__copy { display: flex; flex-direction: column; gap: 18px; }
+  .bhcase__lead { font-size: 16px; color: var(--tz-text-2); line-height: 1.65; margin: 0; }
+  .bhcase__bullets { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .bhcase__bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--tz-text-2); line-height: 1.5; }
+  .bhcase__bullets li span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tz-accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .bhcase__cta { width: fit-content; }
+</style>

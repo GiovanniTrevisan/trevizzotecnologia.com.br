@@ -1,0 +1,75 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/site/Header.astro';
+import Footer from '@/components/site/Footer.astro';
+import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import { WHATSAPP_URL } from '@/data/config';
+---
+
+<Layout
+  title="Página não encontrada — Trevizzo Soluções"
+  description="A página que você procura não existe ou foi movida."
+  noindex={true}
+>
+  <Header variant="light" />
+  <main class="lg" id="conteudo">
+    <div class="lg__inner">
+      <h1>Página não encontrada</h1>
+      <p class="lg__lead">
+        O endereço que você tentou acessar não existe ou foi movido. Volte para a página inicial ou fale
+        com a gente pelo WhatsApp.
+      </p>
+      <p class="lg__actions">
+        <a href="/" class="lg__btn">Voltar para o início</a>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" class="lg__btn lg__btn--ghost">
+          Falar pelo WhatsApp
+        </a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+  <WhatsAppButton />
+</Layout>
+
+<style>
+  .lg {
+    background: #fff;
+    padding: clamp(120px, 16vw, 150px) var(--tz-gutter) clamp(64px, 9vw, 100px);
+    min-height: 60vh;
+  }
+  .lg__inner { max-width: 720px; margin: 0 auto; }
+  .lg h1 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    color: var(--tz-ink);
+    letter-spacing: -0.025em;
+    margin: 0 0 16px;
+  }
+  .lg__lead {
+    font-size: 16.5px;
+    color: var(--tz-ink-soft);
+    line-height: 1.7;
+    margin: 0 0 32px;
+    text-wrap: pretty;
+  }
+  .lg__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+  .lg__btn {
+    display: inline-flex;
+    align-items: center;
+    height: 46px;
+    padding: 0 24px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: #fff;
+    background: var(--tz-accent);
+    border-radius: var(--tz-r-full);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .lg__btn:hover { color: #fff; background: var(--tz-accent-hover); transform: translateY(-1px); }
+  .lg__btn--ghost {
+    color: var(--tz-ink);
+    background: transparent;
+    border: 1px solid var(--tz-line);
+  }
+  .lg__btn--ghost:hover { color: var(--tz-ink); background: rgba(15, 23, 42, 0.03); }
+</style>

@@ -1,0 +1,82 @@
+---
+// Renders a service page's own copy (Package C) as a set of subsections.
+// Reuses .tz-section / .tz-shell from site-v2.css for the outer rhythm
+// instead of inventing a new grid system; only the block-level typography
+// below is new, scoped to this component.
+import type { ServiceBodySection } from '@/data/services';
+
+interface Props {
+  sections: ServiceBodySection[];
+  theme?: 'light' | 'dark';
+}
+
+const { sections, theme = 'light' } = Astro.props;
+---
+
+<section class:list={['tz-section', 'svcbody', { 'svcbody--dark': theme === 'dark' }]}>
+  <div class="tz-shell svcbody__grid">
+    {sections.map((s) => (
+      <article class="svcbody__block">
+        <h2 class="svcbody__h2">{s.heading}</h2>
+        {s.paragraphs?.map((p) => <p class="svcbody__p">{p}</p>)}
+        {s.items && (
+          <dl class="svcbody__terms">
+            {s.items.map((it) => (
+              <div class="svcbody__term">
+                <dt>{it.term}</dt>
+                <dd>{it.desc}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .svcbody { background: var(--tz-light); }
+  .svcbody--dark { background: var(--tz-base); }
+
+  .svcbody__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    align-items: start;
+  }
+  .svcbody__block { display: flex; flex-direction: column; gap: 14px; }
+
+  .svcbody__h2 {
+    font-size: clamp(19px, 2.2vw, 23px);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin: 0;
+    color: var(--tz-ink);
+  }
+  .svcbody--dark .svcbody__h2 { color: var(--tz-text); }
+
+  .svcbody__p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--tz-ink-soft);
+    margin: 0;
+  }
+  .svcbody--dark .svcbody__p { color: var(--tz-text-2); }
+
+  .svcbody__terms { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+  .svcbody__term dt {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tz-ink);
+    margin: 0 0 3px;
+  }
+  .svcbody--dark .svcbody__term dt { color: var(--tz-text); }
+  .svcbody__term dd {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--tz-ink-soft);
+    margin: 0;
+  }
+  .svcbody--dark .svcbody__term dd { color: var(--tz-text-2); }
+</style>

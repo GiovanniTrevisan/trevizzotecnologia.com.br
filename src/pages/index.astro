@@ -14,12 +14,42 @@ import FAQ from '@/components/site/FAQ.astro';
 import FinalCTA from '@/components/site/FinalCTA.astro';
 import Footer from '@/components/site/Footer.astro';
 import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
+import { organization, website, localBusiness, webPage, faqPage } from '@/data/schema';
+import { faqItems } from '@/data/faq';
+import { abs } from '@/data/config';
+
+const title = 'Criação de sites, automação e sistemas sob medida | Trevizzo';
+const description =
+  'Presença digital, automação com IA e sistemas sob medida desenvolvidos a partir da realidade de cada empresa. O projeto começa por um diagnóstico gratuito.';
+const pageUrl = abs('');
+
+// Approved <h1> (plan §2.2 / copy doc): "Sites, automação com IA e sistemas
+// sob medida para sua empresa crescer." Tokenized as 9 spans — not one per
+// literal word — so the Hero's --i-staggered animation renders exactly 9
+// words as specified, with accentFrom=6 putting the accent on the final
+// clause "para sua / empresa / crescer." (= "para sua empresa crescer").
+const heroWords = ['Sites,', 'automação', 'com IA', 'e', 'sistemas', 'sob medida', 'para sua', 'empresa', 'crescer.'];
 ---
 
-<Layout>
+<Layout
+  title={title}
+  description={description}
+  schemas={[
+    organization({ includeOfferCatalog: true }),
+    website(),
+    localBusiness('bh'),
+    localBusiness('barueri'),
+    webPage({ url: pageUrl, name: title, description }),
+    faqPage(faqItems),
+  ]}
+>
   <Header />
-  <main>
-    <Hero />
+  <main id="conteudo">
+    <Hero
+      kicker="Tecnologia criada para fazer seu negócio avançar."
+      words={heroWords}
+      accentFrom={6}
+    />
     <Cenario />
     <ComoAjudamos />
     <PresencaDigital />

@@ -1,0 +1,64 @@
+---
+// Small visible breadcrumb trail so the BreadcrumbList JSON-LD (see
+// src/data/schema.ts -> breadcrumb()) matches rendered content, which
+// Google requires for the breadcrumb rich result to be eligible.
+import Arrow from './Arrow.astro';
+
+interface Crumb {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  trail: Crumb[];
+  /** 'light' (default) keeps the original styling used on the white legal
+   * pages. 'dark' is for the new dark-themed service/city pages, where the
+   * light-page ink tokens would be nearly invisible against --tz-base. */
+  variant?: 'light' | 'dark';
+}
+
+const { trail, variant = 'light' } = Astro.props;
+---
+
+<nav class:list={['bc', { 'bc--dark': variant === 'dark' }]} aria-label="Breadcrumb">
+  <ol class="bc__list">
+    {trail.map((item, i) => (
+      <li>
+        {i < trail.length - 1 ? (
+          <>
+            <a href={item.url}>{item.name}</a>
+            <span class="bc__sep" aria-hidden="true"><Arrow size={11} /></span>
+          </>
+        ) : (
+          <span aria-current="page">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .bc { margin: 0 0 20px; }
+  .bc__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    color: var(--tz-ink-soft);
+  }
+  .bc__list li { display: flex; align-items: center; gap: 6px; }
+  .bc__list a { color: var(--tz-ink-soft); transition: color 0.2s; }
+  .bc__list a:hover { color: var(--tz-accent); }
+  .bc__list span[aria-current] { color: var(--tz-ink); font-weight: 500; }
+  .bc__sep { display: inline-flex; color: var(--tz-ink-mute); }
+
+  .bc--dark .bc__list { color: var(--tz-text-3); }
+  .bc--dark .bc__list a { color: var(--tz-text-3); }
+  .bc--dark .bc__list a:hover { color: var(--tz-accent); }
+  .bc--dark .bc__list span[aria-current] { color: var(--tz-text); }
+  .bc--dark .bc__sep { color: var(--tz-text-3); }
+</style>

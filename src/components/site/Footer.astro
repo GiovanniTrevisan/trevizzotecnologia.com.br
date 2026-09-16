@@ -34,7 +34,13 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
         <ul class="ft__locs">
           {locations.map((loc) => (
             <li>
-              <strong>{loc.title}</strong>
+              {loc.href ? (
+                <a href={loc.href} class="ft__locslink">
+                  <strong>{loc.title}</strong>
+                </a>
+              ) : (
+                <strong>{loc.title}</strong>
+              )}
               <small>{loc.sub}</small>
             </li>
           ))}
@@ -112,6 +118,8 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
   .ft__links a:hover { color: var(--tz-accent); }
   .ft__locs { gap: 14px; }
   .ft__locs strong { display: block; font-size: 13.5px; color: #fff; font-weight: 600; line-height: 1.2; }
+  .ft__locslink { transition: color .2s; }
+  .ft__locslink:hover strong { color: var(--tz-accent); }
   .ft__locs small { display: block; font-size: 11.5px; color: var(--tz-text-3); margin-top: 2px; }
 
   .ft__bottom { border-top: 1px solid rgba(255, 255, 255, 0.06); padding: 22px var(--tz-gutter); }

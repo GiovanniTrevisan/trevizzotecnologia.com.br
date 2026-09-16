@@ -1,5 +1,6 @@
 ---
 import { custom } from '@/data/site';
+import Arrow from './Arrow.astro';
 ---
 
 <section id="sob-medida" class="tz-section sob">
@@ -11,7 +12,7 @@ import { custom } from '@/data/site';
           <span class="tz-eyebrow__n">05</span>
           <span class="tz-eyebrow__label">Soluções sob medida</span>
         </div>
-        <h2 class="tz-h2">Quando a solução pronta limita, criamos a <em>solução certa</em>.</h2>
+        <h2 class="tz-h2">Sistemas sob medida para quando a ferramenta pronta <em>passa a limitar.</em></h2>
       </div>
       <p class="sob__aside">Da melhoria de um processo interno à criação de um produto digital escalável.</p>
     </div>
@@ -25,6 +26,8 @@ import { custom } from '@/data/site';
         </article>
       ))}
     </div>
+
+    <a href="/sistemas-sob-medida/" class="sob__more">Ver em detalhe<Arrow size={15} /></a>
   </div>
 </section>
 
@@ -79,4 +82,17 @@ import { custom } from '@/data/site';
     margin: 0;
   }
   .sob__card p { font-size: 14.5px; color: var(--tz-text-2); line-height: 1.6; margin: 0; }
+  .sob__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--tz-text);
+    border-bottom: 1px solid rgba(246, 248, 252, 0.25);
+    padding-bottom: 3px;
+    transition: border-color .25s, color .25s;
+  }
+  .sob__more:hover { color: var(--tz-text); border-color: var(--tz-accent); }
 </style>

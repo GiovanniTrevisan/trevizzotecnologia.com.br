@@ -1,6 +1,12 @@
 ---
-import { faqItems } from '@/data/faq';
+import { faqItems as defaultFaqItems, type FAQItem } from '@/data/faq';
 import { WHATSAPP_URL } from '@/data/config';
+
+interface Props {
+  items?: FAQItem[];
+}
+
+const { items = defaultFaqItems } = Astro.props;
 ---
 
 <section id="faq" class="tz-section faq">
@@ -15,7 +21,7 @@ import { WHATSAPP_URL } from '@/data/config';
 
     <div class="faq__grid">
       <div class="faq__list">
-        {faqItems.map((item, i) => (
+        {items.map((item, i) => (
           <details class="faq__item" open={i === 0} name="tz-faq">
             <summary>
               <span class="faq__q">
