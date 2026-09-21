@@ -60,7 +60,7 @@ import { processPhases } from '@/data/site';
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--tz-accent);
+    color: var(--tz-accent-ink);
   }
   .proc__rule { flex: 1; height: 1px; background: var(--tz-line); }
 
@@ -76,7 +76,11 @@ import { processPhases } from '@/data/site';
   .proc__n {
     font-size: 32px;
     font-weight: 800;
-    color: #CBD5E1;
+    /* Era #CBD5E1 = 1,40:1 sobre --tz-light, reprovado mesmo no limiar
+       mais tolerante. A 32px/800 isto é "texto grande" pela WCAG, então o
+       mínimo é 3:1 e não 4,5:1. #858B93 = 3.23:1 mantendo o
+       mesmo matiz (h=212,7°) — segue um número discreto, não um destaque. */
+    color: #858B93;
     letter-spacing: -0.04em;
     line-height: 1;
   }

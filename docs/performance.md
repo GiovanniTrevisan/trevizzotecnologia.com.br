@@ -15,20 +15,23 @@
 | Categoria | Mobile | Desktop |
 |---|---|---|
 | **Performance** | **100** | **100** |
-| Acessibilidade | 95 | 95 |
+| **Acessibilidade** | **100** | **100** |
 | Práticas recomendadas | 100 | 96 |
-| SEO | **100** | **100** |
+| **SEO** | **100** | **100** |
+
+A acessibilidade saiu de 95 depois da correção de contraste descrita abaixo. O 96
+de "práticas recomendadas" no desktop é artefato da medição, não defeito — ver o
+item sobre WebGL.
 
 ### Métricas de laboratório
 
 | Métrica | Mobile | Desktop | Limiar "bom" |
 |---|---|---|---|
-| LCP | 1,7 s | 0,3 s | ≤ 2,5 s |
+| LCP | 1,7 s | 0,6 s | ≤ 2,5 s |
 | CLS | 0 | 0,007 | ≤ 0,10 |
-| TBT (proxy de INP) | 40 ms | 0 ms | ≤ 200 ms |
+| TBT (proxy de INP) | 0 ms | 0 ms | ≤ 200 ms |
 | FCP | 1,2 s | 0,3 s | ≤ 1,8 s |
-| Speed Index | 1,3 s | 0,4 s | ≤ 3,4 s |
-| Time to Interactive | 1,7 s | 0,3 s | — |
+| Speed Index | 1,2 s | 0,4 s | ≤ 3,4 s |
 
 Mesmo somando os ~300 ms de TTFB real da produção, o LCP mobile fica em torno de **2,0 s** — dentro da faixa boa, com folga.
 
@@ -40,22 +43,53 @@ Em `src/components/site/Hero.astro` (~linha 212) o `import()` de `src/lib/three-
 
 Resultado: TBT de **40 ms** em mobile e **0 ms** em desktop, ambos muito abaixo do limiar de 200 ms. Não há gargalo de main thread para atacar. **Nenhuma otimização de performance é necessária neste momento** — mexer no three.js agora seria otimizar o que já não custa nada.
 
-### O que de fato apareceu (não é performance)
+### O que de fato apareceu — e foi corrigido
 
-Performance está resolvida; o que as auditorias acharam são outras coisas, e duas são reais:
+Performance não tinha o que melhorar. O que as auditorias acharam era
+acessibilidade, e os dois achados reais foram corrigidos nesta branch.
 
-1. **Contraste de cor — acessibilidade, WCAG AA (afeta os dois perfis).** É o achado mais relevante, porque atinge o CTA principal:
-   - `.hd__cta` e `.tz-btn` ("Iniciar diagnóstico"): branco `#ffffff` sobre laranja `#e85a25` dá **3,54:1**; o mínimo AA para texto normal é 4,5:1.
-   - `.tz-eyebrow__label` em fundo claro: `#94a3b8` sobre `#f6f8fc` dá **2,41:1** — bem abaixo do mínimo.
-   - `.tz-eyebrow__n` / `.help__n`: laranja `#e85a25` sobre `#f6f8fc` dá **3,33:1**.
+**1. Contraste abaixo do mínimo WCAG AA.** O achado mais relevante, porque
+atingia o CTA que gera o lead. Estado antes e depois:
 
-   Não é só conformidade: é legibilidade real do botão que gera o lead, sob sol, em tela de celular barata. Corrigir sem perder a identidade de marca costuma significar escurecer o laranja **apenas quando ele é texto ou fundo de texto pequeno**, mantendo o tom atual nos elementos decorativos.
+| Elemento | Antes | Depois |
+|---|---|---|
+| `.tz-btn` / `.hd__cta` ("Iniciar diagnóstico"), branco sobre o laranja | 3,55:1 | **4,86:1** |
+| `.tz-eyebrow__n` / `.help__n`, laranja sobre `--tz-light` | 3,34:1 | **4,57:1** |
+| `.tz-eyebrow--light .tz-eyebrow__label` | 2,41:1 | **4,51:1** |
+| `.tz-eyebrow__label` sobre `--tz-base` (via `--tz-text-3`) | 4,31:1 | **4,76:1** |
+| `.proc__n` (número de etapa, 32px/800) | 1,40:1 | **3,23:1** |
 
-2. **Ordem de cabeçalhos** — existe um `<h4>` que quebra a sequência descendente. Conta como acessibilidade e também como sinal de estrutura semântica para buscadores.
+A correção introduziu o token `--tz-accent-ink` (`#C24B1F`): mesmo matiz e
+saturação do laranja da marca (HSV h=16,3° s=0,841), só mais escuro. A regra de
+uso está comentada no `:root` de `src/styles/site-v2.css` — **decorativo**
+(barra, glow, borda, bullet, ícone) segue em `--tz-accent`; **texto e fundo de
+texto** usam `--tz-accent-ink`. O laranja decorativo não mudou.
 
-3. **JavaScript não usado (só desktop, nota 50)** — `three-subset.js` tem 129 KB, dos quais ~81 KB não são executados. Como o chunk é carregado por `import()` dinâmico e fora do caminho crítico, **não afeta LCP nem TBT** (as notas 100 comprovam). É dívida técnica de baixa prioridade, não um problema de performance.
+Vale registrar que o `--tz-accent-hover` que já existia (`#C94D1C`) já passaria
+como fundo de CTA (4,60:1): a marca já continha um laranja conforme, ele só nunca
+tinha sido usado no estado normal. Por isso a mudança visual é pequena — o botão
+ficou no tom que já assumia no hover, e o hover foi um passo adiante (`#A83F19`).
 
-4. **Erro de console em WebGL (`THREE.WebGLRenderer: A WebGL context could not be created`)** — **isto é artefato da medição, não defeito do site.** O Chromium rodou com `--disable-gpu` em container sem GPU, então o contexto WebGL não existia para ser criado. Num navegador real com GPU isso não acontece. Foi o que derrubou "Práticas recomendadas" de 100 para 96 no desktop. Ignorar.
+O `.proc__n` é caso à parte: a 32px/800 ele se qualifica como "texto grande" pela
+WCAG, então o mínimo é 3:1 e não 4,5:1 — mas 1,40:1 reprovava até nesse limiar
+mais tolerante. Foi escurecido o mínimo necessário, preservando o matiz, para
+seguir um número discreto em vez de virar destaque.
+
+**2. Ordem de cabeçalhos.** Os dois `<h4>` do rodapé vinham depois do `<h2>` da
+seção final, pulando o nível `<h3>`. Viraram `<h3>` (e o seletor `.ft h4` do CSS
+foi acompanhado, senão o estilo do rodapé teria quebrado em silêncio).
+
+**3. JavaScript não usado (só desktop, nota 50).** `three-subset.js` tem 129 KB,
+dos quais ~81 KB não são executados. Como o chunk é carregado por `import()`
+dinâmico e fora do caminho crítico, **não afeta LCP nem TBT** — as notas 100 de
+performance comprovam. É dívida técnica de baixa prioridade, não um problema de
+performance. Não foi mexido.
+
+**4. Erro de console em WebGL** (`THREE.WebGLRenderer: A WebGL context could not
+be created`) — **artefato da medição, não defeito do site.** O Chromium roda aqui
+com `--disable-gpu` em container sem GPU, então não havia contexto WebGL para
+criar. Num navegador real com GPU não acontece. É o que segura "práticas
+recomendadas" em 96 no desktop. Ignorar — e não ir caçá-lo no código.
 
 ### Contexto de rede já medido (não é do Lighthouse)
 
