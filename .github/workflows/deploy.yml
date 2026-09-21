@@ -47,3 +47,30 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notificar IndexNow (Bing/Yahoo/DuckDuckGo/Ecosia)
+        # A chave IndexNow não é segredo — por design é pública e servida
+        # pelo próprio site em /f5975d6a13f055a1ab5064aa4e4dd10a.txt, então
+        # fica hardcoded aqui em vez de virar um GitHub Secret. Isso só
+        # acelera a descoberta das URLs; nunca deve derrubar um deploy que
+        # já terminou com sucesso.
+        continue-on-error: true
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "trevizzosolucoes.com.br",
+              "key": "f5975d6a13f055a1ab5064aa4e4dd10a",
+              "keyLocation": "https://trevizzosolucoes.com.br/f5975d6a13f055a1ab5064aa4e4dd10a.txt",
+              "urlList": [
+                "https://trevizzosolucoes.com.br/",
+                "https://trevizzosolucoes.com.br/automacao-e-ia/",
+                "https://trevizzosolucoes.com.br/criacao-de-sites-belo-horizonte/",
+                "https://trevizzosolucoes.com.br/criacao-de-sites/",
+                "https://trevizzosolucoes.com.br/politica-de-privacidade/",
+                "https://trevizzosolucoes.com.br/sistemas-sob-medida/",
+                "https://trevizzosolucoes.com.br/termos-de-servico/"
+              ]
+            }')
+          # 200/202 = aceito; 403 = chave não encontrada em keyLocation.
+          echo "IndexNow respondeu HTTP $status"

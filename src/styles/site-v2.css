@@ -9,7 +9,17 @@
   --tz-glass: rgba(20, 40, 68, 0.45);
 
   --tz-accent: #E85A25;
-  --tz-accent-hover: #C94D1C;
+  /* Contraste WCAG AA: --tz-accent como TEXTO ou como FUNDO DE TEXTO reprova
+     (branco sobre ele = 3,55:1; ele sobre --tz-light = 3,34:1; o mínimo é
+     4,5:1 e nenhum desses casos se qualifica como "texto grande").
+     --tz-accent-ink é o MESMO matiz e saturação (HSV h=16,3° s=0,841), só
+     mais escuro: branco sobre ele = 4,86:1, ele sobre --tz-light = 4,57:1.
+     REGRA DE USO: decorativo (barra, glow, borda, bullet, ícone) continua
+     em --tz-accent; texto e fundo de texto usam --tz-accent-ink. */
+  --tz-accent-ink: #C24B1F;
+  /* Precisa ser mais escuro que --tz-accent-ink, que agora é o estado
+     normal dos botões — senão o hover clarearia em vez de escurecer. */
+  --tz-accent-hover: #A83F19;
   --tz-accent-soft: #FFC9B0;
 
   --tz-light: #F6F8FC;
@@ -20,7 +30,9 @@
 
   --tz-text: #F6F8FC;
   --tz-text-2: rgba(246, 248, 252, 0.72);
-  --tz-text-3: rgba(246, 248, 252, 0.45);
+  /* .48 e não .45: em .45 renderiza #72767E sobre --tz-base = 4,31:1,
+     logo abaixo do mínimo AA de 4,5:1. Em .48 dá #797D85 = 4,76:1. */
+  --tz-text-3: rgba(246, 248, 252, 0.48);
   --tz-border-soft: rgba(246, 248, 252, 0.06);
   --tz-border-medium: rgba(246, 248, 252, 0.12);
 
@@ -62,7 +74,7 @@ body {
 
 a { color: var(--tz-accent); text-decoration: none; }
 a:hover { color: #FF8559; }
-::selection { background: var(--tz-accent); color: #F6F8FC; }
+::selection { background: var(--tz-accent-ink); color: #F6F8FC; }
 img { max-width: 100%; }
 
 .tz-shell {
@@ -94,7 +106,11 @@ img { max-width: 100%; }
   text-transform: uppercase;
   color: var(--tz-text-3);
 }
-.tz-eyebrow--light .tz-eyebrow__label { color: var(--tz-ink-mute); }
+/* Na variante clara o accent e o ink-mute reprovam sobre --tz-light
+   (3,34:1 e 2,41:1). #697382 = 4,51:1; --tz-ink-mute segue intocado no
+   token global porque também serve de borda e ícone, onde 4,5:1 não se aplica. */
+.tz-eyebrow--light .tz-eyebrow__n { color: var(--tz-accent-ink); }
+.tz-eyebrow--light .tz-eyebrow__label { color: #697382; }
 .tz-eyebrow__rule { flex: 1; height: 1px; background: var(--tz-border-soft); }
 
 .tz-h2 {
@@ -114,7 +130,7 @@ img { max-width: 100%; }
   font-weight: 600;
   font-size: 16px;
   color: #fff;
-  background: var(--tz-accent);
+  background: var(--tz-accent-ink);
   border-radius: var(--tz-r-full);
   padding: 19px 34px;
   box-shadow: 0 10px 30px rgba(232, 90, 37, 0.34);

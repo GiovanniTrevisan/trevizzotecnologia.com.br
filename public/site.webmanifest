@@ -1,0 +1,22 @@
+{
+  "name": "Trevizzo Soluções",
+  "short_name": "Trevizzo",
+  "description": "Criação de sites, automação com IA e sistemas sob medida para empresas.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#060B17",
+  "background_color": "#060B17",
+  "icons": [
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/apple-touch-icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

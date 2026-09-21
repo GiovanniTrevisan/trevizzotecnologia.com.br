@@ -1,5 +1,6 @@
 import { SITE_URL, SITE_NAME, COMPANY_LEGAL_NAME, COMPANY_CNPJ, abs } from '@/data/config';
 import { business } from '@/data/business';
+import { services } from '@/data/services';
 import type { FAQItem } from '@/data/faq';
 
 /**
@@ -123,11 +124,23 @@ export function organization(opts: { includeOfferCatalog?: boolean } = {}) {
     name: SITE_NAME,
     legalName: COMPANY_LEGAL_NAME,
     url: SITE_URL,
-    // Raster, not the SVG — better support in the Knowledge Panel at >=112px.
-    logo: abs('images/icon-512.png'),
+    // ImageObject (não string crua) é o formato preferido pelo Google para o
+    // Knowledge Panel — permite validar as dimensões sem baixar o arquivo.
+    // Raster, não o SVG, para suporte no Knowledge Panel a partir de 112px.
+    // 512x512 é o tamanho real de public/images/icon-512.png (conferido no
+    // build) — nunca declarar dimensão sem checar o arquivo correspondente.
+    logo: { '@type': 'ImageObject', url: abs('images/icon-512.png'), width: 512, height: 512 },
     taxID: COMPANY_CNPJ,
     foundingDate: '2026-04',
     parentOrganization: { '@type': 'Organization', name: 'Grupo Yuzan' },
+    // Atendimento remoto para todo o Brasil já é anunciado em src/data/site.ts
+    // (locations: "Atendimento remoto / Todo o Brasil") — aqui só refletimos
+    // no schema o que já está publicado na página, sem inventar área nova.
+    areaServed: { '@type': 'Country', name: 'Brasil' },
+    // Reforça a reconciliação de entidade no Knowledge Graph (e é um sinal
+    // que o Bing usa) — derivado dos navLabel reais de src/data/services.ts,
+    // não uma lista digitada à parte que pode divergir do site.
+    knowsAbout: services.map((s) => s.navLabel),
     sameAs: business.sameAs,
     contactPoint,
     subOrganization: [{ '@id': BUSINESS_ID.bh }, { '@id': BUSINESS_ID.barueri }],

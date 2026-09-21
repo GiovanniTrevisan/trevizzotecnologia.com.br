@@ -22,7 +22,7 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
 
       {footerCols.map((col) => (
         <div>
-          <h4>{col.title}</h4>
+          <h3>{col.title}</h3>
           <ul class="ft__links">
             {col.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           </ul>
@@ -30,7 +30,7 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
       ))}
 
       <div>
-        <h4>Atendemos em</h4>
+        <h3>Atendemos em</h3>
         <ul class="ft__locs">
           {locations.map((loc) => (
             <li>
@@ -104,7 +104,7 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
   .ft__wa strong { display: block; font-size: 14px; color: #fff; font-weight: 600; line-height: 1.2; }
   .ft__wa small { display: block; font-size: 11.5px; color: var(--tz-text-3); margin-top: 2px; }
 
-  .ft h4 {
+  .ft h3 {
     font-size: 12.5px;
     font-weight: 700;
     color: #fff;

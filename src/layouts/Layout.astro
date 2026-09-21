@@ -91,9 +91,13 @@ const twitterCard = image ? 'summary_large_image' : ogImageOk ? 'summary_large_i
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Favicon -->
+    <!-- Favicon: SVG primeiro para navegadores modernos escolherem-no por
+    precedência; o .ico fica depois como fallback (buscadores como o Bing
+    preferem .ico e não seguem o mesmo suporte a SVG dos navegadores). -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/images/apple-touch-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
