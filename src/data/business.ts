@@ -98,5 +98,14 @@ export const business: BusinessData = {
   ],
   // Conecta a empresa a uma entidade no Knowledge Graph do Google. Falta o
   // LinkedIn — quando existir, é só acrescentar aqui.
-  sameAs: ['https://www.instagram.com/trevizzo.solucoes/'],
+  //
+  // A URL do Google Business Profile está na forma canônica por CID, extraída
+  // do identificador interno do perfil (`...:0x47051f8674ac2337` → decimal).
+  // NÃO usar o link que o Maps ou a busca exibem: aqueles carregam `authuser`,
+  // token de sessão e coordenadas de viewport — expiram e são atados à conta
+  // logada de quem copiou. A forma `?cid=` é permanente e pública.
+  sameAs: [
+    'https://www.instagram.com/trevizzo.solucoes/',
+    'https://www.google.com/maps?cid=5117531213919953719',
+  ],
 };
