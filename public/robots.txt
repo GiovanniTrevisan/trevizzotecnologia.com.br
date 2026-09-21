@@ -1,4 +1,44 @@
 User-agent: *
 Allow: /
 
+# Sem Disallow de propósito: esta stack é Astro estático publicado no
+# GitHub Pages — não existe /admin/, /wp-admin/ ou login algum para
+# bloquear. Adicionar isso seria cargo cult e sinalizaria falsamente
+# que o site roda WordPress.
+
+# Bots de IA já estariam liberados pelo curinga acima; declarar cada um
+# explicitamente documenta a decisão do dono (ser citada como fornecedora
+# dentro de ChatGPT/Perplexity é canal de lead) e evita que alguém
+# "conserte" isso depois adicionando um Disallow por engano.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# sitemap.xml é o alias estático em /sitemap.xml (ver public/sitemap.xml) —
+# várias ferramentas, incluindo o formulário do Bing Webmaster Tools, sondam
+# esse caminho por convenção antes de tentar o índice real do Astro.
 Sitemap: https://trevizzosolucoes.com.br/sitemap-index.xml
+Sitemap: https://trevizzosolucoes.com.br/sitemap.xml

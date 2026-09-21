@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Alias estático de /sitemap.xml -> aponta para o sitemap real gerado pelo
+  @astrojs/sitemap (sitemap-index.xml + sitemap-0.xml). Existe só porque
+  vários crawlers e o formulário do Bing Webmaster Tools sondam /sitemap.xml
+  por convenção, sem consultar robots.txt primeiro. Seguro: public/ é
+  copiado verbatim para dist/ e não colide com os nomes que a integração
+  gera. Sem lastmod aqui pelo mesmo motivo do astro.config.mjs: um valor
+  estático nunca seria atualizado e um `new Date()` de build seria só ruído.
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://trevizzosolucoes.com.br/sitemap-0.xml</loc>
+  </sitemap>
+</sitemapindex>
