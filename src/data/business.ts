@@ -89,11 +89,26 @@ export const business: BusinessData = {
     },
   },
   email: 'contato@trevizzosolucoes.com.br',
+  // Confirmado contra o Google Business Profile: seg–sex "Aberto 24 horas",
+  // sábado e domingo "Fechado". Bate exatamente — não mexer sem conferir o
+  // perfil antes, porque divergência de NAP derruba o sinal de consistência
+  // na busca local.
+  //
+  // 00:00–23:59 é a forma que o Google documenta para "aberto 24 horas", e
+  // opens === closes === '00:00' é como ele documenta "fechado o dia todo".
+  // Sábado e domingo estavam apenas omitidos: ausência pode ser lida como
+  // horário desconhecido, não como fechado. Declarados explicitamente, o
+  // schema espelha o perfil por inteiro.
   openingHours: [
     {
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
       opens: '00:00',
       closes: '23:59',
+    },
+    {
+      dayOfWeek: ['Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '00:00',
     },
   ],
   // Conecta a empresa a uma entidade no Knowledge Graph do Google. Falta o
