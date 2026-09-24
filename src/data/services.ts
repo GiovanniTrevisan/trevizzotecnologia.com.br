@@ -1,5 +1,5 @@
 import type { FAQItem } from '@/data/faq';
-import { projects, type Project } from '@/data/site';
+import { projects, type Project, type ServiceSlug } from '@/data/site';
 
 /**
  * One body-copy subsection of a service page: either a pair of flowing
@@ -13,7 +13,7 @@ export interface ServiceBodySection {
 }
 
 export interface ServiceDef {
-  slug: 'criacao-de-sites' | 'automacao-e-ia' | 'sistemas-sob-medida';
+  slug: ServiceSlug;
   /** Nav / footer / cross-link label. */
   navLabel: string;
   title: string;
@@ -38,12 +38,7 @@ export interface ServiceDef {
    * questions. Chosen so the six generic questions are spread across the
    * three service pages instead of all six repeating on every page. */
   faqGenericCategories: string[];
-  experienceItems: Project[];
 }
-
-const vwSuplementos = projects.find((p) => p.domain === 'vwsuplementosbh.com.br')!;
-const leadScraper = projects.find((p) => p.name === 'Lead Scraper')!;
-const jobHunter = projects.find((p) => p.name === 'Job Hunter')!;
 
 export const services: ServiceDef[] = [
   {
@@ -127,7 +122,6 @@ export const services: ServiceDef[] = [
       },
     ],
     faqGenericCategories: ['Início', 'Continuidade'],
-    experienceItems: [vwSuplementos],
   },
   {
     slug: 'automacao-e-ia',
@@ -203,7 +197,6 @@ export const services: ServiceDef[] = [
       },
     ],
     faqGenericCategories: ['IA', 'Tecnologia'],
-    experienceItems: [leadScraper, jobHunter],
   },
   {
     slug: 'sistemas-sob-medida',
@@ -280,7 +273,6 @@ export const services: ServiceDef[] = [
       },
     ],
     faqGenericCategories: ['Investimento', 'Prazo'],
-    experienceItems: [leadScraper, jobHunter],
   },
 ];
 
@@ -288,4 +280,9 @@ export function getService(slug: ServiceDef['slug']): ServiceDef {
   const found = services.find((s) => s.slug === slug);
   if (!found) throw new Error(`Unknown service slug: ${slug}`);
   return found;
+}
+
+/** Projects shown in a service page's Experiência section; empty hides it. */
+export function experienceFor(slug: ServiceSlug): Project[] {
+  return projects.filter((p) => p.services.includes(slug));
 }

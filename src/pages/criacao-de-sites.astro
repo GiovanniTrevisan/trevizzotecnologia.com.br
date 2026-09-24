@@ -15,10 +15,11 @@ import WhatsAppButton from '@/components/site/WhatsAppButton.astro';
 import Arrow from '@/components/site/Arrow.astro';
 import { organization, webPage, breadcrumb, service } from '@/data/schema';
 import { faqItems } from '@/data/faq';
-import { services, getService } from '@/data/services';
+import { services, getService, experienceFor } from '@/data/services';
 import { abs } from '@/data/config';
 
 const svc = getService('criacao-de-sites');
+const experience = experienceFor(svc.slug);
 const pageUrl = abs('criacao-de-sites/');
 const trail = [
   { name: 'Início', url: abs('') },
@@ -66,7 +67,7 @@ const otherServices = services.filter((s) => s.slug !== svc.slug);
     <ServiceBody sections={svc.sections} theme={svc.bodyTheme} />
     <PresencaDigital />
     <Processo />
-    <Experiencia items={svc.experienceItems} />
+    {experience.length > 0 && <Experiencia items={experience} />}
     <FAQ items={faq} />
 
     <section class="tz-section svc-cross">

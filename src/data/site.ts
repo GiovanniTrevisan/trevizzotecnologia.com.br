@@ -1,7 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import caseVwSuplementos from '@/assets/case-vw-suplementos.png';
-import protoLeadScraper from '@/assets/proto-lead-scraper.png';
-import protoJobHunter from '@/assets/proto-job-hunter.png';
+import caseMariaClara from '@/assets/case-maria-clara-psicologa.png';
 
 export interface NavItem {
   label: string;
@@ -78,8 +77,12 @@ export const processPhases = [
   },
 ];
 
+export type ServiceSlug = 'criacao-de-sites' | 'automacao-e-ia' | 'sistemas-sob-medida';
+
 export interface Project {
   name: string;
+  /** Service pages whose Experiência section lists this project. */
+  services: ServiceSlug[];
   domain: string;
   href?: string;
   img: ImageMetadata;
@@ -93,9 +96,15 @@ export interface Project {
   bullets: string[];
 }
 
+// Only delivered client work. /automacao-e-ia/ and /sistemas-sob-medida/ hide
+// their Experiência section while no project lists them in `services`; a
+// future delivered system or automation added here with
+// `services: ['automacao-e-ia']` and/or `['sistemas-sob-medida']` brings the
+// section back on those pages (and on the homepage) automatically.
 export const projects: Project[] = [
   {
     name: 'VW Suplementos',
+    services: ['criacao-de-sites'],
     domain: 'vwsuplementosbh.com.br',
     href: 'https://vwsuplementosbh.com.br',
     img: caseVwSuplementos,
@@ -109,31 +118,19 @@ export const projects: Project[] = [
     bullets: ['Apresentação da marca e dos produtos', 'Contato direto por WhatsApp', 'Publicado e em operação'],
   },
   {
-    name: 'Lead Scraper',
-    domain: 'Ferramenta interna',
-    img: protoLeadScraper,
-    pos: 'left top',
-    alt: 'Dashboard do Lead Scraper',
-    solution: 'Automação de prospecção e triagem de oportunidades, com pontuação por IA e integração ao ClickUp.',
-    status: 'Interno',
-    tone: 'orange',
-    cta: 'Uso interno',
-    tags: ['Node.js', 'React', 'PostgreSQL', 'IA'],
-    bullets: ['Prospecção automatizada de negócios locais', 'Pontuação de oportunidades por IA', 'Integração com o ClickUp'],
-  },
-  {
-    name: 'Job Hunter',
-    domain: 'trevizzo-job-hunter-web.vercel.app',
-    href: 'https://trevizzo-job-hunter-web.vercel.app/',
-    img: protoJobHunter,
-    pos: 'left top',
-    alt: 'Dashboard do Job Hunter',
-    solution: 'Garimpo multi-board de vagas com painel de triagem, score de aderência por IA e acompanhamento de candidaturas.',
-    status: 'Interno',
-    tone: 'orange',
-    cta: 'Ver protótipo',
-    tags: ['Node.js', 'React', 'PostgreSQL', 'IA'],
-    bullets: ['Garimpo multi-board de vagas', 'Score de aderência por IA', 'Acompanhamento de candidaturas'],
+    name: 'Maria Clara · Psicóloga',
+    services: ['criacao-de-sites'],
+    domain: 'mclaramentepsico.com.br',
+    href: 'https://mclaramentepsico.com.br',
+    img: caseMariaClara,
+    pos: 'center top',
+    alt: 'Site publicado da psicóloga Maria Clara da Silva',
+    solution: 'Landing page para apresentar o atendimento psicológico online e facilitar o primeiro contato pelo WhatsApp.',
+    status: 'No ar',
+    tone: 'green',
+    cta: 'Ver o site',
+    tags: ['Landing page', 'SEO', 'Acessibilidade', 'WhatsApp'],
+    bullets: ['Apresentação da profissional e da abordagem TCC', 'Contato direto por WhatsApp', 'Publicado e indexado no Google e no Bing'],
   },
 ];
 

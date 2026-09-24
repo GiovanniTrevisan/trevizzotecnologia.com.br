@@ -52,7 +52,7 @@ Caminhos legítimos e de esforço razoável, na ordem que costuma valer o esfor�
 1. **Google Business Profile** — perfil de negócio com link para o site (também alimenta o `sameAs`, veja pendências abaixo).
 2. **Listagens setoriais brasileiras** de desenvolvimento web/tecnologia (diretórios de agências, câmaras de comércio, associações do setor).
 3. **Perfis sociais com link na bio** — Instagram (já existe), LinkedIn, e qualquer outra rede ativa.
-4. **Site do cliente VW Suplementos** (`vwsuplementosbh.com.br`) — é um case real já publicado no site da Trevizzo; um link de volta com crédito de desenvolvimento ("site desenvolvido por Trevizzo Soluções") no rodapé ou na página de contato do site do cliente é um backlink legítimo e contextualmente relevante, não link farm.
+4. **Sites dos clientes VW Suplementos** (`vwsuplementosbh.com.br`) **e Maria Clara · Psicóloga** (`mclaramentepsico.com.br`) — são cases reais já publicados no site da Trevizzo; um link de volta com crédito de desenvolvimento ("site desenvolvido por Trevizzo Soluções") no rodapé ou na página de contato do site do cliente é um backlink legítimo e contextualmente relevante, não link farm.
 
 Não há atalho de "SEO técnico" que substitua isso — é relacionamento e presença, não configuração.
 
